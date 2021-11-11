@@ -163,7 +163,7 @@ public class ArkivApiService
     ResponseEntity<KortResult> getKort(
             @Parameter(description = "Arketype, se /metadata/arketyper. Hvis der ønskes at søge på flere arketyper på en gang, skal man adskille hvert søgekriterie ved at bruge |. " +
                     "At bruge | er en midlertidig løsning, så den vil blive fjernet uden varsel, når produktionsmiljøet kan håndtere at angive samme parameter flere gange i URL'en. " +
-                    "Eksempel: arketype=soekort|centimeterkort")
+                    "Eksempel: arketype=matrikelkort|centimeterkort. Søkort må ikke vises eller distribueres i højere opløsning end 2000 px i bredden. Se disclaimer med rettigheder og vilkår til historiske søkort: https://kortforsyningen.dk/sites/default/files/soekort_disclaimer.pdf ")
             @RequestParam(required = false) String[] arketype,
 
             @Parameter(description = "Dækningsområde, se /metadata/daekningsomraader. Hvis der ønskes at søge på flere dækningsområde på en gang, skal man adskille hvert søgekriterie ved at bruge |. " +

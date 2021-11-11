@@ -37,7 +37,9 @@ public class SwaggerDocumentationConfig
                                       "https://kortforsyningen.dk/").email(
                                       "support@sdfe.dk"))
                               .license(new License().name("Licensbetingelser")
-                                               .url("https://kortforsyningen.dk/indhold/vilkaar-og-betingelser")));
+                                               .url("https://kortforsyningen.dk/indhold/vilkaar-og-betingelser"))
+                              .license(new License().name("Rettigheder for historiske søkort")
+                                      .url("https://kortforsyningen.dk/sites/default/files/soekort_disclaimer.pdf")));
     }
 
     private String getAPIinfoDescription()
