@@ -65,24 +65,6 @@ Feature: Arkivmeta API Integration Test
     And match response == lower
 
   
-  Scenario: Arkiv API /kort - search title insensitive
-
-    Given path '/kort'
-    And param titel = 'Gib'
-    When method get
-    Then status 200
-    # match the response with the keys from the json objects
-    And match response == { total: '#present', kort: '#present' }
-    Then def lower = response
-
-    Given path '/kort'
-    And param titel = 'gib'
-    When method get
-    Then status 200
-    # match the new response match with the variable lower
-    And match response == lower
-
-  
   Scenario: Arkiv API /kort - search mulitple kortvaerks
 
     Given path '/kort'
