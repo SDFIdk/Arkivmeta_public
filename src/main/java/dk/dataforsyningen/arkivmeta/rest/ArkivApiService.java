@@ -5,6 +5,7 @@ import dk.dataforsyningen.arkivmeta.service.IArkivService;
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.propertyeditors.StringArrayPropertyEditor;
 import org.springframework.http.HttpHeaders;
@@ -202,7 +203,7 @@ public class ArkivApiService
             @Parameter(description = "Offset, dvs. fra hvilken post")
             @RequestParam(required = false, defaultValue = "0") int offset,
 
-            @Parameter(description = "Sidestørrelse, dvs. hvor mange poster pr. side. Default er 100")
+            @Parameter(description = "Sidestørrelse, dvs. hvor mange poster pr. side. Maximum = 1000")
             @RequestParam(required = false, defaultValue = "100") int pagesize,
 
             @Parameter(description = "Sorteringsfelt, kan sortere på følgende typer: arketype, daekningsomraade, gaeldendefra, gaeldendetil, id, kortvaerk, maalestok, titel")
