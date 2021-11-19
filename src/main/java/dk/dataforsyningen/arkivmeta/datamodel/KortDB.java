@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
  * id the composed id of arketype and objectid to get an unique id
  */
 @Entity
-@Table(name = "alle")
+@Table(name="arkivmeta", schema = "arkivmeta")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "arketype", discriminatorType = DiscriminatorType.STRING)
 @Immutable

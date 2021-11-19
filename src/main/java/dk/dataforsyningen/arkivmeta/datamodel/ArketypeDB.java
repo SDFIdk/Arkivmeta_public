@@ -5,7 +5,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "a_rel_arketype_agg_kortvaerker")
+@Table(name = "a_rel_arketype_agg_kortvaerker", schema = "arkivmeta")
 public class ArketypeDB
 {
     @Id

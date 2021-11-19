@@ -1,12 +1,15 @@
 package dk.dataforsyningen.arkivmeta.datamodel;
 
+import org.hibernate.annotations.Immutable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "a_rel_arketype")
+@Table(name = "a_rel_arketype", schema = "arkivmeta_latest")
+@Immutable
 public class KortvaerkDB
 {
     @Id
