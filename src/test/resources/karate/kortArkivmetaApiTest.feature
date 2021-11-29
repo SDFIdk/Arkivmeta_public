@@ -155,3 +155,12 @@ Feature: Arkivmeta API Integration Test
     # https://intuit.github.io/karate/#match-contains-deep
 
     Then match responseGaeldendeTil contains deep '#? _ <= gaeldendetil || _ > gaeldendetil && responseGaeldendeFra <= gaeldendetil'
+
+
+  Scenario: Arkiv API /kort - search with geometry
+
+    Given path '/kort'
+    And param geometri = 'POINT(12.226727129244841 55.86164621853605)'
+    When method get
+    Then status 200
+    And match response.kort == '#[100]'
