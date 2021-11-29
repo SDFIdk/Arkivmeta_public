@@ -188,7 +188,7 @@ public class ArkivService implements IArkivService
             try
             {
                 Geometry area = new WKTReader().read(kortParam.getGeometri());
-                predicates.add("ST_Intersects(geometri, :area)=true");
+                predicates.add("ST_Intersects(geometri, ST_SetSRID(:area, 4326))=true");
                 params.put("area", area);
             }
             catch (ParseException parseException)
