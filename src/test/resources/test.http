@@ -361,3 +361,8 @@ token: {{token}}
 # Test kald for post Java
 {{api_baseurl}}/kort?kortvaerk=Original 2, supplerende
 token: {{token}}
+
+###
+# Geometry call
+{{api_baseurl}}/kort?geometri=POINT(12.226727129244841 55.86164621853605)&pagesize=25&offset=0&token=147df2cc622086861a8ca994809a1ace
+token: {{token}}
