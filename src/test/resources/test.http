@@ -1,318 +1,257 @@
 ###
-# Produktion kald for kort api Arkivmeta
-https://{{api_baseurl}}/kort?daekningsomraade=Grønland&maalestok=1:250000
+# daekningsomraade=Grønland&maalestok=1:250000
+GET {{api_baseurl}}/kort?daekningsomraade=Grønland&maalestok=1:250000
 token: {{token}}
 
 ###
-# Produktion kald for kort api Arkivmeta
-https://{{api_baseurl}}/kort?daekningsomraade=Grønland&maalestok=1:250000
+# maalestok=1:250000&pagesize=25&offset=0&sort=titel&direction=asc
+GET {{api_baseurl}}/kort?maalestok=1:250000&pagesize=25&offset=0&sort=titel&direction=asc
 token: {{token}}
 
 ###
-# Produktion kald for kort api Arkivmeta
-https://{{api_baseurl}}/kort?daekningsomraade=Grønland&maalestok=1:250000
+# multiple daekningsomraade
+GET {{api_baseurl}}/kort?daekningsomraade=Slesvig&daekningsomraade=Danmark&titel=Haderslev i Frøs amt(er)
 token: {{token}}
 
 ###
-# Produktion kald for kort api Arkivmeta
-https://{{api_baseurl}}/kort?maalestok=1:250000&pagesize=25&offset=0&sort=titel&direction=asc
+# tegner=bille
+GET {{api_baseurl}}/kort?tegner=bille
 token: {{token}}
 
 ###
-# Https Test kald for kort api Arkivmeta
-https://test.{{api_baseurl}}/kort?daekningsomraade=Sønderjylland
+# kortvaerk=Selskab
+GET {{api_baseurl}}/kort?kortvaerk=Selskab
 token: {{token}}
 
 ###
-# Https Test kald for kort api Arkivmeta med multiple daekningsomraade
-https://{{api_baseurl}}/kort?daekningsomraade=Slesvig&daekningsomraade=Danmark&titel=Haderslev i Frøs amt(er)
+# fritekstsoegning=Sønderjylland
+GET {{api_baseurl}}/kort?fritekstsoegning=Sønderjylland
 token: {{token}}
 
 ###
-# Https Test kald for kort api Arkivmeta med tegner
-https://{{api_baseurl}}/kort?tegner=bille
+# gaeldendefra=2000&gaeldendetil=2000&sort=gaeldendefra&direction=asc
+GET {{api_baseurl}}/kort?gaeldendefra=2000&gaeldendetil=2000&sort=gaeldendefra&direction=asc
 token: {{token}}
 
 ###
-# Https Test kald for kort api Arkivmeta med tegner
-https://{{api_baseurl}}/kort?kortvaerk=Selskab
+# get all arketyper
+GET {{api_baseurl}}/metadata/arketyper
 token: {{token}}
 
 ###
-# Https Test kald for kort api Arkivmeta med fritekstsøgning
-https://{{api_baseurl}}/kort?fritekstsoegning=Sønderjylland
-token: {{token}}
-
-###
-# Https Test kald for kort api Arkivmeta med fri tekst søgning
-https://{{api_baseurl}}/kort?gaeldendefra=2000&gaeldendetil=2000&sort=gaeldendefra&direction=asc
-token: {{token}}
-
-###
-# Test kald på produktion for arketyper api Arkivmeta
-https://{{api_baseurl}}/metadata/arketyper
-token: {{token}}
-
-###
-https://{{api_baseurl}}/metadata/kortvaerker
-token: {{token}}
-
-###
-# Test kald for arketyper api Arkivmeta
-{{api_baseurl}}/metadata/arketyper
-token: {{token}}
-
-###
-# Test kald for arketyper api Arkivmeta
-{{api_baseurl}}/kort?fritekstsoegning=Sønderjylland&sort=arketype&direction=desc
-token: {{token}}
-
-###
-# Test kald for arketyper api Arkivmeta
-{{api_baseurl}}/kort?arketype=soekort&arketype=centimeterkort&direction=asc&gaeldendefra=-1&gaeldendetil=-1&offset=0&pagesize=100&sort=arketype
-token: {{token}}
-
-###
-# Produktions kald for arketyper api Arkivmeta
-https://{{api_baseurl}}/kort?arketype=soekort&arketype=centimeterkort&direction=asc&gaeldendefra=-1&gaeldendetil=-1&offset=0&pagesize=100&sort=arketype
-token: {{token}}
-
-###
-# HTTPS test kald for arketyper api Arkivmeta
-https://{{api_baseurl}}/kort?arketype=soekort&arketype=centimeterkort&direction=asc&gaeldendefra=-1&gaeldendetil=-1&offset=0&pagesize=100&sort=arketype
-token: {{token}}
-
-###
-# Test kald for arketyper api Arkivmeta
-{{api_baseurl}}/kort?arketype=soekort|centimeterkort&direction=desc&gaeldendefra=-1&gaeldendetil=-1&offset=0&pagesize=100&sort=arketype
-token: {{token}}
-
-###
-# Test kald for arketyper api Arkivmeta
-{{api_baseurl}}/kort?arketype=soekort&arketype=centimeterkort&direction=asc&gaeldendefra=-1&gaeldendetil=-1&offset=0&pagesize=100
-token: {{token}}
-
-###
-# Produktions kald for arketyper api Arkivmeta
-https://{{api_baseurl}}/kort?arketype=soekort|centimeterkort&direction=desc&gaeldendefra=-1&gaeldendetil=-1&offset=0&pagesize=100&sort=arketype
-token: {{token}}
-
-###
-# Produktions kald for arketyper api Arkivmeta
-https://{{api_baseurl}}/kort?arketype=soekort|centimeterkort&direction=desc&gaeldendefra=-1&gaeldendetil=-1&offset=0&pagesize=100&sort=arketype
-token: {{token}}
-
-###
-{{api_baseurl}}/kort?daekningsomraade=Andre
-token: {{token}}
-
-###
-# Produktions kald for arketyper api Arkivmeta
-https://api.dataforsyningen.dk/arkivmeta_test/kort?daekningsomraade=andre
-token: {{token}}
-
-###
-# Produktions kald for arketyper api Arkivmeta
-https://api.dataforsyningen.dk/arkivmeta_deleteme/kort?arketype=soekort&arketype=centimeterkort&direction=desc&gaeldendefra=-1&gaeldendetil=-1&offset=0&pagesize=100&sort=arketype
-token: {{token}}
-
-###
-# HTTPS test kald for arketyper api Arkivmeta
-https://{{api_baseurl}}/kort?arketype=soekort|centimeterkort&direction=desc&gaeldendefra=-1&gaeldendetil=-1&offset=0&pagesize=100&sort=arketype
-token: {{token}}
-
-###
-# Test kald for arketyper api Arkivmeta
-load206.kmsext.dk/rest/arkivmeta/kort?arketype=soekort|centimeterkort&direction=desc&gaeldendefra=-1&gaeldendetil=-1&offset=0&pagesize=100&sort=arketype
-token: {{token}}
-
-###
-# Https Test kald for kort api Arkivmeta med fritekstsøgning
-{{api_baseurl}}/kort?fritekstsoegning=Sønderjylland
-token: {{token}}
-
-###
-# Test kald for gaeldendefra
-{{api_baseurl}}/kort?arketype=centimeterkort&gaeldendefra=2000&sort=gaeldendefra&direction=asc
-token: {{token}}
-
-###
-# Test kald for gaeldendefra
-{{api_baseurl}}/kort?gaeldendefra=2000&sort=gaeldendefra&direction=desc
-token: {{token}}
-
-###
-# Test kald for gaeldendefra
-{{api_baseurl}}/kort?gaeldendefra=2000&sort=gaeldendetil&direction=asc
-token: {{token}}
-
-###
-# Test kald for gaeldendefra
-{{api_baseurl}}/kort?gaeldendefra=2000&sort=gaeldendetil&direction=desc
-token: {{token}}
-
-###
-# Test kald for gaeldendetil
-{{api_baseurl}}/kort?gaeldendetil=2000&sort=gaeldendefra&direction=asc
-token: {{token}}
-
-###
-# Test kald for gaeldendetil
-{{api_baseurl}}/kort?gaeldendetil=2000&sort=gaeldendefra&direction=desc
-token: {{token}}
-
-###
-# Test kald for gaeldendetil
-{{api_baseurl}}/kort?gaeldendetil=2000&sort=gaeldendetil&direction=asc
-token: {{token}}
-
-###
-# Test kald for gaeldendetil
-{{api_baseurl}}/kort?gaeldendetil=2000&sort=gaeldendetil&direction=desc
-token: {{token}}
-
-###
-# Test kald for gaeldendefra og gaeldendetil
-{{api_baseurl}}/kort?gaeldendefra=1950&gaeldendetil=2000&sort=gaeldendefra&direction=asc
-token: {{token}}
-
-###
-# Test kald for gaeldendefra og gaeldendetil
-{{api_baseurl}}/kort?gaeldendefra=1950&gaeldendetil=2000&sort=gaeldendefra&direction=desc
-token: {{token}}
-
-###
-# Test kald for gaeldendefra og gaeldendetil
-{{api_baseurl}}/kort?gaeldendefra=1950&gaeldendetil=2000&sort=gaeldendetil&direction=asc
-token: {{token}}
-
-###
-# Test kald for gaeldendefra og gaeldendetil
-{{api_baseurl}}/kort?gaeldendefra=1950&gaeldendetil=2000&sort=gaeldendetil&direction=desc
-token: {{token}}
-
-###
-# Test kald for kort api Arkivmeta med multiple daekningsomraade
-{{api_baseurl}}/kort?daekningsomraade=Slesvig|Danmark&sort=daekningsomraade&direction=desc
-token: {{token}}
-
-###
-# Test kald for kort api Arkivmeta med multiple arketyper
-{{api_baseurl}}/kort?arketype=soekort&arketype=centimeterkort
-token: {{token}}
-
-###
-# Test kald for kort api Arkivmeta med multiple arketyper
-{{api_baseurl}}/kort?arketype=soekort|centimeterkort
-token: {{token}}
-
-###
-# Test kald for kort api Arkivmeta med multiple kortvaerker
-{{api_baseurl}}/kort?kortvaerk=Trap, tegnede kort| Mejer
-token: {{token}}
-
-###
-# Test kald for sortere efter titler
-{{api_baseurl}}/kort?sort=titel&direction=asc
-Accept: application/json
-token: {{token}}
-
-###
-# Test kald for sortere efter titler
-{{api_baseurl}}/kort?sort=titel&direction=asc
-Accept: application/json
-token: {{token}}
-
-###
-{{api_baseurl}}/kort?arketype=soekort&arketype=centimeterkort&direction=desc&gaeldendefra=-1&gaeldendetil=-1&offset=0&pagesize=100&sort=arketype&token={{token}}
-token: {{token}}
-
-###
-{{api_baseurl}}/kort?arketype=centimeterkort&arketype=soekort&direction=desc&gaeldendefra=-1&gaeldendetil=-1&offset=0&pagesize=100&sort=arketype&token={{token}}
-token: {{token}}
-
-###
-# Test kald for kort api Arkivmeta med tegner
-{{api_baseurl}}/kort?tegner=sørensen
-token: {{token}}
-
-###
-# Test kald for kort api Arkivmeta med tegner
-{{api_baseurl}}/kort?gaeldendefra=1950&gaeldendetil=2000&arketype=centimeterkort
-token: {{token}}
-
-###
-# Test kald med fritekstsøgning og sort
-{{api_baseurl}}/kort?fritekstsoegning=Sønderjylland&sort=arketype&direction=desc
-token: {{token}}
-
-###
-# Test kald med fritekstsøgnin
-{{api_baseurl}}/kort?fritekstsoegning=Sønderjylland
-token: {{token}}
-
-###
-# Test kald for specifik kort Arkivmeta sortering
-{{api_baseurl}}/kort/historiskeflyfoto/73236
+# Test kald for arketyper
+GET {{api_baseurl}}/metadata/arketyper
 Accept: application/json
 token: {{token}}
 
 ###
 # Test kald for arketyper
-{{api_baseurl}}/metadata/arketyper
-Accept: application/json
-token: {{token}}
-
-###
-# Test kald for arketyper
-{{api_baseurl}}/metadata/arketyper
+GET {{api_baseurl}}/metadata/arketyper
 Accept: application/json
 If-None-Match: "021c75f404b354104e009b5457fbd9e93"
 token: {{token}}
 
 ###
 # Test kald for arketyper med kortværker
-{{api_baseurl}}/metadata/arketyper/kortvaerker
+GET {{api_baseurl}}/metadata/arketyper/kortvaerker
 Accept: application/json
 token: {{token}}
 
 ###
-# Test kald for kortvaerker
-{{api_baseurl}}/metadata/kortvaerker
+# get kortvaerker
+GET {{api_baseurl}}/metadata/kortvaerker
+token: {{token}}
+
+###
+# fritekstsoegning=Sønderjylland&sort=arketype&direction=desc
+GET {{api_baseurl}}/kort?fritekstsoegning=Sønderjylland&sort=arketype&direction=desc
+token: {{token}}
+
+###
+# arketype=soekort&arketype=centimeterkort&direction=asc&gaeldendefra=-1&gaeldendetil=-1&offset=0&pagesize=100&sort=arketype
+GET {{api_baseurl}}/kort?arketype=soekort&arketype=centimeterkort&direction=asc&gaeldendefra=-1&gaeldendetil=-1&offset=0&pagesize=100&sort=arketype
+token: {{token}}
+
+###
+# arketype=soekort|centimeterkort&direction=desc&gaeldendefra=-1&gaeldendetil=-1&offset=0&pagesize=100&sort=arketype
+GET {{api_baseurl}}/kort?arketype=soekort|centimeterkort&direction=desc&gaeldendefra=-1&gaeldendetil=-1&offset=0&pagesize=100&sort=arketype
+token: {{token}}
+
+###
+# arketype=soekort&arketype=centimeterkort&direction=asc&gaeldendefra=-1&gaeldendetil=-1&offset=0&pagesize=100
+GET {{api_baseurl}}/kort?arketype=soekort&arketype=centimeterkort&direction=asc&gaeldendefra=-1&gaeldendetil=-1&offset=0&pagesize=100
+token: {{token}}
+
+###
+# first character is uppercase daekningsomraade=Andre
+GET {{api_baseurl}}/kort?daekningsomraade=Andre
+token: {{token}}
+
+###
+# lowercase daekningsomraade=andre
+GET {{api_baseurl}}/kort?daekningsomraade=andre
+token: {{token}}
+
+###
+# arketype=soekort&arketype=centimeterkort&direction=desc&gaeldendefra=-1&gaeldendetil=-1&offset=0&pagesize=100&sort=arketype
+https://api.dataforsyningen.dk/arkivmeta_deleteme/kort?arketype=soekort&arketype=centimeterkort&direction=desc&gaeldendefra=-1&gaeldendetil=-1&offset=0&pagesize=100&sort=arketype
+token: {{token}}
+
+###
+# arketype=soekort|centimeterkort&direction=desc&gaeldendefra=-1&gaeldendetil=-1&offset=0&pagesize=100&sort=arketype
+GET {{api_baseurl}}/kort?arketype=soekort|centimeterkort&direction=desc&gaeldendefra=-1&gaeldendetil=-1&offset=0&pagesize=100&sort=arketype
+token: {{token}}
+
+###
+# fritekstsoegning=Sønderjylland
+GET {{api_baseurl}}/kort?fritekstsoegning=Sønderjylland
+token: {{token}}
+
+###
+# arketype=centimeterkort&gaeldendefra=2000&sort=gaeldendefra&direction=asc
+GET {{api_baseurl}}/kort?arketype=centimeterkort&gaeldendefra=2000&sort=gaeldendefra&direction=asc
+token: {{token}}
+
+###
+# gaeldendefra=2000&sort=gaeldendefra&direction=desc
+GET {{api_baseurl}}/kort?gaeldendefra=2000&sort=gaeldendefra&direction=desc
+token: {{token}}
+
+###
+# gaeldendefra=2000&sort=gaeldendetil&direction=asc
+GET {{api_baseurl}}/kort?gaeldendefra=2000&sort=gaeldendetil&direction=asc
+token: {{token}}
+
+###
+# gaeldendefra=2000&sort=gaeldendetil&direction=desc
+GET {{api_baseurl}}/kort?gaeldendefra=2000&sort=gaeldendetil&direction=desc
+token: {{token}}
+
+###
+# gaeldendetil=2000&sort=gaeldendefra&direction=asc
+GET {{api_baseurl}}/kort?gaeldendetil=2000&sort=gaeldendefra&direction=asc
+token: {{token}}
+
+###
+# gaeldendetil=2000&sort=gaeldendefra&direction=desc
+GET {{api_baseurl}}/kort?gaeldendetil=2000&sort=gaeldendefra&direction=desc
+token: {{token}}
+
+###
+# gaeldendetil=2000&sort=gaeldendetil&direction=asc
+GET {{api_baseurl}}/kort?gaeldendetil=2000&sort=gaeldendetil&direction=asc
+token: {{token}}
+
+###
+# gaeldendetil=2000&sort=gaeldendetil&direction=desc
+GET {{api_baseurl}}/kort?gaeldendetil=2000&sort=gaeldendetil&direction=desc
+token: {{token}}
+
+###
+# gaeldendefra=1950&gaeldendetil=2000&sort=gaeldendefra&direction=asc
+GET {{api_baseurl}}/kort?gaeldendefra=1950&gaeldendetil=2000&sort=gaeldendefra&direction=asc
+token: {{token}}
+
+###
+# gaeldendefra=1950&gaeldendetil=2000&sort=gaeldendefra&direction=desc
+GET {{api_baseurl}}/kort?gaeldendefra=1950&gaeldendetil=2000&sort=gaeldendefra&direction=desc
+token: {{token}}
+
+###
+# gaeldendefra=1950&gaeldendetil=2000&sort=gaeldendetil&direction=asc
+GET {{api_baseurl}}/kort?gaeldendefra=1950&gaeldendetil=2000&sort=gaeldendetil&direction=asc
+token: {{token}}
+
+###
+# gaeldendefra=1950&gaeldendetil=2000&sort=gaeldendetil&direction=desc
+GET {{api_baseurl}}/kort?gaeldendefra=1950&gaeldendetil=2000&sort=gaeldendetil&direction=desc
+token: {{token}}
+
+###
+# daekningsomraade=Slesvig|Danmark&sort=daekningsomraade&direction=desc
+GET {{api_baseurl}}/kort?daekningsomraade=Slesvig|Danmark&sort=daekningsomraade&direction=desc
+token: {{token}}
+
+###
+# Multiple arketyper arketype=soekort&arketype=centimeterkort
+GET {{api_baseurl}}/kort?arketype=soekort&arketype=centimeterkort
+token: {{token}}
+
+###
+# Multiple arketyper arketype=soekort|centimeterkort
+GET {{api_baseurl}}/kort?arketype=soekort|centimeterkort
+token: {{token}}
+
+###
+# Multiple kortvaerk kortvaerk=Trap, tegnede kort| Mejer
+GET {{api_baseurl}}/kort?kortvaerk=Trap, tegnede kort| Mejer
+token: {{token}}
+
+###
+# sort=titel&direction=asc
+GET {{api_baseurl}}/kort?sort=titel&direction=asc
 Accept: application/json
 token: {{token}}
 
 ###
-# Test kald for daekningsomraade
+# arketype=soekort&arketype=centimeterkort&direction=desc&gaeldendefra=-1&gaeldendetil=-1&offset=0&pagesize=100&sort=arketype&token={{token}}
+GET {{api_baseurl}}/kort?arketype=soekort&arketype=centimeterkort&direction=desc&gaeldendefra=-1&gaeldendetil=-1&offset=0&pagesize=100&sort=arketype&token={{token}}
+token: {{token}}
+
+###
+# tegner=sørensen
+GET {{api_baseurl}}/kort?tegner=sørensen
+token: {{token}}
+
+###
+# gaeldendefra=1950&gaeldendetil=2000&arketype=centimeterkort
+GET {{api_baseurl}}/kort?gaeldendefra=1950&gaeldendetil=2000&arketype=centimeterkort
+token: {{token}}
+
+###
+# fritekstsoegning=Sønderjylland&sort=arketype&direction=desc
+GET {{api_baseurl}}/kort?fritekstsoegning=Sønderjylland&sort=arketype&direction=desc
+token: {{token}}
+
+###
+# historiskeflyfoto/73236
+GET {{api_baseurl}}/kort/historiskeflyfoto/73236
+Accept: application/json
+token: {{token}}
+
+###
+# /kortvaerker
+GET {{api_baseurl}}/metadata/kortvaerker
+Accept: application/json
+token: {{token}}
+
+###
 # Ønskes returneret alle de daekningsomraader der har den specificeret søgning i sig
-{{api_baseurl}}/metadata/daekningsomraader?daekningsomraade=sønderjylland
+GET {{api_baseurl}}/metadata/daekningsomraader?daekningsomraade=sønderjylland
 Accept: application/json
 token: {{token}}
 
 ###
-# Test kald for kortvaerker. 
 # Ønskes returneret alle de kortværker der har den specificeret arketype
-{{api_baseurl}}/metadata/kortvaerker?arketype=soekort
+GET {{api_baseurl}}/metadata/kortvaerker?arketype=soekort
 Accept: application/json
 token: {{token}}
 
 ###
-# Test kald for kortvaerker.
 # Ønskes returneret alle de kortværker der har den specificeret søgning i sig
-{{api_baseurl}}/metadata/kortvaerker?kortvaerk=søkort
+GET {{api_baseurl}}/metadata/kortvaerker?kortvaerk=søkort
 Accept: application/json
 token: {{token}}
 
 ###
-# Test kald for daekningsomraade
 # Ønskes returneret alle de maalestokke der har den specificeret søgning i sig
-{{api_baseurl}}/metadata/maalestok?maalestok=200
+GET {{api_baseurl}}/metadata/maalestok?maalestok=200
 Accept: application/json
 token: {{token}}
 
 ###
 # Test kald for post Java
-{{api_baseurl}}/kort
+POST {{api_baseurl}}/kort
 token: {{token}}
 
 ###
@@ -341,7 +280,7 @@ token: {{token}}
 
 ###
 # Swagger UI dokumentationen JSON
-{{api_baseurl}}/v3/api-docs
+GET {{api_baseurl}}/v3/api-docs
 token: {{token}}
 
 ###
@@ -350,19 +289,20 @@ token: {{token}}
 
 ###
 # Swagger UI dokumentation test miljø
-{{api_baseurl}}/swagger-ui/index.html?configUrl=/rest/arkivmeta/v3/api-docs/swagger-config
+GET {{api_baseurl}}/swagger-ui/index.html?configUrl=/rest/arkivmeta/v3/api-docs/swagger-config
 token: {{token}}
 
 ###
-https://{{api_baseurl}}/metadata/arketyper/kortvaerker
+# /arketyper/kortvaerker
+GET {{api_baseurl}}/metadata/arketyper/kortvaerker
 token: {{token}}
 
 ###
-# Test kald for post Java
-{{api_baseurl}}/kort?kortvaerk=Original 2, supplerende
+# kortvaerk=Original 2, supplerende
+GET {{api_baseurl}}/kort?kortvaerk=Original 2, supplerende
 token: {{token}}
 
 ###
 # Geometry call
-{{api_baseurl}}/kort?geometri=POINT(12.226727129244841 55.86164621853605)&pagesize=25&offset=0&token=147df2cc622086861a8ca994809a1ace
+GET {{api_baseurl}}/kort?geometri=POINT(12.226727129244841 55.86164621853605)&pagesize=25&offset=0&token=147df2cc622086861a8ca994809a1ace
 token: {{token}}
