@@ -33,3 +33,4 @@ target/
 /logback-test.xml
 /karate.jar
 /karate-config-*.js
+/src/test/resources/http-client.env.json
