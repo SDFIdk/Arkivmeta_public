@@ -35,20 +35,20 @@ public class SwaggerDocumentationConfig
                               .title("Arkivmeta")
                               .version("1.0.11")
                               .description(apiInfoString)
-                              .termsOfService("https://kortforsyningen.dk/")
+                              .termsOfService("https://dataforsyningen.dk")
                               .contact(new Contact().name("SDFE Support").url(
-                                      "https://kortforsyningen.dk/").email(
+                                      "https://dataforsyningen.dk").email(
                                       "support@sdfe.dk"))
                               .license(new License().name("Licensbetingelser")
-                                               .url("https://kortforsyningen.dk/indhold/vilkaar-og-betingelser")))
+                                               .url("https://dataforsyningen.dk/Vilkaar")))
                 // Components section defines Security Scheme "mySecretHeader"
-            .components(new Components()
+                .components(new Components()
                                 .addSecuritySchemes("ApiKeyAuth", new SecurityScheme()
                                         .type(SecurityScheme.Type.APIKEY)
                                         .in(SecurityScheme.In.QUERY)
                                         .name("token")))
-            // AddSecurityItem section applies created scheme globally
-            .addSecurityItem(new SecurityRequirement().addList("ApiKeyAuth"));
+                // AddSecurityItem section applies created scheme globally
+                .addSecurityItem(new SecurityRequirement().addList("ApiKeyAuth"));
     }
 
     private String getAPIinfoDescription()
