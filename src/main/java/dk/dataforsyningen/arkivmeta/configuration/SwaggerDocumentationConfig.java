@@ -1,9 +1,12 @@
 package dk.dataforsyningen.arkivmeta.configuration;
 
+import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.ResourceUtils;
@@ -23,21 +26,29 @@ public class SwaggerDocumentationConfig
     @Bean
     public OpenAPI customImplementation()
     {
-        String APIinfoString = "";
+        String apiInfoString = "";
 
-        APIinfoString = getAPIinfoDescription();
+        apiInfoString = getAPIinfoDescription();
 
         return new OpenAPI()
                 .info(new Info()
                               .title("Arkivmeta")
                               .version("1.0.11")
-                              .description(APIinfoString)
-                              .termsOfService("https://kortforsyningen.dk/")
+                              .description(apiInfoString)
+                              .termsOfService("https://dataforsyningen.dk")
                               .contact(new Contact().name("SDFE Support").url(
-                                      "https://kortforsyningen.dk/").email(
+                                      "https://dataforsyningen.dk").email(
                                       "support@sdfe.dk"))
                               .license(new License().name("Licensbetingelser")
-                                               .url("https://kortforsyningen.dk/indhold/vilkaar-og-betingelser")));
+                                               .url("https://dataforsyningen.dk/Vilkaar")))
+                // Components section defines Security Scheme "mySecretHeader"
+                .components(new Components()
+                                .addSecuritySchemes("ApiKeyAuth", new SecurityScheme()
+                                        .type(SecurityScheme.Type.APIKEY)
+                                        .in(SecurityScheme.In.QUERY)
+                                        .name("token")))
+                // AddSecurityItem section applies created scheme globally
+                .addSecurityItem(new SecurityRequirement().addList("ApiKeyAuth"));
     }
 
     private String getAPIinfoDescription()
@@ -45,8 +56,8 @@ public class SwaggerDocumentationConfig
         try
         {
             File file = ResourceUtils.getFile("src/main/resources/APIinfo.md");
-            String APIinfoDescription = new String(Files.readAllBytes(file.toPath()));
-            return APIinfoDescription;
+            String apiInfoDescription = new String(Files.readAllBytes(file.toPath()));
+            return apiInfoDescription;
         }
         catch (IOException ioException)
         {
