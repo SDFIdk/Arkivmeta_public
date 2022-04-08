@@ -4,7 +4,7 @@ Feature: Arkivmeta API Integration Test
     * url url
 
   
-  Scenario: Arkiv API /metadata/maalestok - get all maalestok
+  Scenario: Arkiv API /kort/{arketype}/{id}' - get kort by id
 
     Given path '/kort/historiskeflyfoto/73236'
     When method get
