@@ -225,6 +225,13 @@ GET {{api_baseurl}}/metadata/kortvaerker
 Accept: application/json
 token: {{token}}
 
+
+###
+# Ønskes returneret alle daekningsomraader
+GET {{api_baseurl}}/metadata/daekningsomraader
+Accept: application/json
+token: {{token}}
+
 ###
 # Ønskes returneret alle de daekningsomraader der har den specificeret søgning i sig
 GET {{api_baseurl}}/metadata/daekningsomraader?daekningsomraade=sønderjylland
@@ -240,6 +247,12 @@ token: {{token}}
 ###
 # Ønskes returneret alle de kortværker der har den specificeret søgning i sig
 GET {{api_baseurl}}/metadata/kortvaerker?kortvaerk=søkort
+Accept: application/json
+token: {{token}}
+
+###
+# Ønskes returneret alle maalestokke
+GET {{api_baseurl}}/metadata/maalestok
 Accept: application/json
 token: {{token}}
 
