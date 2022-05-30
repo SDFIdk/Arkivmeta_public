@@ -273,6 +273,7 @@ POST {{api_baseurl}}/kort
 Accept: application/json
 Content-Type: application/json
 token: {{token}}
+
 {
     "daekningsomraade": ["Danmark", "Slesvig"],
     "pagesize": 100,
