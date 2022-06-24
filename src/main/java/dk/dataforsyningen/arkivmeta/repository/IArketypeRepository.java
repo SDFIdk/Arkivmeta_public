@@ -12,5 +12,5 @@ public interface IArketypeRepository extends JpaRepository<ArketypeDB, String>
      * @return
      */
 //    @Query("SELECT DISTINCT a.arkenavn FROM Arketype a WHERE (:arkenavn is null or a.arkenavn =:arkenavn) ORDER BY a.arkenavn")
-//    List<String> findAllUniqueArkenavn(@Param("arkenavn")String arkenavn);
+//    List<String> findAllUniqueArkenavn(String arkenavn);
 }

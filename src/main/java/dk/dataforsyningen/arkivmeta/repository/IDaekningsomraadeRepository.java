@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface IDaekningsomraadeRepository extends JpaRepository<DaekningsomraadeDB, String>
 {
-    List<DaekningsomraadeDto> findByDaekningsomraadeContainingIgnoreCase(@Param("daekningsomraade") String daekningsomraade);
+    List<DaekningsomraadeDto> findByDaekningsomraadeContainingIgnoreCase(String daekningsomraade);
 }
 

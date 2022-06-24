@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface IMaalestokRepository extends JpaRepository<MaalestokDB, String>
 {
-    List<MaalestokDto> findByMaalestokContainingIgnoreCase(@Param("maalestok") String maalestok);
+    List<MaalestokDto> findByMaalestokContainingIgnoreCase(String maalestok);
 }
