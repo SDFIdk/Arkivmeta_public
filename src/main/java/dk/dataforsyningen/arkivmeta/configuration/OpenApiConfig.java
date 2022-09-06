@@ -9,8 +9,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class SwaggerDocumentationConfig
+public class OpenApiConfig
 {
+    final String securitySchemeName = "ApiKeyAuth";
     /**
      *
      * @return OpenAPI custom object
@@ -20,15 +21,22 @@ public class SwaggerDocumentationConfig
     {
         return new OpenAPI()
                 .info(new Info()
-                              .title("Arkivmeta")
-                              .version("1.0.11"))
-                // Components section defines Security Scheme "mySecretHeader"
-                .components(new Components()
-                                .addSecuritySchemes("ApiKeyAuth", new SecurityScheme()
-                                        .type(SecurityScheme.Type.APIKEY)
-                                        .in(SecurityScheme.In.QUERY)
-                                        .name("token")))
+                    .title("Arkivmeta")
+                    .version("1.0.11")
+                    .description("""
+                        APIet __Arkivmeta__ giver adgang til at søge i metadata for en større samling historiske kort og benytte resultatet til at fremvise det skannede materiale.\s
+                                                
+                        Til adgang benyttes Kortforsyningens brugeradgang som ved andre tjenester.
+                                                
+                        Stier til kortfiler følger [IIIF specifikationen](https://iiif.io/) og kan vises med en viser, der understøtter dette.
+                        """))
                 // AddSecurityItem section applies created scheme globally
-                .addSecurityItem(new SecurityRequirement().addList("ApiKeyAuth"));
+                .addSecurityItem(new SecurityRequirement().addList(securitySchemeName))
+                // Components section defines Security Scheme
+                .components(new Components()
+                    .addSecuritySchemes(securitySchemeName, new SecurityScheme()
+                        .type(SecurityScheme.Type.APIKEY)
+                        .in(SecurityScheme.In.QUERY)
+                        .name("token")));
     }
 }
