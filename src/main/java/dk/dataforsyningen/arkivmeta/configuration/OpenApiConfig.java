@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class OpenApiConfig
 {
-    final String securitySchemeName = "ApiKeyAuth";
+    final String securitySchemeName = "token";
     /**
      *
      * @return OpenAPI custom object
