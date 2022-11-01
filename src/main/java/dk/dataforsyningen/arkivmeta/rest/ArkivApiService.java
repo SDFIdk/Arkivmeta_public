@@ -5,7 +5,10 @@ import dk.dataforsyningen.arkivmeta.service.IArkivService;
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.propertyeditors.StringArrayPropertyEditor;
 import org.springframework.http.HttpHeaders;
@@ -49,12 +52,25 @@ public class ArkivApiService
                 new StringArrayPropertyEditor("|"));
     }
 
-    @GetMapping(path = "/")
-    @Hidden
-    @CrossOrigin
-    public ResponseEntity<String> ok()
-    {
-        return new ResponseEntity<>("Alive and kicking!", HttpStatus.OK);
+    /**
+     * Endpoint to check if the API is up and can answer a simple request
+     *
+     * @return HTTP response with headers, body, and status with type String with a PONG message
+     */
+    @GetMapping(path = "/ping", produces = "application/json")
+    @Operation(
+        summary = "ping",
+        description = "Liveliness/readiness probe.",
+        tags = {"Liveliness/Readiness"})
+    @ApiResponses(
+        value = {
+            @ApiResponse(
+                responseCode = "200",
+                description = "Success",
+                content = @Content(schema = @Schema(implementation = String.class)))
+        })
+    public ResponseEntity<String> ping() {
+        return new ResponseEntity<>("{\"message\": \"PONG\"}", HttpStatus.OK);
     }
 
     /**

@@ -6,10 +6,15 @@ Feature: Arkivmeta API Integration Test
   
   Scenario: Arkiv API is running
 
-    Given path '/'
+    Given path '/ping'
     When method get
     Then status 200
-    And match response == "Alive and kicking!"
+    And match response ==
+    """
+      {
+        "message":"PONG"
+      }
+    """
 
   
   Scenario: Arkiv API /kort - returns the 100 first json objects of all korts
