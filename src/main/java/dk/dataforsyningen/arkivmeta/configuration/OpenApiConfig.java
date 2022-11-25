@@ -24,7 +24,7 @@ public class OpenApiConfig {
             .title("Arkivmeta")
             .version("1.0.11")
             .description("""
-                APIet __Arkivmeta__ giver adgang til at søge i metadata for en større samling historiske kort og benytte resultatet til at fremvise det skannede materiale.\s
+                APIet __Arkivmeta__ giver adgang til at søge i metadata for en større samling historiske kort og benytte resultatet til at fremvise det skannede materiale.
                                         
                 Til adgang benyttes Kortforsyningens brugeradgang som ved andre tjenester.
                                         

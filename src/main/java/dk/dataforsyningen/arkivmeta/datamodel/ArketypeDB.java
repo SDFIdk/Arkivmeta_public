@@ -6,53 +6,44 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "a_rel_arketype_agg_kortvaerker", schema = "arkivmeta")
-public class ArketypeDB
-{
-    @Id
-    private String arketype;
+public class ArketypeDB {
+  @Id
+  private String arketype;
 
-    private String arkenavn;
+  private String arkenavn;
 
-    private String kortvaerk;
+  private String kortvaerk;
 
-    public ArketypeDB()
-    {
-    }
+  public ArketypeDB() {
+  }
 
-    public ArketypeDB(String arketype, String arkenavn, String kortvaerk)
-    {
-        this.arketype = arketype;
-        this.arkenavn = arkenavn;
-        this.kortvaerk = kortvaerk;
-    }
+  public ArketypeDB(String arketype, String arkenavn, String kortvaerk) {
+    this.arketype = arketype;
+    this.arkenavn = arkenavn;
+    this.kortvaerk = kortvaerk;
+  }
 
-    public String getArketype()
-    {
-        return arketype;
-    }
+  public String getArketype() {
+    return arketype;
+  }
 
-    public void setArketype(String arketype)
-    {
-        this.arketype = arketype;
-    }
+  public void setArketype(String arketype) {
+    this.arketype = arketype;
+  }
 
-    public String getArkenavn()
-    {
-        return arkenavn;
-    }
+  public String getArkenavn() {
+    return arkenavn;
+  }
 
-    public void setArkenavn(String arkenavn)
-    {
-        this.arkenavn = arkenavn;
-    }
+  public void setArkenavn(String arkenavn) {
+    this.arkenavn = arkenavn;
+  }
 
-    public String getKortvaerk()
-    {
-        return kortvaerk;
-    }
+  public String getKortvaerk() {
+    return kortvaerk;
+  }
 
-    public void setKortvaerk(String kortvaerk)
-    {
-        this.kortvaerk = kortvaerk;
-    }
+  public void setKortvaerk(String kortvaerk) {
+    this.kortvaerk = kortvaerk;
+  }
 }

@@ -12,24 +12,21 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  * @RestControllerAdvice combines @ControllerAdvice and @ResponseBody
  */
 @RestControllerAdvice
-public class WebRestControllerAdvice
-{
-    private static final Logger logger = LoggerFactory.getLogger(WebRestControllerAdvice.class);
+public class WebRestControllerAdvice {
+  private static final Logger logger = LoggerFactory.getLogger(WebRestControllerAdvice.class);
 
-    @ExceptionHandler(EmptyResultDataAccessException.class)
-    ResponseEntity<ErrorResponse> handleNotFoundException(EmptyResultDataAccessException ex)
-    {
-        ErrorResponse errorResponse = new ErrorResponse("Not Found");
+  @ExceptionHandler(EmptyResultDataAccessException.class)
+  ResponseEntity<ErrorResponse> handleNotFoundException(EmptyResultDataAccessException ex) {
+    ErrorResponse errorResponse = new ErrorResponse("Not Found");
 
-        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
-    }
+    return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+  }
 
-    @ExceptionHandler(IllegalArgumentException.class)
-    ResponseEntity<ErrorResponse> handleIllegalArgumentException(Exception ex)
-    {
-        logger.debug("FEJL!", ex);
+  @ExceptionHandler(IllegalArgumentException.class)
+  ResponseEntity<ErrorResponse> handleIllegalArgumentException(Exception ex) {
+    logger.debug("FEJL!", ex);
 
-        ErrorResponse errorResponse = new ErrorResponse("Bad Request: " + ex.getMessage());
-        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
-    }
+    ErrorResponse errorResponse = new ErrorResponse("Bad Request: " + ex.getMessage());
+    return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+  }
 }

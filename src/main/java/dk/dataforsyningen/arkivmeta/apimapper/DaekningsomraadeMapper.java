@@ -5,12 +5,10 @@ import dk.dataforsyningen.arkivmeta.datamodel.DaekningsomraadeDB;
 import org.springframework.stereotype.Component;
 
 @Component
-public class DaekningsomraadeMapper
-{
-    public DaekningsomraadeDto daekningsomraadeToDaekningsomraadeDto(DaekningsomraadeDB db)
-    {
-        DaekningsomraadeDto dto = new DaekningsomraadeDto(db.getDaekningsomraade());
+public class DaekningsomraadeMapper {
+  public DaekningsomraadeDto daekningsomraadeToDaekningsomraadeDto(DaekningsomraadeDB db) {
+    DaekningsomraadeDto dto = new DaekningsomraadeDto(db.getDaekningsomraade());
 
-        return dto;
-    }
+    return dto;
+  }
 }

@@ -1,45 +1,37 @@
 package dk.dataforsyningen.arkivmeta.apimodel;
 
-public class KortvaerkDto
-{
-    private String arkenavn;
+public class KortvaerkDto {
+  private String arkenavn;
 
-    private String arketype;
+  private String arketype;
 
-    private String kortvaerk;
+  private String kortvaerk;
 
-    public KortvaerkDto(String kortvaerk)
-    {
-        this.kortvaerk = kortvaerk;
-    }
+  public KortvaerkDto(String kortvaerk) {
+    this.kortvaerk = kortvaerk;
+  }
 
-    public String getArkenavn()
-    {
-        return arkenavn;
-    }
+  public String getArkenavn() {
+    return arkenavn;
+  }
 
-    public void setArkenavn(String arkenavn)
-    {
-        this.arkenavn = arkenavn;
-    }
+  public void setArkenavn(String arkenavn) {
+    this.arkenavn = arkenavn;
+  }
 
-    public String getArketype()
-    {
-        return arketype;
-    }
+  public String getArketype() {
+    return arketype;
+  }
 
-    public void setArketype(String arketype)
-    {
-        this.arketype = arketype;
-    }
+  public void setArketype(String arketype) {
+    this.arketype = arketype;
+  }
 
-    public String getKortvaerk()
-    {
-        return kortvaerk;
-    }
+  public String getKortvaerk() {
+    return kortvaerk;
+  }
 
-    public void setKortvaerk(String kortvaerk)
-    {
-        this.kortvaerk = kortvaerk;
-    }
+  public void setKortvaerk(String kortvaerk) {
+    this.kortvaerk = kortvaerk;
+  }
 }
