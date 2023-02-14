@@ -1,12 +1,8 @@
 package dk.dataforsyningen.arkivmeta.datamodel;
 
 import java.time.LocalDateTime;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
 import org.locationtech.jts.geom.Geometry;
 
-@Entity
-@DiscriminatorValue("matrikelkort")
 public class MatrikelkortDB extends KortDB {
   private Integer aarforkortproeve;
   private Integer aarforopmaalingsluttet;

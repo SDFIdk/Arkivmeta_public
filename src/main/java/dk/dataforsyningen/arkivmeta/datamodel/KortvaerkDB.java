@@ -1,17 +1,8 @@
 package dk.dataforsyningen.arkivmeta.datamodel;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import org.hibernate.annotations.Immutable;
-
-@Entity
-@Table(name = "a_rel_arketype", schema = "arkivmeta_latest")
-@Immutable
+//@Table(name = "a_rel_arketype", schema = "arkivmeta_latest")
 public class KortvaerkDB {
-  @Id
-  @Column(name = "ogc_fid") // because id is a float(!)
+  //@Column(name = "ogc_fid") // because id is a float(!)
   private Integer id;
 
   private String arkenavn;

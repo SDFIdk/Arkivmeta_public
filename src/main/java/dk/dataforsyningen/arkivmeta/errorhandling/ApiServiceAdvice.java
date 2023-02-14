@@ -1,11 +1,10 @@
 package dk.dataforsyningen.arkivmeta.errorhandling;
 
+import jakarta.validation.ConstraintViolationException;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import javax.security.sasl.AuthenticationException;
-import javax.validation.ConstraintViolationException;
 import org.apache.catalina.connector.ClientAbortException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +12,7 @@ import org.springframework.core.NestedExceptionUtils;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.lang.NonNull;
@@ -36,10 +36,11 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class ApiServiceAdvice extends ResponseEntityExceptionHandler {
   private static final Logger logger = LoggerFactory.getLogger(ApiServiceAdvice.class);
   private static final String ERROR_STRING = "FEJL!";
-  
+
   /**
    * Indicates that the client closed the connection, so it does not make sense to return af response
    * to the client
+   *
    * @param exception
    */
   @ExceptionHandler(ClientAbortException.class)
@@ -113,7 +114,7 @@ public class ApiServiceAdvice extends ResponseEntityExceptionHandler {
   protected ResponseEntity<Object> handleMissingServletRequestParameter(
       MissingServletRequestParameterException exception,
       HttpHeaders headers,
-      HttpStatus status,
+      HttpStatusCode status,
       WebRequest request) {
 
     String exceptionCause = getRootCause(exception).toString();
@@ -143,7 +144,7 @@ public class ApiServiceAdvice extends ResponseEntityExceptionHandler {
   protected ResponseEntity<Object> handleMethodArgumentNotValid(
       MethodArgumentNotValidException exception,
       HttpHeaders headers,
-      HttpStatus status,
+      HttpStatusCode status,
       WebRequest request) {
     List<String> errors = new ArrayList<>();
 
@@ -178,7 +179,7 @@ public class ApiServiceAdvice extends ResponseEntityExceptionHandler {
   protected ResponseEntity<Object> handleHttpMessageNotReadable(
       HttpMessageNotReadableException exception,
       HttpHeaders headers,
-      HttpStatus status,
+      HttpStatusCode status,
       WebRequest request) {
     String exceptionCause = getRootCause(exception).toString();
 
@@ -206,7 +207,7 @@ public class ApiServiceAdvice extends ResponseEntityExceptionHandler {
   protected ResponseEntity<Object> handleHttpRequestMethodNotSupported(
       HttpRequestMethodNotSupportedException exception,
       HttpHeaders headers,
-      HttpStatus status,
+      HttpStatusCode status,
       WebRequest request) {
     StringBuilder builder = new StringBuilder();
     builder.append(exception.getMethod());
@@ -242,7 +243,7 @@ public class ApiServiceAdvice extends ResponseEntityExceptionHandler {
   protected ResponseEntity<Object> handleHttpMediaTypeNotSupported(
       final HttpMediaTypeNotSupportedException exception,
       final HttpHeaders headers,
-      final HttpStatus status,
+      final HttpStatusCode status,
       final WebRequest request) {
     final StringBuilder builder = new StringBuilder();
     builder.append(exception.getContentType());

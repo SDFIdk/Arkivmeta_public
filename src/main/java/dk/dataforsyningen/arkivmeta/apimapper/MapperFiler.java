@@ -4,10 +4,14 @@ import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
 public class MapperFiler {
+
+  @Value("${ARKIVKORT_URL}")
+  private String arkivkortUrl;
   /**
    * Uses Base64url encoding so there is no / in the encoded String but instead _
    * https://www.baeldung.com/java-base64-encode-and-decode#3-java-8-url-encoding
@@ -25,8 +29,23 @@ public class MapperFiler {
     List<String> resultMapFiler = filer.stream()
         .map(s -> s.replace('\\', '/'))
         .map(s -> '/' + Base64.getUrlEncoder().encodeToString(s.getBytes(StandardCharsets.UTF_8)))
+        .map(s -> arkivkortUrl + s)
         .collect(Collectors.toList());
 
     return resultMapFiler;
   }
+
+//  /**
+//   * Sets the iiifPrefix in the list of filer
+//   *
+//   * @param iiifPrefix
+//   * @param dto
+//   */
+//  private KortDto setIiif(String iiifPrefix, KortDto dto) {
+//    for (int i = 0; i < dto.getFiler().size(); i++) {
+//      String fil = iiifPrefix + dto.getFiler().get(i);
+//      dto.getFiler().set(i, fil);
+//    }
+//    return dto;
+//  }
 }

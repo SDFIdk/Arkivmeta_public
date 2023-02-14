@@ -12,9 +12,9 @@ import java.util.List;
 public interface IArkivService {
   List<ArketypeDto> getArketyper();
 
-  KortDto getKortById(String arketype, String id, String baseUrl);
+  KortDto getKortById(String arketype, String id);
 
-  KortResult getKortResult(KortParam kortParam, String baseUrl);
+  KortResult getKortResult(KortParam kortParam);
 
   List<DaekningsomraadeDto> getDaekningsomraader(String daekningsomraade);
 

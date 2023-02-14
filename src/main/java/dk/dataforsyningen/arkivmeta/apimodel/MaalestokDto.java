@@ -3,8 +3,7 @@ package dk.dataforsyningen.arkivmeta.apimodel;
 public class MaalestokDto {
   private String maalestok;
 
-  public MaalestokDto(String maalestok) {
-    this.maalestok = maalestok;
+  public MaalestokDto() {
   }
 
   public String getMaalestok() {

@@ -4,8 +4,8 @@ GET {{api_baseurl}}/kort?daekningsomraade=Grønland&maalestok=1:250000
 token: {{token}}
 
 ###
-# maalestok=1:250000&pagesize=25&offset=0&sort=titel&direction=asc
-GET {{api_baseurl}}/kort?maalestok=1:250000&pagesize=25&offset=0&sort=titel&direction=asc
+# maalestok=1:250000&limit=25&offset=0&sort=titel&direction=asc
+GET {{api_baseurl}}/kort?maalestok=1:250000&limit=25&offset=0&sort=titel&direction=asc
 token: {{token}}
 
 ###
@@ -68,18 +68,18 @@ GET {{api_baseurl}}/kort?fritekstsoegning=Sønderjylland&sort=arketype&direction
 token: {{token}}
 
 ###
-# arketype=soekort&arketype=centimeterkort&direction=asc&gaeldendefra=-1&gaeldendetil=-1&offset=0&pagesize=100&sort=arketype
-GET {{api_baseurl}}/kort?arketype=soekort&arketype=centimeterkort&direction=asc&gaeldendefra=-1&gaeldendetil=-1&offset=0&pagesize=100&sort=arketype
+# arketype=soekort&arketype=centimeterkort&direction=asc&gaeldendefra=-1&gaeldendetil=-1&offset=0&limit=100&sort=arketype
+GET {{api_baseurl}}/kort?arketype=soekort&arketype=centimeterkort&direction=asc&gaeldendefra=-1&gaeldendetil=-1&offset=0&limit=100&sort=arketype
 token: {{token}}
 
 ###
-# arketype=soekort|centimeterkort&direction=desc&gaeldendefra=-1&gaeldendetil=-1&offset=0&pagesize=100&sort=arketype
-GET {{api_baseurl}}/kort?arketype=soekort|centimeterkort&direction=desc&gaeldendefra=-1&gaeldendetil=-1&offset=0&pagesize=100&sort=arketype
+# arketype=soekort|centimeterkort&direction=desc&gaeldendefra=-1&gaeldendetil=-1&offset=0&limit=100&sort=arketype
+GET {{api_baseurl}}/kort?arketype=soekort|centimeterkort&direction=desc&gaeldendefra=-1&gaeldendetil=-1&offset=0&limit=100&sort=arketype
 token: {{token}}
 
 ###
-# arketype=soekort&arketype=centimeterkort&direction=asc&gaeldendefra=-1&gaeldendetil=-1&offset=0&pagesize=100
-GET {{api_baseurl}}/kort?arketype=soekort&arketype=centimeterkort&direction=asc&gaeldendefra=-1&gaeldendetil=-1&offset=0&pagesize=100
+# arketype=soekort&arketype=centimeterkort&direction=asc&gaeldendefra=-1&gaeldendetil=-1&offset=0&limit=100
+GET {{api_baseurl}}/kort?arketype=soekort&arketype=centimeterkort&direction=asc&gaeldendefra=-1&gaeldendetil=-1&offset=0&limit=100
 token: {{token}}
 
 ###
@@ -93,13 +93,13 @@ GET {{api_baseurl}}/kort?daekningsomraade=andre
 token: {{token}}
 
 ###
-# arketype=soekort&arketype=centimeterkort&direction=desc&gaeldendefra=-1&gaeldendetil=-1&offset=0&pagesize=100&sort=arketype
-https://api.dataforsyningen.dk/arkivmeta_deleteme/kort?arketype=soekort&arketype=centimeterkort&direction=desc&gaeldendefra=-1&gaeldendetil=-1&offset=0&pagesize=100&sort=arketype
+# arketype=soekort&arketype=centimeterkort&direction=desc&gaeldendefra=-1&gaeldendetil=-1&offset=0&limit=100&sort=arketype
+https://api.dataforsyningen.dk/arkivmeta_deleteme/kort?arketype=soekort&arketype=centimeterkort&direction=desc&gaeldendefra=-1&gaeldendetil=-1&offset=0&limit=100&sort=arketype
 token: {{token}}
 
 ###
-# arketype=soekort|centimeterkort&direction=desc&gaeldendefra=-1&gaeldendetil=-1&offset=0&pagesize=100&sort=arketype
-GET {{api_baseurl}}/kort?arketype=soekort|centimeterkort&direction=desc&gaeldendefra=-1&gaeldendetil=-1&offset=0&pagesize=100&sort=arketype
+# arketype=soekort|centimeterkort&direction=desc&gaeldendefra=-1&gaeldendetil=-1&offset=0&limit=100&sort=arketype
+GET {{api_baseurl}}/kort?arketype=soekort|centimeterkort&direction=desc&gaeldendefra=-1&gaeldendetil=-1&offset=0&limit=100&sort=arketype
 token: {{token}}
 
 ###
@@ -194,8 +194,8 @@ Accept: application/json
 token: {{token}}
 
 ###
-# arketype=soekort&arketype=centimeterkort&direction=desc&gaeldendefra=-1&gaeldendetil=-1&offset=0&pagesize=100&sort=arketype&token={{token}}
-GET {{api_baseurl}}/kort?arketype=soekort&arketype=centimeterkort&direction=desc&gaeldendefra=-1&gaeldendetil=-1&offset=0&pagesize=100&sort=arketype&token={{token}}
+# arketype=soekort&arketype=centimeterkort&direction=desc&gaeldendefra=-1&gaeldendetil=-1&offset=0&limit=100&sort=arketype&token={{token}}
+GET {{api_baseurl}}/kort?arketype=soekort&arketype=centimeterkort&direction=desc&gaeldendefra=-1&gaeldendetil=-1&offset=0&limit=100&sort=arketype&token={{token}}
 token: {{token}}
 
 ###
@@ -276,7 +276,7 @@ token: {{token}}
 
 {
     "daekningsomraade": ["Danmark", "Slesvig"],
-    "pagesize": 100,
+    "limit": 100,
     "sort": "id",
     "direction": "asc"
 }
@@ -318,5 +318,5 @@ token: {{token}}
 
 ###
 # Geometry call
-GET {{api_baseurl}}/kort?geometri=POINT(12.226727129244841 55.86164621853605)&pagesize=25&offset=0&token=147df2cc622086861a8ca994809a1ace
+GET {{api_baseurl}}/kort?geometri=POINT(12.226727129244841 55.86164621853605)&limit=25&offset=0&token=147df2cc622086861a8ca994809a1ace
 token: {{token}}

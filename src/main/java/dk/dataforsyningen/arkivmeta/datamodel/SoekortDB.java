@@ -1,12 +1,8 @@
 package dk.dataforsyningen.arkivmeta.datamodel;
 
 import java.time.LocalDateTime;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
 import org.locationtech.jts.geom.Geometry;
 
-@Entity
-@DiscriminatorValue("soekort")
 public class SoekortDB extends KortDB {
   private Integer aarforhenlaeggelse;
   private Integer aarformaalt;

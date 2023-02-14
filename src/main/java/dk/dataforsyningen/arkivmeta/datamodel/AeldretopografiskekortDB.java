@@ -1,12 +1,8 @@
 package dk.dataforsyningen.arkivmeta.datamodel;
 
 import java.time.LocalDateTime;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
 import org.locationtech.jts.geom.Geometry;
 
-@Entity
-@DiscriminatorValue("aeldretopografiskekort")
 public class AeldretopografiskekortDB extends KortDB {
   private Integer aarformaalt;
   private Integer aarforudgivelse;

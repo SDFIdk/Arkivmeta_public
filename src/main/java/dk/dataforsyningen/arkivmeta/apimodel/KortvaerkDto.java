@@ -1,11 +1,17 @@
 package dk.dataforsyningen.arkivmeta.apimodel;
 
+import dk.dataforsyningen.arkivmeta.enums.Arketype;
+
 public class KortvaerkDto {
   private String arkenavn;
 
-  private String arketype;
+  private Arketype arketype;
 
   private String kortvaerk;
+
+  public KortvaerkDto()
+  {
+  }
 
   public KortvaerkDto(String kortvaerk) {
     this.kortvaerk = kortvaerk;
@@ -19,11 +25,11 @@ public class KortvaerkDto {
     this.arkenavn = arkenavn;
   }
 
-  public String getArketype() {
+  public Arketype getArketype() {
     return arketype;
   }
 
-  public void setArketype(String arketype) {
+  public void setArketype(Arketype arketype) {
     this.arketype = arketype;
   }
 

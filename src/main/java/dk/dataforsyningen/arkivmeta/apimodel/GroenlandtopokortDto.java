@@ -1,5 +1,6 @@
 package dk.dataforsyningen.arkivmeta.apimodel;
 
+import dk.dataforsyningen.arkivmeta.enums.Arketype;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -37,7 +38,7 @@ public class GroenlandtopokortDto extends KortDto {
 
   public GroenlandtopokortDto(String id,
                               String alternativtitel,
-                              String arketype,
+                              Arketype arketype,
                               String bemaerkning,
                               List<String> daekningsomraade,
                               List<String> filer,

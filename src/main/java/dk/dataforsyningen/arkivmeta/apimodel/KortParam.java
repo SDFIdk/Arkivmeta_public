@@ -18,10 +18,10 @@ public class KortParam {
   private String fritekstsoegning;
 
   @Schema(description = "Starttid for kortets gyldighedsperiode. Angives i hele år. Gyldighedsperiodens starttid er et korts trykke-, tegne-, optage- eller opmålingsår – dvs. det år hvor kortet kan siges at være nyeste kort.")
-  private int gaeldendefra;
+  private Integer gaeldendefra;
 
   @Schema(description = "Sluttid for kortets gyldighedsperiode. Angives i hele år. Typisk fordi kortet erstattes af et nyere. Hvis der ikke er fundet en specifik gældende til periode angives et årstal der ligger 50 år efter gældende fra.")
-  private int gaeldendetil;
+  private Integer gaeldendetil;
 
   @Schema(description = "Det geografiske område, ofte en polygon, som kortet ligger indenfor. WKT med SRS = EPSG:4326")
   private String geometri;
@@ -35,11 +35,11 @@ public class KortParam {
   @Schema(description = "Størrelsesforholdet mellem landskabet og kortets repræsentation heraf.")
   private List<String> maalestok;
 
+  @Schema(description = "Sidestørrelse, dvs. hvor mange poster pr. side")
+  private int limit;
+
   @Schema(description = "Offset, dvs. fra hvilken post")
   private int offset;
-
-  @Schema(description = "Sidestørrelse, dvs. hvor mange poster pr. side")
-  private int pagesize;
 
   @Schema(description = "Sorteringsfelt, kan sortere på følgende typer: arketype, daekningsomraade, gaeldendefra, gaeldendetil, id, kortvaerk, maalestok, titel")
   private String sort;
@@ -51,10 +51,9 @@ public class KortParam {
   private String titel;
 
   public KortParam(List<String> arketype, List<String> daekningsomraade, String direction,
-                   String fritekstsoegning, int gaeldendefra, int gaeldendetil, String geometri,
+                   String fritekstsoegning, Integer gaeldendefra, Integer gaeldendetil, String geometri,
                    String kortbladnummer, List<String> kortvaerk, List<String> maalestok,
-                   int offset, int pagesize,
-                   String sort, String tegner, String titel) {
+                   int limit, int offset, String sort, String tegner, String titel) {
     this.arketype = arketype;
     this.daekningsomraade = daekningsomraade;
     this.direction = direction;
@@ -65,8 +64,8 @@ public class KortParam {
     this.kortbladnummer = kortbladnummer;
     this.kortvaerk = kortvaerk;
     this.maalestok = maalestok;
+    this.limit = limit;
     this.offset = offset;
-    this.pagesize = pagesize;
     this.sort = sort;
     this.tegner = tegner;
     this.titel = titel;
@@ -104,19 +103,19 @@ public class KortParam {
     this.fritekstsoegning = fritekstsoegning;
   }
 
-  public int getGaeldendefra() {
+  public Integer getGaeldendefra() {
     return gaeldendefra;
   }
 
-  public void setGaeldendefra(int gaeldendefra) {
+  public void setGaeldendefra(Integer gaeldendefra) {
     this.gaeldendefra = gaeldendefra;
   }
 
-  public int getGaeldendetil() {
+  public Integer getGaeldendetil() {
     return gaeldendetil;
   }
 
-  public void setGaeldendetil(int gaeldendetil) {
+  public void setGaeldendetil(Integer gaeldendetil) {
     this.gaeldendetil = gaeldendetil;
   }
 
@@ -152,20 +151,20 @@ public class KortParam {
     this.maalestok = maalestok;
   }
 
+  public int getLimit() {
+    return limit;
+  }
+
+  public void setLimit(int limit) {
+    this.limit = limit;
+  }
+
   public int getOffset() {
     return offset;
   }
 
   public void setOffset(int offset) {
     this.offset = offset;
-  }
-
-  public int getPagesize() {
-    return pagesize;
-  }
-
-  public void setPagesize(int pagesize) {
-    this.pagesize = pagesize;
   }
 
   public String getSort() {
@@ -203,8 +202,8 @@ public class KortParam {
     KortParam kortParam = (KortParam) o;
     return gaeldendefra == kortParam.gaeldendefra
         && gaeldendetil == kortParam.gaeldendetil
+        && limit == kortParam.limit
         && offset == kortParam.offset
-        && pagesize == kortParam.pagesize
         && Objects.equals(arketype, kortParam.arketype)
         && Objects.equals(daekningsomraade, kortParam.daekningsomraade)
         && Objects.equals(direction, kortParam.direction)
@@ -222,6 +221,6 @@ public class KortParam {
   public int hashCode() {
     return Objects.hash(arketype, daekningsomraade, direction, fritekstsoegning, gaeldendefra,
         gaeldendetil,
-        geometri, kortbladnummer, kortvaerk, maalestok, offset, pagesize, sort, tegner, titel);
+        geometri, kortbladnummer, kortvaerk, maalestok, limit, offset, sort, tegner, titel);
   }
 }

@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+    api:
+        build:
+            context: ../
+            dockerfile: ./docker/Dockerfile
+        environment:
+            - TZ=Europe/Copenhagen
+        env_file:
+            - .env.dev
+        ports:
+            - "41500:8080"
+        networks:
+            - arkivmeta
+        command: java -jar /arkivmeta.jar
+
+networks:
+    arkivmeta:

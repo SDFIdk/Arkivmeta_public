@@ -2,39 +2,26 @@ package dk.dataforsyningen.arkivmeta.datamodel;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorType;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.Table;
-import org.hibernate.annotations.Immutable;
-import org.hibernate.annotations.Type;
 import org.locationtech.jts.geom.Geometry;
 
 /**
  * Abstract Superclass
  * id the composed id of arketype and objectid to get an unique id
  */
-@Entity
-@Table(name = "arkivmeta", schema = "arkivmeta")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "arketype", discriminatorType = DiscriminatorType.STRING)
-@Immutable
+//@Entity
+//@Table(name = "arkivmeta", schema = "arkivmeta")
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+//@DiscriminatorColumn(name = "arketype", discriminatorType = DiscriminatorType.STRING)
+//@Immutable
 public abstract class KortDB implements Serializable {
-  @Id
   protected String id = "";
   protected String alternativtitel;
-  @Column(insertable = false, updatable = false)
   protected String arketype;
   protected String bemaerkning;
   protected String daekningsomraade;
   protected String filer;
   protected Integer gaeldendeperiode_gaeldendefra;
   protected Integer gaeldendeperiode_gaeldendetil;
-  @Type(type = "jts_geometry")
   protected Geometry geometri;
   protected String kortbladnummer;
   protected String kortvaerk;

@@ -1,5 +1,6 @@
 package dk.dataforsyningen.arkivmeta.apimodel;
 
+import dk.dataforsyningen.arkivmeta.enums.Arketype;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -35,23 +36,51 @@ public class MatrikelkortDto extends KortDto {
   public MatrikelkortDto() {
   }
 
-  public MatrikelkortDto(String id, String alternativtitel, String arketype, String bemaerkning,
-                         List<String> daekningsomraade, List<String> filer, Integer gaeldendefra,
-                         Integer gaeldendetil, String geometri, String kortbladnummer,
+  public MatrikelkortDto(String id,
+                         String alternativtitel,
+                         Arketype arketype,
+                         String bemaerkning,
+                         List<String> daekningsomraade,
+                         List<String> filer,
+                         Integer gaeldendefra,
+                         Integer gaeldendetil,
+                         String geometri,
+                         String kortbladnummer,
                          String kortvaerk,
-                         String maalestok, String originalkortprojektion,
+                         String maalestok,
+                         String originalkortprojektion,
                          String originalehjoernekoordinater,
-                         LocalDateTime registreringfra, LocalDateTime registreringtil, String titel,
-                         String uniktkortnavn, Integer aarforkortproeve,
+                         LocalDateTime registreringfra,
+                         LocalDateTime registreringtil,
+                         String titel,
+                         String uniktkortnavn,
+                         Integer aarforkortproeve,
                          Integer aarforopmaalingsluttet,
-                         Integer aarforudskiftning, String kortart, String kortdimensioner,
+                         Integer aarforudskiftning,
+                         String kortart,
+                         String kortdimensioner,
                          String opmaaltaf,
-                         String plannr, Long rytterdistriktid, String udskiftetaf) {
-    super(id, alternativtitel, arketype, bemaerkning, daekningsomraade, filer, gaeldendefra,
-        gaeldendetil, geometri,
-        kortbladnummer, kortvaerk, maalestok, originalkortprojektion, originalehjoernekoordinater,
+                         String plannr,
+                         Long rytterdistriktid,
+                         String udskiftetaf) {
+    super(id,
+        alternativtitel,
+        arketype,
+        bemaerkning,
+        daekningsomraade,
+        filer,
+        gaeldendefra,
+        gaeldendetil,
+        geometri,
+        kortbladnummer,
+        kortvaerk,
+        maalestok,
+        originalkortprojektion,
+        originalehjoernekoordinater,
         registreringfra,
-        registreringtil, titel, uniktkortnavn);
+        registreringtil,
+        titel,
+        uniktkortnavn);
     this.aarforkortproeve = aarforkortproeve;
     this.aarforopmaalingsluttet = aarforopmaalingsluttet;
     this.aarforudskiftning = aarforudskiftning;

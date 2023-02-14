@@ -1,7 +1,5 @@
 package dk.dataforsyningen.arkivmeta.service;
 
-import dk.dataforsyningen.arkivmeta.apimapper.ArketypeMapper;
-import dk.dataforsyningen.arkivmeta.apimapper.KortMapper;
 import dk.dataforsyningen.arkivmeta.apimodel.ArketypeDto;
 import dk.dataforsyningen.arkivmeta.apimodel.DaekningsomraadeDto;
 import dk.dataforsyningen.arkivmeta.apimodel.KortDto;
@@ -9,46 +7,39 @@ import dk.dataforsyningen.arkivmeta.apimodel.KortParam;
 import dk.dataforsyningen.arkivmeta.apimodel.KortResult;
 import dk.dataforsyningen.arkivmeta.apimodel.KortvaerkDto;
 import dk.dataforsyningen.arkivmeta.apimodel.MaalestokDto;
-import dk.dataforsyningen.arkivmeta.datamodel.ArketypeDB;
-import dk.dataforsyningen.arkivmeta.datamodel.KortDB;
-import dk.dataforsyningen.arkivmeta.repository.IArketypeRepository;
-import dk.dataforsyningen.arkivmeta.repository.IDaekningsomraadeRepository;
-import dk.dataforsyningen.arkivmeta.repository.IKortDBRepository;
-import dk.dataforsyningen.arkivmeta.repository.IKortvaerkerRepository;
-import dk.dataforsyningen.arkivmeta.repository.IMaalestokRepository;
+import dk.dataforsyningen.arkivmeta.dao.IArketypeDao;
+import dk.dataforsyningen.arkivmeta.dao.IDaekningsomraadeDao;
+import dk.dataforsyningen.arkivmeta.dao.IKortDBDao;
+import dk.dataforsyningen.arkivmeta.dao.IKortvaerkerDao;
+import dk.dataforsyningen.arkivmeta.dao.IMaalestokDao;
 import dk.dataforsyningen.arkivmeta.rest.ArkivApiService;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Set;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityNotFoundException;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 import org.apache.commons.lang3.StringUtils;
 import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.io.ParseException;
 import org.locationtech.jts.io.WKTReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ArkivService implements IArkivService {
   private static final Logger logger = LoggerFactory.getLogger(ArkivApiService.class);
-  // TODO: Should there be @PersistenceContext on this field?
-  private final EntityManager entityManager;
-  private final IArketypeRepository iArketypeRepository;
-  private final IDaekningsomraadeRepository iDaekningsomraadeRepository;
-  private final IKortDBRepository iKortDBRepository;
-  private final IKortvaerkerRepository iKortvaerkerRepository;
-  private final IMaalestokRepository iMaalestokRepository;
-  private final KortMapper kortMapper;
-  private final ArketypeMapper arketypeMapper;
+  private final IArketypeDao iArketypeDao;
+  private final IDaekningsomraadeDao iDaekningsomraadeDao;
+  private final IKortDBDao iKortDBDao;
+  private final IKortvaerkerDao iKortvaerkerDao;
+  private final IMaalestokDao iMaalestokDao;
 
   /**
    * Constructor injection
@@ -60,21 +51,16 @@ public class ArkivService implements IArkivService {
    * https://stackoverflow.com/questions/40620000/spring-autowire-on-properties-vs-constructor
    * https://reflectoring.io/constructor-injection/
    */
-  public ArkivService(EntityManager entityManager,
-                      IArketypeRepository iArketypeRepository,
-                      IDaekningsomraadeRepository iDaekningsomraadeRepository,
-                      IKortDBRepository iKortDBRepository,
-                      IKortvaerkerRepository iKortvaerkerRepository,
-                      IMaalestokRepository iMaalestokRepository,
-                      KortMapper kortMapper, ArketypeMapper arketypeMapper) {
-    this.entityManager = entityManager;
-    this.iArketypeRepository = iArketypeRepository;
-    this.iDaekningsomraadeRepository = iDaekningsomraadeRepository;
-    this.iKortDBRepository = iKortDBRepository;
-    this.iKortvaerkerRepository = iKortvaerkerRepository;
-    this.iMaalestokRepository = iMaalestokRepository;
-    this.kortMapper = kortMapper;
-    this.arketypeMapper = arketypeMapper;
+  public ArkivService(@Qualifier("arketypeDao") IArketypeDao iArketypeDao,
+                      @Qualifier("daekningsomraadeDao") IDaekningsomraadeDao iDaekningsomraadeDao,
+                      @Qualifier("kortDBDao") IKortDBDao iKortDBDao,
+                      @Qualifier("kortvaerkerDao") IKortvaerkerDao iKortvaerkerDao,
+                      @Qualifier("maalestokDao") IMaalestokDao iMaalestokDao) {
+    this.iArketypeDao = iArketypeDao;
+    this.iDaekningsomraadeDao = iDaekningsomraadeDao;
+    this.iKortDBDao = iKortDBDao;
+    this.iKortvaerkerDao = iKortvaerkerDao;
+    this.iMaalestokDao = iMaalestokDao;
   }
 
   /**
@@ -83,14 +69,7 @@ public class ArkivService implements IArkivService {
   @Override
   @Cacheable("arketyper")
   public List<ArketypeDto> getArketyper() {
-    List<ArketypeDB> arketypeDBList = iArketypeRepository.findAll();
-
-    List<ArketypeDto> arketypeDtoList = new ArrayList<>();
-    for (ArketypeDB arketype : arketypeDBList) {
-      arketypeDtoList.add(arketypeMapper.arketypeToArketypeDto(arketype));
-    }
-
-    return arketypeDtoList;
+    return iArketypeDao.getAllArketyper();
   }
 
   /**
@@ -101,26 +80,16 @@ public class ArkivService implements IArkivService {
    *
    * @param arketype
    * @param id
-   * @param baseUrl
    * @return kortDto with the matching datamodel of the kort
    */
   @Override
-  public KortDto getKortById(String arketype, String id, String baseUrl) {
+  public KortDto getKortById(String arketype, String id) {
     String searchId = arketype + "/" + id;
 
-    Optional<KortDB> returnedKort = iKortDBRepository.findById(searchId);
+    Optional<KortDto> returnedKort = iKortDBDao.getKortById(searchId);
 
-    KortDB kort = returnedKort
-        .orElseThrow(
-            () -> new EntityNotFoundException("Intet kort matchede det givne id: " + searchId));
-
-    String iiifPrefix = getIiifPrefix(baseUrl);
-
-    KortDto dto = kortMapper.map(kort);
-
-    setIiif(iiifPrefix, dto);
-
-    return dto;
+    return returnedKort.orElseThrow(
+        () -> new NoSuchElementException("Intet kort matchede det givne id: " + searchId));
   }
 
   /**
@@ -131,8 +100,8 @@ public class ArkivService implements IArkivService {
   @Override
   @Cacheable("daekningsomraader")
   public List<DaekningsomraadeDto> getDaekningsomraader(String daekningsomraade) {
-    List<DaekningsomraadeDto> daekningsomraadeDtoList = iDaekningsomraadeRepository
-        .findByDaekningsomraadeContainingIgnoreCase(daekningsomraade);
+    List<DaekningsomraadeDto> daekningsomraadeDtoList = iDaekningsomraadeDao
+        .getDaekningsomraade(daekningsomraade);
     return daekningsomraadeDtoList;
   }
 
@@ -146,12 +115,12 @@ public class ArkivService implements IArkivService {
   public List<KortvaerkDto> getKortvaerker(String arketype, String kortvaerk) {
     if (StringUtils.isNotBlank(arketype)) {
       List<KortvaerkDto> kortvaerkDtoList =
-          iKortvaerkerRepository.findByArketypeAndKortvaerkContainingIgnoreCase(
+          iKortvaerkerDao.getArketypeAndKortvaerk(
               arketype.toUpperCase(), kortvaerk);
       return kortvaerkDtoList;
     } else {
       List<KortvaerkDto> kortvaerkDtoList =
-          iKortvaerkerRepository.findByKortvaerkContainingIgnoreCase(kortvaerk);
+          iKortvaerkerDao.getKortvaerk(kortvaerk);
       return kortvaerkDtoList;
     }
   }
@@ -165,18 +134,18 @@ public class ArkivService implements IArkivService {
   @Cacheable("maalestokke")
   public List<MaalestokDto> getMaalestokke(String maalestok) {
     List<MaalestokDto> maalestokDtoList =
-        iMaalestokRepository.findByMaalestokContainingIgnoreCase(maalestok);
+        iMaalestokDao.getMaalestok(maalestok);
     return maalestokDtoList;
   }
 
-  @Cacheable(cacheNames = "kort", key = "#kortParam")
-  public KortResult getKortResult(KortParam kortParam, String baseUrl) {
-    if (kortParam.getPagesize() < 0) {
-      throw new IllegalArgumentException("negative values not allowed for page size!");
+  //@Cacheable(cacheNames = "kort", key = "#kortParam")
+  public KortResult getKortResult(KortParam kortParam) {
+    if (kortParam.getLimit() < 0) {
+      throw new IllegalArgumentException("negative values not allowed for limit!");
     }
 
-    if (kortParam.getPagesize() > 1000) {
-      throw new IllegalArgumentException("page size must not be higher than 1000");
+    if (kortParam.getLimit() > 1000) {
+      throw new IllegalArgumentException("limit must not be higher than 1000");
     }
 
     Set<String> sortDirections = Set.of("asc", "desc");
@@ -187,118 +156,144 @@ public class ArkivService implements IArkivService {
     List<String> predicates = new ArrayList<>();
     Map<String, Object> params = new HashMap<>();
 
+//    if (StringUtils.isNotBlank(kortParam.getGeometri())) {
+//      try {
+//        Geometry area = new WKTReader().read(kortParam.getGeometri());
+//        predicates.add("ST_Intersects(geometri, ST_SetSRID(:area, 4326))=true");
+//        params.put("area", area);
+//      } catch (ParseException parseException) {
+//        throw new IllegalArgumentException(
+//            "Kan ikke læse geometri. Skal være som WKT med SRS = EPSG:4326",
+//            parseException);
+//      }
+//    }
+    Geometry area = new GeometryFactory().createGeometry(null);
     if (StringUtils.isNotBlank(kortParam.getGeometri())) {
       try {
-        Geometry area = new WKTReader().read(kortParam.getGeometri());
-        predicates.add("ST_Intersects(geometri, ST_SetSRID(:area, 4326))=true");
-        params.put("area", area);
+        area = new WKTReader().read(kortParam.getGeometri());
       } catch (ParseException parseException) {
         throw new IllegalArgumentException(
-            "Kan ikke læse geometri. Skal være som WKT med SRS = EPSG:4326",
-            parseException);
+            "Could not read geometry. Should be a WKT with SRS = EPSG:4326", parseException);
       }
     }
 
-    if (kortParam.getArketype() != null && !kortParam.getArketype().isEmpty()) {
-      predicates.add("arketype IN :arketype");
-      params.put("arketype", kortParam.getArketype());
-    }
+    // For using SIMILAR TO in sql
+    String daekningsomraade = StringUtils.join(kortParam.getDaekningsomraade(), "|");
+    String kortvaerk = StringUtils.join(kortParam.getKortvaerk(), "|");
 
-    if (kortParam.getDaekningsomraade() != null && !kortParam.getDaekningsomraade().isEmpty()) {
-      String predicate = "(";
+//    if (kortParam.getArketype() != null && !kortParam.getArketype().isEmpty()) {
+//      predicates.add("arketype IN :arketype");
+//      params.put("arketype", kortParam.getArketype());
+//    }
 
-      for (int i = 0; i < kortParam.getDaekningsomraade().size(); i++) {
-        String daekningsomraade = kortParam.getDaekningsomraade().get(i);
-        predicate += "daekningsomraade like :daekningsomraade" + i;
-        if (i < kortParam.getDaekningsomraade().size() - 1) {
-          predicate += " or ";
-        }
-        params.put("daekningsomraade" + i, "%" + daekningsomraade + "%");
-      }
-      predicate += ")";
-      predicates.add(predicate);
-    }
+//    if (kortParam.getDaekningsomraade() != null && !kortParam.getDaekningsomraade().isEmpty()) {
+//      String predicate = "(";
+//
+//      for (int i = 0; i < kortParam.getDaekningsomraade().size(); i++) {
+//        String daekningsomraade = kortParam.getDaekningsomraade().get(i);
+//        predicate += "daekningsomraade like :daekningsomraade" + i;
+//        if (i < kortParam.getDaekningsomraade().size() - 1) {
+//          predicate += " or ";
+//        }
+//        params.put("daekningsomraade" + i, "%" + daekningsomraade + "%");
+//      }
+//      predicate += ")";
+//      predicates.add(predicate);
+//    }
 
-    if (StringUtils.isNotBlank(kortParam.getKortbladnummer())) {
-      predicates.add("(lower(kortbladnummer) like lower(:kortbladnummer))");
-      params.put("kortbladnummer", "%" + kortParam.getKortbladnummer() + "%");
-    }
+//    if (StringUtils.isNotBlank(kortParam.getKortbladnummer())) {
+//      predicates.add("(lower(kortbladnummer) like lower(:kortbladnummer))");
+//      params.put("kortbladnummer", "%" + kortParam.getKortbladnummer() + "%");
+//    }
+//
+//    if (kortParam.getMaalestok() != null && !kortParam.getMaalestok().isEmpty()) {
+//      predicates.add("maalestok IN :maalestok");
+//      params.put("maalestok", kortParam.getMaalestok());
+//    }
+//
+//    if (StringUtils.isNotBlank(kortParam.getTegner())) {
+//      predicates.add("(lower(tegner) like lower(:tegner))");
+//      params.put("tegner", "%" + kortParam.getTegner() + "%");
+//    }
+//
+//    if (StringUtils.isNotBlank(kortParam.getTitel())) {
+//      predicates.add("(lower(titel) like lower(:titel))");
+//      params.put("titel", "%" + kortParam.getTitel() + "%");
+//    }
+//
+//    if (StringUtils.isNotBlank(kortParam.getFritekstsoegning())) {
+//      predicates.add("(fts(:fritekstsoegning) = true)");
+//      params.put("fritekstsoegning", kortParam.getFritekstsoegning());
+//    }
+//
+//    if (kortParam.getKortvaerk() != null && !kortParam.getKortvaerk().isEmpty()) {
+//      predicates.add("kortvaerk IN :kortvaerk");
+//      params.put("kortvaerk", kortParam.getKortvaerk());
+//    }
+//
+//    if (kortParam.getGaeldendefra() > 0 & kortParam.getGaeldendetil() > 0) {
+//      predicates.add("(gaeldendeperiode_gaeldendetil >= :gaeldendefra");
+//      predicates.add("gaeldendeperiode_gaeldendefra <= :gaeldendetil)");
+//      params.put("gaeldendefra", kortParam.getGaeldendefra());
+//      params.put("gaeldendetil", kortParam.getGaeldendetil());
+//    } else if (kortParam.getGaeldendefra() > 0) {
+//      predicates.add(
+//          "(gaeldendeperiode_gaeldendefra >= :gaeldendefra or gaeldendeperiode_gaeldendefra < :gaeldendefra and gaeldendeperiode_gaeldendetil >= :gaeldendefra)");
+//
+//      params.put("gaeldendefra", kortParam.getGaeldendefra());
+//    } else if (kortParam.getGaeldendetil() > 0) {
+//      predicates.add(
+//          "(gaeldendeperiode_gaeldendetil <= :gaeldendetil or gaeldendeperiode_gaeldendetil > :gaeldendetil and gaeldendeperiode_gaeldendefra <= :gaeldendetil)");
+//
+//      params.put("gaeldendetil", kortParam.getGaeldendetil());
+//    }
+//
+//    String and = String.join(" and ", predicates);
+    //String orderBy = getOrderBy(kortParam);
 
-    if (kortParam.getMaalestok() != null && !kortParam.getMaalestok().isEmpty()) {
-      predicates.add("maalestok IN :maalestok");
-      params.put("maalestok", kortParam.getMaalestok());
-    }
+//    String whereClause;
 
-    if (StringUtils.isNotBlank(kortParam.getTegner())) {
-      predicates.add("(lower(tegner) like lower(:tegner))");
-      params.put("tegner", "%" + kortParam.getTegner() + "%");
-    }
+//    if (and.isBlank()) {
+//      whereClause = " ";
+//    } else {
+//      whereClause = " where " + and;
+//    }
 
-    if (StringUtils.isNotBlank(kortParam.getTitel())) {
-      predicates.add("(lower(titel) like lower(:titel))");
-      params.put("titel", "%" + kortParam.getTitel() + "%");
-    }
+    //String jql = "FROM KortDB" + whereClause + orderBy;
+    //logger.info(jql);
+//    TypedQuery<KortDB> query = entityManager.createQuery(jql, KortDB.class);
+//    for (Map.Entry<String, Object> param : params.entrySet()) {
+//      query.setParameter(param.getKey(), param.getValue());
+//    }
 
-    if (StringUtils.isNotBlank(kortParam.getFritekstsoegning())) {
-      predicates.add("(fts(:fritekstsoegning) = true)");
-      params.put("fritekstsoegning", kortParam.getFritekstsoegning());
-    }
+//    query.setMaxResults(kortParam.getLimit());
+//    query.setFirstResult(kortParam.getOffset());
 
-    if (kortParam.getKortvaerk() != null && !kortParam.getKortvaerk().isEmpty()) {
-      predicates.add("kortvaerk IN :kortvaerk");
-      params.put("kortvaerk", kortParam.getKortvaerk());
-    }
+    //List<KortDB> result = query.getResultList();
 
-    if (kortParam.getGaeldendefra() > 0 & kortParam.getGaeldendetil() > 0) {
-      predicates.add("(gaeldendeperiode_gaeldendetil >= :gaeldendefra");
-      predicates.add("gaeldendeperiode_gaeldendefra <= :gaeldendetil)");
-      params.put("gaeldendefra", kortParam.getGaeldendefra());
-      params.put("gaeldendetil", kortParam.getGaeldendetil());
-    } else if (kortParam.getGaeldendefra() > 0) {
-      predicates.add(
-          "(gaeldendeperiode_gaeldendefra >= :gaeldendefra or gaeldendeperiode_gaeldendefra < :gaeldendefra and gaeldendeperiode_gaeldendetil >= :gaeldendefra)");
+//    List<KortDto> kortDtoList = iKortDBDao.getAllKort(
+//        kortParam.getArketype(), kortParam.getDaekningsomraade(), kortParam.getDirection(),
+//        kortParam.getFritekstsoegning(), kortParam.getGaeldendefra(), kortParam.getGaeldendetil(),
+//        area, kortParam.getKortbladnummer(), kortParam.getKortvaerk(), kortParam.getMaalestok(),
+//        kortParam.getOffset(), kortParam.getLimit(), kortParam.getSort(), kortParam.getTegner(),
+//        kortParam.getTitel());
 
-      params.put("gaeldendefra", kortParam.getGaeldendefra());
-    } else if (kortParam.getGaeldendetil() > 0) {
-      predicates.add(
-          "(gaeldendeperiode_gaeldendetil <= :gaeldendetil or gaeldendeperiode_gaeldendetil > :gaeldendetil and gaeldendeperiode_gaeldendefra <= :gaeldendetil)");
+    List<KortDto> kortDtoList = iKortDBDao.getAllKort(
+        kortParam.getArketype(), daekningsomraade, kortParam.getFritekstsoegning(),
+        kortParam.getGaeldendefra(), kortParam.getGaeldendetil(), area, kortParam.getKortbladnummer(),
+        kortvaerk, kortParam.getMaalestok(), kortParam.getLimit(), kortParam.getOffset(), kortParam.getSort(), kortParam.getDirection()) ;
 
-      params.put("gaeldendetil", kortParam.getGaeldendetil());
-    }
-
-    String and = String.join(" and ", predicates);
-    String orderBy = getOrderBy(kortParam);
-
-    String whereClause;
-
-    if (and.isBlank()) {
-      whereClause = " ";
-    } else {
-      whereClause = " where " + and;
-    }
-
-    String jql = "FROM KortDB" + whereClause + orderBy;
-    logger.info(jql);
-    TypedQuery<KortDB> query = entityManager.createQuery(jql, KortDB.class);
-    for (Map.Entry<String, Object> param : params.entrySet()) {
-      query.setParameter(param.getKey(), param.getValue());
-    }
-
-    query.setMaxResults(kortParam.getPagesize());
-    query.setFirstResult(kortParam.getOffset());
-
-    List<KortDB> result = query.getResultList();
 
     long count;
 
-    if (result.size() >= kortParam.getPagesize()) {
-      count = findCount(whereClause, params);
+    if (kortDtoList.size() >= kortParam.getLimit()) {
+      count = kortDtoList.size();
+      //count = iKortDBDao.getCount(kortParam, area);
     } else {
-      count = result.size();
+      count = kortDtoList.size();
     }
 
-    List<KortDto> res = getAllKort(result, baseUrl);
-    KortResult kortresult = new KortResult(count, res);
+    KortResult kortresult = new KortResult(count, kortDtoList);
     return kortresult;
   }
 
@@ -344,64 +339,18 @@ public class ArkivService implements IArkivService {
   }
 
   /**
-   * Gets the object of KortDB mapped to their right dto. The baseurl gets changed so it can be used to fetch
-   * images from Cantaloupe
-   *
-   * @param kortDB
-   * @param baseUrl
-   * @return list of KortDto
-   */
-  private List<KortDto> getAllKort(List<KortDB> kortDB, String baseUrl) {
-    List<KortDto> resultlist = new ArrayList<>();
-
-    String iiifPrefix = getIiifPrefix(baseUrl);
-
-    for (KortDB kort : kortDB) {
-      KortDto dto = kortMapper.map(kort);
-
-      setIiif(iiifPrefix, dto);
-      resultlist.add(dto);
-    }
-
-    return resultlist;
-  }
-
-  /**
-   * Change the baseurl, so it can be the url Cantaloupe gets
-   *
-   * @param baseUrl
-   * @return url of String
-   */
-  private String getIiifPrefix(String baseUrl) {
-    return baseUrl.replace("arkivmeta", "arkivkort") + "/iiif/3";
-  }
-
-  /**
-   * Sets the iiifPrefix in the list of filer
-   *
-   * @param iiifPrefix
-   * @param dto
-   */
-  private void setIiif(String iiifPrefix, KortDto dto) {
-    for (int i = 0; i < dto.getFiler().size(); i++) {
-      String fil = iiifPrefix + dto.getFiler().get(i);
-      dto.getFiler().set(i, fil);
-    }
-  }
-
-  /**
    * Find the count of kort in the list
    *
    * @param whereClause
    * @param params
    * @return
    */
-  private Long findCount(String whereClause, Map<String, Object> params) {
-    String jql = "select count(k) from KortDB k" + whereClause;
-    Query query = entityManager.createQuery(jql);
-    for (Map.Entry<String, Object> param : params.entrySet()) {
-      query.setParameter(param.getKey(), param.getValue());
-    }
-    return (Long) query.getSingleResult();
-  }
+//  private Long findCount(String whereClause, Map<String, Object> params) {
+//    String jql = "select count(k) from KortDB k" + whereClause;
+//    Query query = entityManager.createQuery(jql);
+//    for (Map.Entry<String, Object> param : params.entrySet()) {
+//      query.setParameter(param.getKey(), param.getValue());
+//    }
+//    return (Long) query.getSingleResult();
+//  }
 }

@@ -32,7 +32,7 @@ Feature: Arkivmeta API Integration Test
     # https://intuit.github.io/karate/#header
     # Note that Content-Type had to be enclosed in quotes in the JSON above because the “-” (hyphen character) would cause problems otherwise.
     And configure headers = { 'token': 'b82bfa76a9e21f3f7a6adebad1d40702', 'Content-Type': 'application/json' }
-    And request { daekningsomraade: ['Sønderjylland', 'Slesvig'], pagesize: 15, sort: 'daekningsomraade', direction: 'asc' }
+    And request { daekningsomraade: ['Sønderjylland', 'Slesvig'], limit: 15, sort: 'daekningsomraade', direction: 'asc' }
     When method post
     Then status 200
     And match response.kort == '#[15]'

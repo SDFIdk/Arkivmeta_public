@@ -1,22 +1,25 @@
 package dk.dataforsyningen.arkivmeta.apimapper;
 
 import dk.dataforsyningen.arkivmeta.apimodel.ArketypeDto;
-import dk.dataforsyningen.arkivmeta.datamodel.ArketypeDB;
-import org.springframework.stereotype.Component;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import org.jdbi.v3.core.mapper.RowMapper;
+import org.jdbi.v3.core.statement.StatementContext;
 
-@Component
-public class ArketypeMapper {
-  private final MapperKortvaerk mapperKortvaerk;
+public class ArketypeMapper implements RowMapper<ArketypeDto> {
 
-  public ArketypeMapper(MapperKortvaerk mapperKortvaerk) {
-    this.mapperKortvaerk = mapperKortvaerk;
+  /** The mapper must have a default constructor https://jdbi.org/#_registerrowmapper */
+  public ArketypeMapper() {
   }
 
-  public ArketypeDto arketypeToArketypeDto(ArketypeDB db) {
+  @Override
+  public ArketypeDto map(ResultSet rs, StatementContext ctx) throws SQLException {
     ArketypeDto dto = new ArketypeDto();
-    dto.setArketype(db.getArketype().toLowerCase());
-    dto.setArkenavn(db.getArkenavn());
-    dto.setKortvaerker(mapperKortvaerk.mapKortvaerk(db.getKortvaerk()));
+    dto.setArketype(rs.getString("arketype").toLowerCase());
+    dto.setArkenavn(rs.getString("arkenavn"));
+
+    MapperKortvaerk mapperKortvaerk = new MapperKortvaerk();
+    dto.setKortvaerker(mapperKortvaerk.mapKortvaerk(rs.getString("kortvaerk")));
     return dto;
   }
 }
