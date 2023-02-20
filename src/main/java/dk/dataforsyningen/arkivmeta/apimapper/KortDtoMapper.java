@@ -33,6 +33,7 @@ public class KortDtoMapper implements RowMapper<KortDto> {
 
   @Override
   public KortDto map(ResultSet rs, StatementContext ctx) throws SQLException {
+    // Arketype in database is lowercase, and need to be uppercase for Enum Arketype valueOf()
     String arketype = rs.getString("arketype").toUpperCase();
 
     Arketype type = Arketype.valueOf(arketype);
