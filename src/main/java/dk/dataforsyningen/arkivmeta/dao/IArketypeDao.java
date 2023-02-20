@@ -6,8 +6,6 @@ import java.util.List;
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 
-;
-
 public interface IArketypeDao {
   /**
    * @RegisterRowMapper use the registered mapper to map the select columns from the database to GetOrderDto
