@@ -17,14 +17,6 @@ public class ArketypeDto {
   public ArketypeDto() {
   }
 
-
-//
-//    public ArketypeDto(String arketype, String arkenavn)
-//    {
-//        this.arketype = arketype;
-//        this.arkenavn = arkenavn;
-//    }
-
   public ArketypeDto(String arketype, List<String> kortvaerker) {
     this.arketype = arketype;
     this.kortvaerker = kortvaerker;
