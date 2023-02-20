@@ -134,7 +134,7 @@ public class ArkivService implements IArkivService {
     return maalestokDtoList;
   }
 
-  //@Cacheable(cacheNames = "kort", key = "#kortParam")
+  @Cacheable(cacheNames = "kort", key = "#kortParam")
   public KortResult getKortResult(KortParam kortParam) {
     if (kortParam.getLimit() < 0) {
       throw new IllegalArgumentException("negative values not allowed for limit!");
