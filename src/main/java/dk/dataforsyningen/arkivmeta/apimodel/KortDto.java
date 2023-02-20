@@ -1,37 +1,10 @@
 package dk.dataforsyningen.arkivmeta.apimodel;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes;
 import dk.dataforsyningen.arkivmeta.enums.Arketype;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.time.LocalDateTime;
 import java.util.List;
 
-/**
- * Is abstract so we can encapsulate common functionality (code reuse)
- */
-@JsonSubTypes({
-    @JsonSubTypes.Type(value = CentimeterkortDto.class,
-        name = "dk.kortforsyningen.arkivmeta.apimodel.CentimeterkortDto"),
-    @JsonSubTypes.Type(value = AeldretopografiskekortDto.class,
-        name = "dk.kortforsyningen.arkivmeta.apimodel.AeldretopografiskekortDto"),
-    @JsonSubTypes.Type(value = FaeroesketopokortDto.class,
-        name = "dk.kortforsyningen.arkivmeta.apimodel.FaeroesketopokortDto"),
-    @JsonSubTypes.Type(value = GroenlandtopokortDto.class,
-        name = "dk.kortforsyningen.arkivmeta.apimodel.GroenlandtopokortDto"),
-    @JsonSubTypes.Type(value = HistoriskeflyfotoDto.class,
-        name = "dk.kortforsyningen.arkivmeta.apimodel.HistoriskeflyfotoDto"),
-    @JsonSubTypes.Type(value = LandoekonomiskekortDto.class,
-        name = "dk.kortforsyningen.arkivmeta.apimodel.LandoekonomiskekortDto"),
-    @JsonSubTypes.Type(value = MaalebordsbladeDto.class,
-        name = "dk.kortforsyningen.arkivmeta.apimodel.MaalebordsbladeDto"),
-    @JsonSubTypes.Type(value = MatrikelkortDto.class,
-        name = "dk.kortforsyningen.arkivmeta.apimodel.MatrikelkortDto"),
-    @JsonSubTypes.Type(value = SoekortDto.class,
-        name = "dk.kortforsyningen.arkivmeta.apimodel.SoekortDto"),
-    @JsonSubTypes.Type(value = TematiskekortDto.class,
-        name = "dk.kortforsyningen.arkivmeta.apimodel.TematiskekortDto")
-
-})
 public abstract class KortDto {
   @Schema(description = "Unik id for kortet.")
   protected String id;
