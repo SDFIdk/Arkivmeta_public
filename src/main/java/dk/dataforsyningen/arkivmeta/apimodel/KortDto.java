@@ -1,6 +1,5 @@
 package dk.dataforsyningen.arkivmeta.apimodel;
 
-import dk.dataforsyningen.arkivmeta.enums.Arketype;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -13,7 +12,7 @@ public abstract class KortDto {
   protected String alternativtitel;
 
   @Schema(description = "Kortets arketype.")
-  protected Arketype arketype;
+  protected String arketype;
 
   @Schema(description = "Yderligere kommentarer, f.eks. vedr. fremstilling eller placering ved kendt gods eller lign.")
   protected String bemaerkning;
@@ -66,7 +65,7 @@ public abstract class KortDto {
 
   public KortDto(String id,
                  String alternativtitel,
-                 Arketype arketype,
+                 String arketype,
                  String bemaerkning,
                  List<String> daekningsomraade,
                  List<String> filer,
@@ -110,7 +109,7 @@ public abstract class KortDto {
     return alternativtitel;
   }
 
-  public Arketype getArketype() {
+  public String getArketype() {
     return arketype;
   }
 
@@ -182,7 +181,7 @@ public abstract class KortDto {
     this.alternativtitel = alternativtitel;
   }
 
-  public void setArketype(Arketype arketype) {
+  public void setArketype(String arketype) {
     this.arketype = arketype;
   }
 

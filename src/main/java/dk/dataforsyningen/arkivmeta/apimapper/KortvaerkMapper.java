@@ -12,7 +12,7 @@ public class KortvaerkMapper implements RowMapper<KortvaerkDto> {
   public KortvaerkDto map(ResultSet rs, StatementContext ctx) throws SQLException {
     KortvaerkDto dto = new KortvaerkDto();
     dto.setArkenavn(rs.getString("arkenavn"));
-    dto.setArketype(Arketype.valueOf(rs.getString("arketype")));
+    dto.setArketype(rs.getString("arketype"));
     dto.setKortvaerk(rs.getString("kortvaerk"));
 
     return dto;

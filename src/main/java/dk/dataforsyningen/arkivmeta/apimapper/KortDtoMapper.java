@@ -33,35 +33,37 @@ public class KortDtoMapper implements RowMapper<KortDto> {
 
   @Override
   public KortDto map(ResultSet rs, StatementContext ctx) throws SQLException {
-    Arketype type = Arketype.valueOf(rs.getString("arketype"));
-    if (type == Arketype.aeldretopografiskekort) {
+    String arketype = rs.getString("arketype").toUpperCase();
+
+    Arketype type = Arketype.valueOf(arketype);
+    if (type == Arketype.AELDRETOPOGRAFISKEKORT) {
       return mapAeldretopografiskekortDto(rs, ctx);
     }
-    if (type == Arketype.centimeterkort) {
+    if (type == Arketype.CENTIMETERKORT) {
       return mapCentimeterkortDto(rs, ctx);
     }
-    if (type == Arketype.faeroesketopokort) {
+    if (type == Arketype.FAEROESKETOPOKORT) {
       return mapFaeroesketopokortDto(rs, ctx);
     }
-    if (type == Arketype.groenlandtopokort) {
+    if (type == Arketype.GROENLANDTOPOKORT) {
       return mapGroenlandtopokortDto(rs, ctx);
     }
-    if (type == Arketype.historiskeflyfoto) {
+    if (type == Arketype.HISTORISKEFLYFOTO) {
       return mapHistoriskeflyfotoDto(rs, ctx);
     }
-    if (type == Arketype.landoekonomiskekort) {
+    if (type == Arketype.LANDOEKONOMISKEKORT) {
       return mapLandoekonomiskekortDto(rs, ctx);
     }
-    if (type == Arketype.maalebordsblade) {
+    if (type == Arketype.MAALEBORDSBLADE) {
       return mapMaalebordsbladeDto(rs, ctx);
     }
-    if (type == Arketype.matrikelkort) {
+    if (type == Arketype.MATRIKELKORT) {
       return mapMatrikelkortDto(rs, ctx);
     }
-    if (type == Arketype.soekort) {
+    if (type == Arketype.SOEKORT) {
       return mapSoekortDto(rs, ctx);
     }
-    if (type == Arketype.tematiskekort) {
+    if (type == Arketype.TEMATISKEKORT) {
       return mapTematiskekortDto(rs, ctx);
     }
 
@@ -75,7 +77,8 @@ public class KortDtoMapper implements RowMapper<KortDto> {
     MapperGeometri mapperGeometri = new MapperGeometri();
 
     dto.setAlternativtitel(rs.getString("alternativtitel"));
-    dto.setArketype(Arketype.valueOf(rs.getString("arketype")));
+
+    dto.setArketype(rs.getString("arketype"));
     dto.setBemaerkning(rs.getString("bemaerkning"));
 
     dto.setDaekningsomraade(
@@ -84,10 +87,14 @@ public class KortDtoMapper implements RowMapper<KortDto> {
     dto.setGaeldendefra(rs.getInt("gaeldendeperiode_gaeldendefra"));
     dto.setGaeldendetil(rs.getInt("gaeldendeperiode_gaeldendetil"));
     if (rs.getString("geometri") != null) {
+      // Geometri in database is the database geomtry, but JDBI does not have map/converter for
+      // that datatype, so we fetch it as a String, convert it to datatype Geometry
       byte[] bytes = hexStringToByteArray(rs.getString("geometri"));
 
-      Geometry test = (deserialize(bytes));
-      dto.setGeometri(mapperGeometri.mapGeometri(test));
+      Geometry geometry = (deserialize(bytes));
+
+      // Then we take the geomtry and convert it to String as WKT formattet geomtry
+      dto.setGeometri(mapperGeometri.mapGeometri(geometry));
     } else {
       dto.setGeometri(mapperGeometri.mapGeometri(null));
     }
