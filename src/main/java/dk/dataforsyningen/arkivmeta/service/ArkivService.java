@@ -13,11 +13,7 @@ import dk.dataforsyningen.arkivmeta.dao.IKortDBDao;
 import dk.dataforsyningen.arkivmeta.dao.IKortvaerkerDao;
 import dk.dataforsyningen.arkivmeta.dao.IMaalestokDao;
 import dk.dataforsyningen.arkivmeta.rest.ArkivApiService;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Set;
@@ -153,20 +149,6 @@ public class ArkivService implements IArkivService {
       throw new IllegalArgumentException("direction must be: asc or desc");
     }
 
-    List<String> predicates = new ArrayList<>();
-    Map<String, Object> params = new HashMap<>();
-
-//    if (StringUtils.isNotBlank(kortParam.getGeometri())) {
-//      try {
-//        Geometry area = new WKTReader().read(kortParam.getGeometri());
-//        predicates.add("ST_Intersects(geometri, ST_SetSRID(:area, 4326))=true");
-//        params.put("area", area);
-//      } catch (ParseException parseException) {
-//        throw new IllegalArgumentException(
-//            "Kan ikke læse geometri. Skal være som WKT med SRS = EPSG:4326",
-//            parseException);
-//      }
-//    }
     Geometry area = new GeometryFactory().createGeometry(null);
     if (StringUtils.isNotBlank(kortParam.getGeometri())) {
       try {
@@ -181,114 +163,20 @@ public class ArkivService implements IArkivService {
     String daekningsomraade = StringUtils.join(kortParam.getDaekningsomraade(), "|");
     String kortvaerk = StringUtils.join(kortParam.getKortvaerk(), "|");
 
-//    if (kortParam.getArketype() != null && !kortParam.getArketype().isEmpty()) {
-//      predicates.add("arketype IN :arketype");
-//      params.put("arketype", kortParam.getArketype());
-//    }
-
-//    if (kortParam.getDaekningsomraade() != null && !kortParam.getDaekningsomraade().isEmpty()) {
-//      String predicate = "(";
-//
-//      for (int i = 0; i < kortParam.getDaekningsomraade().size(); i++) {
-//        String daekningsomraade = kortParam.getDaekningsomraade().get(i);
-//        predicate += "daekningsomraade like :daekningsomraade" + i;
-//        if (i < kortParam.getDaekningsomraade().size() - 1) {
-//          predicate += " or ";
-//        }
-//        params.put("daekningsomraade" + i, "%" + daekningsomraade + "%");
-//      }
-//      predicate += ")";
-//      predicates.add(predicate);
-//    }
-
-//    if (StringUtils.isNotBlank(kortParam.getKortbladnummer())) {
-//      predicates.add("(lower(kortbladnummer) like lower(:kortbladnummer))");
-//      params.put("kortbladnummer", "%" + kortParam.getKortbladnummer() + "%");
-//    }
-//
-//    if (kortParam.getMaalestok() != null && !kortParam.getMaalestok().isEmpty()) {
-//      predicates.add("maalestok IN :maalestok");
-//      params.put("maalestok", kortParam.getMaalestok());
-//    }
-//
-//    if (StringUtils.isNotBlank(kortParam.getTegner())) {
-//      predicates.add("(lower(tegner) like lower(:tegner))");
-//      params.put("tegner", "%" + kortParam.getTegner() + "%");
-//    }
-//
-//    if (StringUtils.isNotBlank(kortParam.getTitel())) {
-//      predicates.add("(lower(titel) like lower(:titel))");
-//      params.put("titel", "%" + kortParam.getTitel() + "%");
-//    }
-//
-//    if (StringUtils.isNotBlank(kortParam.getFritekstsoegning())) {
-//      predicates.add("(fts(:fritekstsoegning) = true)");
-//      params.put("fritekstsoegning", kortParam.getFritekstsoegning());
-//    }
-//
-//    if (kortParam.getKortvaerk() != null && !kortParam.getKortvaerk().isEmpty()) {
-//      predicates.add("kortvaerk IN :kortvaerk");
-//      params.put("kortvaerk", kortParam.getKortvaerk());
-//    }
-//
-//    if (kortParam.getGaeldendefra() > 0 & kortParam.getGaeldendetil() > 0) {
-//      predicates.add("(gaeldendeperiode_gaeldendetil >= :gaeldendefra");
-//      predicates.add("gaeldendeperiode_gaeldendefra <= :gaeldendetil)");
-//      params.put("gaeldendefra", kortParam.getGaeldendefra());
-//      params.put("gaeldendetil", kortParam.getGaeldendetil());
-//    } else if (kortParam.getGaeldendefra() > 0) {
-//      predicates.add(
-//          "(gaeldendeperiode_gaeldendefra >= :gaeldendefra or gaeldendeperiode_gaeldendefra < :gaeldendefra and gaeldendeperiode_gaeldendetil >= :gaeldendefra)");
-//
-//      params.put("gaeldendefra", kortParam.getGaeldendefra());
-//    } else if (kortParam.getGaeldendetil() > 0) {
-//      predicates.add(
-//          "(gaeldendeperiode_gaeldendetil <= :gaeldendetil or gaeldendeperiode_gaeldendetil > :gaeldendetil and gaeldendeperiode_gaeldendefra <= :gaeldendetil)");
-//
-//      params.put("gaeldendetil", kortParam.getGaeldendetil());
-//    }
-//
-//    String and = String.join(" and ", predicates);
-    //String orderBy = getOrderBy(kortParam);
-
-//    String whereClause;
-
-//    if (and.isBlank()) {
-//      whereClause = " ";
-//    } else {
-//      whereClause = " where " + and;
-//    }
-
-    //String jql = "FROM KortDB" + whereClause + orderBy;
-    //logger.info(jql);
-//    TypedQuery<KortDB> query = entityManager.createQuery(jql, KortDB.class);
-//    for (Map.Entry<String, Object> param : params.entrySet()) {
-//      query.setParameter(param.getKey(), param.getValue());
-//    }
-
-//    query.setMaxResults(kortParam.getLimit());
-//    query.setFirstResult(kortParam.getOffset());
-
-    //List<KortDB> result = query.getResultList();
-
-//    List<KortDto> kortDtoList = iKortDBDao.getAllKort(
-//        kortParam.getArketype(), kortParam.getDaekningsomraade(), kortParam.getDirection(),
-//        kortParam.getFritekstsoegning(), kortParam.getGaeldendefra(), kortParam.getGaeldendetil(),
-//        area, kortParam.getKortbladnummer(), kortParam.getKortvaerk(), kortParam.getMaalestok(),
-//        kortParam.getOffset(), kortParam.getLimit(), kortParam.getSort(), kortParam.getTegner(),
-//        kortParam.getTitel());
-
     List<KortDto> kortDtoList = iKortDBDao.getAllKort(
         kortParam.getArketype(), daekningsomraade, kortParam.getFritekstsoegning(),
-        kortParam.getGaeldendefra(), kortParam.getGaeldendetil(), area, kortParam.getKortbladnummer(),
-        kortvaerk, kortParam.getMaalestok(), kortParam.getLimit(), kortParam.getOffset(), kortParam.getSort(), kortParam.getDirection()) ;
-
+        kortParam.getGaeldendefra(), kortParam.getGaeldendetil(), area,
+        kortParam.getKortbladnummer(), kortvaerk, kortParam.getMaalestok(), kortParam.getTegner(),
+        kortParam.getTitel(), kortParam.getLimit(), kortParam.getOffset(), kortParam.getSort(),
+        kortParam.getDirection());
 
     long count;
 
     if (kortDtoList.size() >= kortParam.getLimit()) {
-      count = kortDtoList.size();
-      //count = iKortDBDao.getCount(kortParam, area);
+      count = iKortDBDao.getCount(kortParam.getArketype(), daekningsomraade, kortParam.getFritekstsoegning(),
+          kortParam.getGaeldendefra(), kortParam.getGaeldendetil(), area,
+          kortParam.getKortbladnummer(), kortvaerk, kortParam.getMaalestok(), kortParam.getTegner(),
+          kortParam.getTitel(), kortParam.getLimit(), kortParam.getOffset());
     } else {
       count = kortDtoList.size();
     }
@@ -296,61 +184,4 @@ public class ArkivService implements IArkivService {
     KortResult kortresult = new KortResult(count, kortDtoList);
     return kortresult;
   }
-
-  private String getOrderBy(KortParam kortParam) {
-    Map<String, String> sortColumns = Map.of(
-        "arketype",
-        "arketype",
-        "daekningsomraade",
-        "daekningsomraade",
-        "gaeldendefra",
-        "gaeldendeperiode_gaeldendefra",
-        "gaeldendetil",
-        "gaeldendeperiode_gaeldendetil",
-        "id",
-        "id",
-        "kortvaerk",
-        "kortvaerk",
-        "maalestok",
-        "maalestok",
-        "titel",
-        "titel"
-    );
-
-    List<String> orderby = new LinkedList<>();
-
-    if (StringUtils.isNotBlank(kortParam.getSort())) {
-      if (!sortColumns.containsKey(kortParam.getSort())) {
-        throw new IllegalArgumentException("sort must be one of " + sortColumns.keySet());
-      }
-
-      String sortBy = sortColumns.get(kortParam.getSort());
-      orderby.add(String.format("%s %s", sortBy, kortParam.getDirection()));
-    }
-
-    if (StringUtils.isNotBlank(kortParam.getFritekstsoegning())) {
-      orderby.add("rnk(:fritekstsoegning)");
-    }
-
-    // Added id to orderby, so sorting is always consistent
-    orderby.add("id");
-
-    return " order by " + StringUtils.join(orderby, ',');
-  }
-
-  /**
-   * Find the count of kort in the list
-   *
-   * @param whereClause
-   * @param params
-   * @return
-   */
-//  private Long findCount(String whereClause, Map<String, Object> params) {
-//    String jql = "select count(k) from KortDB k" + whereClause;
-//    Query query = entityManager.createQuery(jql);
-//    for (Map.Entry<String, Object> param : params.entrySet()) {
-//      query.setParameter(param.getKey(), param.getValue());
-//    }
-//    return (Long) query.getSingleResult();
-//  }
 }
