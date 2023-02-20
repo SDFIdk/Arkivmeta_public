@@ -15,7 +15,7 @@ public interface IDaekningsomraadeDao {
   @SqlQuery("""
       SELECT daekningomraade
       FROM arkivmeta_latest.a_daekningomraade
-      WHERE (:daekningsomraade IS NULL OR daekningsomraade ilike '%' || :daekningsomraade || '%')
+      WHERE (:daekningsomraade IS NULL OR daekningomraade ilike '%' || :daekningsomraade || '%')
       """)
   @RegisterRowMapper(DaekningsomraadeMapper.class)
   List<DaekningsomraadeDto> getDaekningsomraade(String daekningsomraade);
