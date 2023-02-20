@@ -1,7 +1,6 @@
 package dk.dataforsyningen.arkivmeta.apimapper;
 
 import dk.dataforsyningen.arkivmeta.apimodel.KortvaerkDto;
-import dk.dataforsyningen.arkivmeta.datamodel.KortvaerkDB;
 import dk.dataforsyningen.arkivmeta.enums.Arketype;
 import java.sql.ResultSet;
 import java.sql.SQLException;

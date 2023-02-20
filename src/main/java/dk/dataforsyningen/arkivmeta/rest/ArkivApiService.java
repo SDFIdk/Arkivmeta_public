@@ -266,8 +266,8 @@ public class ArkivApiService {
    * Returns the kort matching with specified {arketype}/{id} as JSON.
    * <p>
    *
-   * @param arketype       type of kort
-   * @param id             the kort's id
+   * @param arketype type of kort
+   * @param id       the kort's id
    * @return the kort with the arketype and id specified
    */
   @GetMapping(path = "/kort/{arketype}/{id}")

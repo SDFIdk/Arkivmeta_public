@@ -11,27 +11,9 @@ import dk.dataforsyningen.arkivmeta.apimodel.MaalebordsbladeDto;
 import dk.dataforsyningen.arkivmeta.apimodel.MatrikelkortDto;
 import dk.dataforsyningen.arkivmeta.apimodel.SoekortDto;
 import dk.dataforsyningen.arkivmeta.apimodel.TematiskekortDto;
-import dk.dataforsyningen.arkivmeta.datamodel.AeldretopografiskekortDB;
-import dk.dataforsyningen.arkivmeta.datamodel.CentimeterkortDB;
-import dk.dataforsyningen.arkivmeta.datamodel.FaeroesketopokortDB;
-import dk.dataforsyningen.arkivmeta.datamodel.GroenlandtopokortDB;
-import dk.dataforsyningen.arkivmeta.datamodel.HistoriskeflyfotoDB;
-import dk.dataforsyningen.arkivmeta.datamodel.KortDB;
-import dk.dataforsyningen.arkivmeta.datamodel.LandoekonomiskekortDB;
-import dk.dataforsyningen.arkivmeta.datamodel.MaalebordsbladeDB;
-import dk.dataforsyningen.arkivmeta.datamodel.MatrikelkortDB;
-import dk.dataforsyningen.arkivmeta.datamodel.SoekortDB;
-import dk.dataforsyningen.arkivmeta.datamodel.TematiskekortDB;
 import dk.dataforsyningen.arkivmeta.enums.Arketype;
-import java.nio.charset.StandardCharsets;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.Base64;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
-import org.apache.commons.lang3.StringUtils;
 import org.jdbi.v3.core.mapper.RowMapper;
 import org.jdbi.v3.core.statement.StatementContext;
 import org.locationtech.jts.geom.Geometry;
@@ -96,7 +78,8 @@ public class KortDtoMapper implements RowMapper<KortDto> {
     dto.setArketype(Arketype.valueOf(rs.getString("arketype")));
     dto.setBemaerkning(rs.getString("bemaerkning"));
 
-    dto.setDaekningsomraade(mapperDaekningsomraade.mapDaekningsomraade(rs.getString("daekningsomraade")));
+    dto.setDaekningsomraade(
+        mapperDaekningsomraade.mapDaekningsomraade(rs.getString("daekningsomraade")));
     dto.setFiler(mapperFiler.mapFiler(rs.getString("filer")));
     dto.setGaeldendefra(rs.getInt("gaeldendeperiode_gaeldendefra"));
     dto.setGaeldendetil(rs.getInt("gaeldendeperiode_gaeldendetil"));
@@ -212,8 +195,7 @@ public class KortDtoMapper implements RowMapper<KortDto> {
 
     if (rs.getTimestamp("fototid") != null) {
       dto.setFototid(rs.getTimestamp("fototid").toLocalDateTime());
-    }
-    else {
+    } else {
       dto.setFototid(null);
     }
 

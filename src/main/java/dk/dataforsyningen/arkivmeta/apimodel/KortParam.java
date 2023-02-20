@@ -51,9 +51,10 @@ public class KortParam {
   private String titel;
 
   public KortParam(List<String> arketype, List<String> daekningsomraade, String direction,
-                   String fritekstsoegning, Integer gaeldendefra, Integer gaeldendetil, String geometri,
-                   String kortbladnummer, List<String> kortvaerk, List<String> maalestok,
-                   int limit, int offset, String sort, String tegner, String titel) {
+                   String fritekstsoegning, Integer gaeldendefra, Integer gaeldendetil,
+                   String geometri, String kortbladnummer, List<String> kortvaerk,
+                   List<String> maalestok, int limit, int offset, String sort, String tegner,
+                   String titel) {
     this.arketype = arketype;
     this.daekningsomraade = daekningsomraade;
     this.direction = direction;

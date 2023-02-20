@@ -8,7 +8,9 @@ import org.jdbi.v3.core.statement.StatementContext;
 
 public class ArketypeMapper implements RowMapper<ArketypeDto> {
 
-  /** The mapper must have a default constructor https://jdbi.org/#_registerrowmapper */
+  /**
+   * The mapper must have a default constructor https://jdbi.org/#_registerrowmapper
+   */
   public ArketypeMapper() {
   }
 

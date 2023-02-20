@@ -9,8 +9,7 @@ public class KortvaerkDto {
 
   private String kortvaerk;
 
-  public KortvaerkDto()
-  {
+  public KortvaerkDto() {
   }
 
   public KortvaerkDto(String kortvaerk) {

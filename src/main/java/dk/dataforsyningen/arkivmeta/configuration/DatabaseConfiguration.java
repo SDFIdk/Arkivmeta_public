@@ -5,7 +5,6 @@ import javax.sql.DataSource;
 import org.jdbi.v3.core.Jdbi;
 import org.jdbi.v3.core.argument.Arguments;
 import org.jdbi.v3.core.argument.NullArgument;
-import org.jdbi.v3.core.statement.Slf4JSqlLogger;
 import org.jdbi.v3.jackson2.Jackson2Plugin;
 import org.jdbi.v3.postgis.PostgisPlugin;
 import org.jdbi.v3.postgres.PostgresPlugin;

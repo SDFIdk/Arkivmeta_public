@@ -127,13 +127,15 @@ public interface IKortDBDao {
       // So we need to change @BindList emptyhandling to give a String with "null"
       // https://github.com/jdbi/jdbi/issues/1131
       // https://jdbi.org/apidocs/org/jdbi/v3/sqlobject/customizer/BindList.EmptyHandling.html#NULL_STRING
-      @BindList(value = "arketype", onEmpty = BindList.EmptyHandling.NULL_STRING) List<String> arketype,
+      @BindList(value = "arketype", onEmpty = BindList.EmptyHandling.NULL_STRING)
+          List<String> arketype,
       @Bind("daekningsomraade") String daekningsomraade,
       @Bind("fritekstsoegning") String fritekstsoegning,
       @Bind("gaeldendefra") Integer gaeldendefra, @Bind("gaeldendetil") Integer gaeldendetil,
       @Bind("area") Geometry area, @Bind("kortbladnummer") String kortbladnummer,
       @Bind("kortvaerk") String kortvaerk,
-      @BindList(value = "maalestok", onEmpty = BindList.EmptyHandling.NULL_STRING) List<String> maalestok,
+      @BindList(value = "maalestok", onEmpty = BindList.EmptyHandling.NULL_STRING)
+          List<String> maalestok,
       @Bind("tegner") String tegner,
       @Bind("titel") String titel,
       @Bind("limit") int limit,
@@ -201,13 +203,15 @@ public interface IKortDBDao {
       // So we need to change @BindList emptyhandling to give a String with "null"
       // https://github.com/jdbi/jdbi/issues/1131
       // https://jdbi.org/apidocs/org/jdbi/v3/sqlobject/customizer/BindList.EmptyHandling.html#NULL_STRING
-      @BindList(value = "arketype", onEmpty = BindList.EmptyHandling.NULL_STRING) List<String> arketype,
+      @BindList(value = "arketype", onEmpty = BindList.EmptyHandling.NULL_STRING)
+          List<String> arketype,
       @Bind("daekningsomraade") String daekningsomraade,
       @Bind("fritekstsoegning") String fritekstsoegning,
       @Bind("gaeldendefra") Integer gaeldendefra, @Bind("gaeldendetil") Integer gaeldendetil,
       @Bind("area") Geometry area, @Bind("kortbladnummer") String kortbladnummer,
       @Bind("kortvaerk") String kortvaerk,
-      @BindList(value = "maalestok", onEmpty = BindList.EmptyHandling.NULL_STRING) List<String> maalestok,
+      @BindList(value = "maalestok", onEmpty = BindList.EmptyHandling.NULL_STRING)
+          List<String> maalestok,
       @Bind("tegner") String tegner,
       @Bind("titel") String titel,
       @Bind("limit") int limit,

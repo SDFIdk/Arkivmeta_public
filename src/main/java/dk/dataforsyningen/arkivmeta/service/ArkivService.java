@@ -173,10 +173,10 @@ public class ArkivService implements IArkivService {
     long count;
 
     if (kortDtoList.size() >= kortParam.getLimit()) {
-      count = iKortDBDao.getCount(kortParam.getArketype(), daekningsomraade, kortParam.getFritekstsoegning(),
-          kortParam.getGaeldendefra(), kortParam.getGaeldendetil(), area,
-          kortParam.getKortbladnummer(), kortvaerk, kortParam.getMaalestok(), kortParam.getTegner(),
-          kortParam.getTitel(), kortParam.getLimit(), kortParam.getOffset());
+      count = iKortDBDao.getCount(kortParam.getArketype(), daekningsomraade,
+          kortParam.getFritekstsoegning(), kortParam.getGaeldendefra(), kortParam.getGaeldendetil(),
+          area, kortParam.getKortbladnummer(), kortvaerk, kortParam.getMaalestok(),
+          kortParam.getTegner(), kortParam.getTitel(), kortParam.getLimit(), kortParam.getOffset());
     } else {
       count = kortDtoList.size();
     }

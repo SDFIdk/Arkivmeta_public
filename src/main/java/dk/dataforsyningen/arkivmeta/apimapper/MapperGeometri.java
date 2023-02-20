@@ -2,7 +2,6 @@ package dk.dataforsyningen.arkivmeta.apimapper;
 
 import java.util.Objects;
 import org.locationtech.jts.geom.Geometry;
-import org.springframework.stereotype.Component;
 
 public class MapperGeometri {
   public String mapGeometri(Geometry geometri) {

@@ -12,6 +12,7 @@ public class MapperFiler {
 
   @Value("${ARKIVKORT_URL}")
   private String arkivkortUrl;
+
   /**
    * Uses Base64url encoding so there is no / in the encoded String but instead _
    * https://www.baeldung.com/java-base64-encode-and-decode#3-java-8-url-encoding

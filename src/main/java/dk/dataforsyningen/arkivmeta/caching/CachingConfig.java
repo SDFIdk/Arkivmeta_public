@@ -1,19 +1,8 @@
 package dk.dataforsyningen.arkivmeta.caching;
 
-import com.github.benmanes.caffeine.cache.Caffeine;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
-import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.cache.caffeine.CaffeineCacheManager;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.CacheControl;
-import org.springframework.web.filter.ShallowEtagHeaderFilter;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.mvc.WebContentInterceptor;
 
 @Configuration
 @EnableCaching
