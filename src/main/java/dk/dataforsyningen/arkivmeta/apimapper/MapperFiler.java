@@ -35,18 +35,4 @@ public class MapperFiler {
 
     return resultMapFiler;
   }
-
-//  /**
-//   * Sets the iiifPrefix in the list of filer
-//   *
-//   * @param iiifPrefix
-//   * @param dto
-//   */
-//  private KortDto setIiif(String iiifPrefix, KortDto dto) {
-//    for (int i = 0; i < dto.getFiler().size(); i++) {
-//      String fil = iiifPrefix + dto.getFiler().get(i);
-//      dto.getFiler().set(i, fil);
-//    }
-//    return dto;
-//  }
 }
