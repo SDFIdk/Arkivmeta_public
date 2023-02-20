@@ -164,15 +164,13 @@ public class ArkivApiService {
   @CrossOrigin
   ResponseEntity<KortResult> getKort(
       @Parameter(description =
-          "Arketype, se /metadata/arketyper. Hvis der ønskes at søge på flere arketyper på en gang, skal man adskille hvert søgekriterie ved at bruge |. " +
-              "At bruge | er en midlertidig løsning, så den vil blive fjernet uden varsel, når produktionsmiljøet kan håndtere at angive samme parameter flere gange i URL'en. " +
-              "Eksempel: arketype=matrikelkort|centimeterkort.")
+          "Arketype, se /metadata/arketyper. Hvis der ønskes at søge på flere arketyper på en gang, skal man adskille hvert søgekriterie ved at bruge komma , . " +
+              "Eksempel: arketype=matrikelkort,centimeterkort.")
       @RequestParam(required = false) List<String> arketype,
 
       @Parameter(description =
-          "Dækningsområde, se /metadata/daekningsomraader. Hvis der ønskes at søge på flere dækningsområde på en gang, skal man adskille hvert søgekriterie ved at bruge |. " +
-              "At bruge | er en midlertidig løsning, så den vil blive fjernet uden varsel, når produktionsmiljøet kan håndtere at angive samme parameter flere gange i URL'en. " +
-              "Eksempel: daekningsomraade=Slesvig|Danmark")
+          "Dækningsområde, se /metadata/daekningsomraader. Hvis der ønskes at søge på flere dækningsområde på en gang, skal man adskille hvert søgekriterie ved at bruge , . " +
+              "Eksempel: daekningsomraade=Slesvig,Danmark")
       @RequestParam(required = false) List<String> daekningsomraade,
 
       @Parameter(description = "Sorteringsretning, 'asc' for stigende, 'desc' for faldende")
@@ -194,15 +192,13 @@ public class ArkivApiService {
       @RequestParam(required = false) String kortbladnummer,
 
       @Parameter(description =
-          "Kortværk. Hvis der ønskes at søge på flere kortværker på en gang, skal man adskille hvert søgekriterie ved at bruge |. " +
-              "At bruge | er en midlertidig løsning, så den vil blive fjernet uden varsel, når produktionsmiljøet kan håndtere at angive samme parameter flere gange i URL'en. " +
-              "Eksempel: kortvaerk=Trap, tegnede kort|Mejer")
+          "Kortværk. Hvis der ønskes at søge på flere kortværker på en gang, skal man angive `kortvaerk` query parameteren for hvert eneste en kortværk man vil søge efter." +
+              "Eksempel: kortvaerk=Trap, tegnede kort&kortvaerk=Mejer")
       @RequestParam(required = false) List<String> kortvaerk,
 
       @Parameter(description =
-          "Målestoksforhold. Hvis der ønskes at søge på flere målestoksforhold på en gang, skal man adskille hvert søgekriterie ved at bruge |. " +
-              "At bruge | er en midlertidig løsning, så den vil blive fjernet uden varsel, når produktionsmiljøet kan håndtere at angive samme parameter flere gange i URL'en. " +
-              "Eksempel: maalestok=1:40000|1:180000")
+          "Målestoksforhold. Hvis der ønskes at søge på flere målestoksforhold på en gang, skal man adskille hvert søgekriterie ved at bruge , . " +
+              "Eksempel: maalestok=1:40000,1:180000")
       @RequestParam(required = false) List<String> maalestok,
 
       @Parameter(description = "Sidestørrelse, dvs. hvor mange poster pr. side. Maximum = 1000")
@@ -260,7 +256,6 @@ public class ArkivApiService {
 
     return new ResponseEntity<>(kortresult, HttpStatus.OK);
   }
-
 
   /**
    * Returns the kort matching with specified {arketype}/{id} as JSON.
