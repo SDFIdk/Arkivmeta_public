@@ -11,7 +11,8 @@ import org.jdbi.v3.sqlobject.customizer.BindList;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.locationtech.jts.geom.Geometry;
 
-@LogSqlFactory
+// For printing sql statements
+//@LogSqlFactory
 public interface IKortDBDao {
 
   /**
@@ -88,6 +89,10 @@ public interface IKortDBDao {
           AND (:titel IS NULL
               OR titel ILIKE :titel)
       ORDER BY
+          -- Sql statements can not take user values and use them as column name. So we need to make
+          -- a match with a CASE to map the user value to the correct column name.
+          -- We also need to split ASC and DESC because it is SQL feature and can not be a given
+          -- user value
           CASE
               WHEN (:direction = 'asc' AND :sort = 'arketype') THEN arketype
               WHEN (:direction = 'asc' AND :sort = 'daekningsomraade') THEN daekningsomraade
@@ -112,6 +117,11 @@ public interface IKortDBDao {
               WHEN (:direction = 'desc' AND :sort = 'maalestok') THEN maalestok
               WHEN (:direction = 'desc' AND :sort = 'titel') THEN titel
           END DESC,
+          CASE
+              WHEN :fritekstsoegning IS NOT NULL THEN ts_rank(fritekstsoegning, plainto_tsquery('danish', :fritekstsoegning))
+          END ASC,
+          -- There should always be an order by on id for consistent result because we have limit
+          -- and offset
           CASE
               WHEN :direction = 'asc' THEN id
           END ASC,
