@@ -142,14 +142,7 @@ public class ArkivService implements IArkivService {
    */
   @Cacheable(cacheNames = "kort", key = "#kortParam")
   public KortResult getKortResult(KortParam kortParam) {
-    if (kortParam.getLimit() < 0) {
-      throw new IllegalArgumentException("negative values not allowed for limit!");
-    }
-
-    if (kortParam.getLimit() > 1000) {
-      throw new IllegalArgumentException("limit must not be higher than 1000");
-    }
-
+    
     Set<String> sortDirections = Set.of("asc", "desc");
     if (!sortDirections.contains(kortParam.getDirection())) {
       throw new IllegalArgumentException("direction must be: asc or desc");

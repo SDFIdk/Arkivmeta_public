@@ -1,6 +1,8 @@
 package dk.dataforsyningen.arkivmeta.apimodel;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import java.util.List;
 import java.util.Objects;
 
@@ -36,6 +38,8 @@ public class KortParam {
   private List<String> maalestok;
 
   @Schema(description = "Sidestørrelse, dvs. hvor mange poster pr. side")
+  @Min(1)
+  @Max(1000)
   private int limit;
 
   @Schema(description = "Offset, dvs. fra hvilken post")
