@@ -92,12 +92,14 @@ Feature: Arkivmeta API Integration Test
 
     Given path '/kort'
     # Use the delimiter way right now, because switchboards does not understand string arrays
-    And param kortvaerk = 'Videnskabernes Selskab|Videnskabernes Selskab, koncept'
+    And param kortvaerk = 'Videnskabernes Selskab'
+    And param kortvaerk = 'Videnskabernes Selskab, koncept'
     When method get
     Then status 200
     # match the response with the keys from the json objects
     And match response == { total: '#present', kort: '#present' }
-    Then match response.total == firstKortvaerkTotal + secondKortvaerkTotal
+    Then match response.total == firstKortvaerkTotal
+    Then match response.total == secondKortvaerkTotal
 
   
   Scenario: Arkiv API /kort - search maalestok
@@ -169,3 +171,55 @@ Feature: Arkivmeta API Integration Test
     When method get
     Then status 200
     And match response.kort == '#[100]'
+
+
+  Scenario: Limit -1
+
+    Given path '/kort'
+    And param limit = -1
+    When method get
+    Then status 400
+    And match response ==
+    """
+    {
+      "status": "BAD_REQUEST",
+      "message": "getKort.limit: must be greater than or equal to 1",
+      "errors": [
+      "jakarta.validation.ConstraintViolationException: getKort.limit: must be greater than or equal to 1"
+      ]
+    }
+    """
+
+  Scenario: Limit 1000
+
+    Given path '/kort'
+    And param limit = 1001
+    When method get
+    Then status 400
+    And match response ==
+    """
+    {
+        "status": "BAD_REQUEST",
+        "message": "getKort.limit: must be less than or equal to 1000",
+        "errors": [
+            "jakarta.validation.ConstraintViolationException: getKort.limit: must be less than or equal to 1000"
+        ]
+    }
+    """
+
+  Scenario: direction casesensitive
+
+    Given path '/kort'
+    And param direction = 'ASC'
+    When method get
+    Then status 400
+    And match response ==
+    """
+    {
+        "status": "BAD_REQUEST",
+        "message": "getKort.direction: must match \"asc|desc\"",
+        "errors": [
+            "jakarta.validation.ConstraintViolationException: getKort.direction: must match \"asc|desc\""
+        ]
+    }
+    """
