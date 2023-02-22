@@ -1,15 +1,16 @@
 package dk.dataforsyningen.arkivmeta.apimodel;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
 public class AeldretopografiskekortDto extends KortDto {
   @Schema(description = "Det år den oprindelige opmåling til kortet blev afsluttet. Kortet kan senere være nymålt eller rettet.")
-  private Integer aarformaalt;
+  private BigDecimal aarformaalt;
 
   @Schema(description = "Det år kortet blev udgivet eller trykt. Kortene er udgivet efter deres opmåling og eventuelt genudgivet som følge af rettelser eller at kortet blev udsolgt.")
-  private Integer aarforudgivelse;
+  private BigDecimal aarforudgivelse;
 
   @Schema(description = "Kendt geografisk sted for at hjælpe, hvis titlen er et mindre kendt sted.")
   private String stedbetegnelse;
@@ -29,8 +30,8 @@ public class AeldretopografiskekortDto extends KortDto {
                                    String bemaerkning,
                                    List<String> daekningsomraade,
                                    List<String> filer,
-                                   Integer gaeldendefra,
-                                   Integer gaeldendetil,
+                                   BigDecimal gaeldendefra,
+                                   BigDecimal gaeldendetil,
                                    String geometri,
                                    String kortbladnummer,
                                    String kortvaerk,
@@ -41,8 +42,8 @@ public class AeldretopografiskekortDto extends KortDto {
                                    LocalDateTime registreringtil,
                                    String titel,
                                    String uniktkortnavn,
-                                   Integer aarformaalt,
-                                   Integer aarforudgivelse,
+                                   BigDecimal aarformaalt,
+                                   BigDecimal aarforudgivelse,
                                    String stedbetegnelse,
                                    String tegner, String udgiver) {
     super(id,
@@ -70,19 +71,19 @@ public class AeldretopografiskekortDto extends KortDto {
     this.udgiver = udgiver;
   }
 
-  public Integer getAarformaalt() {
+  public BigDecimal getAarformaalt() {
     return aarformaalt;
   }
 
-  public void setAarformaalt(Integer aarformaalt) {
+  public void setAarformaalt(BigDecimal aarformaalt) {
     this.aarformaalt = aarformaalt;
   }
 
-  public Integer getAarforudgivelse() {
+  public BigDecimal getAarforudgivelse() {
     return aarforudgivelse;
   }
 
-  public void setAarforudgivelse(Integer aarforudgivelse) {
+  public void setAarforudgivelse(BigDecimal aarforudgivelse) {
     this.aarforudgivelse = aarforudgivelse;
   }
 

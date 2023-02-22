@@ -12,6 +12,7 @@ import dk.dataforsyningen.arkivmeta.apimodel.MatrikelkortDto;
 import dk.dataforsyningen.arkivmeta.apimodel.SoekortDto;
 import dk.dataforsyningen.arkivmeta.apimodel.TematiskekortDto;
 import dk.dataforsyningen.arkivmeta.enums.Arketype;
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import org.jdbi.v3.core.mapper.RowMapper;
@@ -85,8 +86,8 @@ public class KortDtoMapper implements RowMapper<KortDto> {
     dto.setDaekningsomraade(
         mapperDaekningsomraade.mapDaekningsomraade(rs.getString("daekningsomraade")));
     dto.setFiler(mapperFiler.mapFiler(rs.getString("filer")));
-    dto.setGaeldendefra(rs.getInt("gaeldendeperiode_gaeldendefra"));
-    dto.setGaeldendetil(rs.getInt("gaeldendeperiode_gaeldendetil"));
+    dto.setGaeldendefra(rs.getBigDecimal("gaeldendeperiode_gaeldendefra"));
+    dto.setGaeldendetil(rs.getBigDecimal("gaeldendeperiode_gaeldendetil"));
     if (rs.getString("geometri") != null) {
       // Geometri in database is the database geomtry, but JDBI does not have map/converter for
       // that datatype, so we fetch it as a String, convert it to datatype Geometry
@@ -129,8 +130,8 @@ public class KortDtoMapper implements RowMapper<KortDto> {
     AeldretopografiskekortDto dto = mapKortDto(rs, ctx, new AeldretopografiskekortDto());
 
     // AeldretopografiskekortDto har nogle felter der skal sættes ud over hvad KortDto har
-    dto.setAarformaalt(rs.getInt("aarformaalt"));
-    dto.setAarforudgivelse(rs.getInt("aarforudgivelse"));
+    dto.setAarformaalt(rs.getBigDecimal("aarformaalt"));
+    dto.setAarforudgivelse(rs.getBigDecimal("aarforudgivelse"));
     dto.setStedbetegnelse(rs.getString("stedbetegnelse"));
     dto.setTegner(rs.getString("tegner"));
     dto.setUdgiver(rs.getString("udgiver"));
@@ -143,16 +144,16 @@ public class KortDtoMapper implements RowMapper<KortDto> {
     // Mapper db og giver en ny instans med af CentimeterkortDto
     CentimeterkortDto dto = mapKortDto(rs, ctx, new CentimeterkortDto());
 
-    dto.setAarforadministrativerettelser(rs.getInt("aarforadministrativerettelser"));
-    dto.setAarfordata(rs.getInt("aarfordata"));
-    dto.setAarforfotogrametriskudtegning(rs.getInt("aarforfotogrametriskudtegning"));
-    dto.setAarforfotorekogrettelser(rs.getInt("aarforfotorekogrettelser"));
-    dto.setAarforkompleteteretimarken(rs.getInt("aarforkompleteteretimarken"));
-    dto.setAarformaalt(rs.getInt("aarformaalt"));
-    dto.setAarforrevision(rs.getInt("aarforrevision"));
-    dto.setAarforudarbejdelse(rs.getInt("aarforudarbejdelse"));
-    dto.setAarforudgivelse(rs.getInt("aarforudgivelse"));
-    dto.setAarforvejdata(rs.getInt("aarforvejdata"));
+    dto.setAarforadministrativerettelser(rs.getBigDecimal("aarforadministrativerettelser"));
+    dto.setAarfordata(rs.getBigDecimal("aarfordata"));
+    dto.setAarforfotogrametriskudtegning(rs.getBigDecimal("aarforfotogrametriskudtegning"));
+    dto.setAarforfotorekogrettelser(rs.getBigDecimal("aarforfotorekogrettelser"));
+    dto.setAarforkompleteteretimarken(rs.getBigDecimal("aarforkompleteteretimarken"));
+    dto.setAarformaalt(rs.getBigDecimal("aarformaalt"));
+    dto.setAarforrevision(rs.getBigDecimal("aarforrevision"));
+    dto.setAarforudarbejdelse(rs.getBigDecimal("aarforudarbejdelse"));
+    dto.setAarforudgivelse(rs.getBigDecimal("aarforudgivelse"));
+    dto.setAarforvejdata(rs.getBigDecimal("aarforvejdata"));
     dto.setVersion(rs.getString("version"));
 
     return dto;
@@ -163,8 +164,8 @@ public class KortDtoMapper implements RowMapper<KortDto> {
     // Mapper db og giver en ny instans med af FaeroesketopokortDto
     FaeroesketopokortDto dto = mapKortDto(rs, ctx, new FaeroesketopokortDto());
 
-    dto.setAarformaalt(rs.getInt("aarformaalt"));
-    dto.setAarforudgivelse(rs.getInt("aarforudgivelse"));
+    dto.setAarformaalt(rs.getBigDecimal("aarformaalt"));
+    dto.setAarforudgivelse(rs.getBigDecimal("aarforudgivelse"));
     dto.setVersion(rs.getString("version"));
 
     return dto;
@@ -175,14 +176,14 @@ public class KortDtoMapper implements RowMapper<KortDto> {
     // Mapper db og giver en ny instans med af GroenlandtopokortDto
     GroenlandtopokortDto dto = mapKortDto(rs, ctx, new GroenlandtopokortDto());
 
-    dto.setAarforfotografering(rs.getInt("aarforfotografering"));
-    dto.setAarforlineaerrettelse(rs.getInt("aarforlineaerrettelse"));
-    dto.setAarformaalt(rs.getInt("aarformaalt"));
-    dto.setAarforpunktgrundlag(rs.getInt("aarforpunktgrundlag"));
-    dto.setAarforrevisonafnavnemm(rs.getInt("aarforrevisonafnavnemm"));
-    dto.setAarfortopografi(rs.getInt("aarfortopografi"));
-    dto.setAarforudgivelse(rs.getInt("aarforudgivelse"));
-    dto.setAarforudtegning(rs.getInt("aarforudtegning"));
+    dto.setAarforfotografering(rs.getBigDecimal("aarforfotografering"));
+    dto.setAarforlineaerrettelse(rs.getBigDecimal("aarforlineaerrettelse"));
+    dto.setAarformaalt(rs.getBigDecimal("aarformaalt"));
+    dto.setAarforpunktgrundlag(rs.getBigDecimal("aarforpunktgrundlag"));
+    dto.setAarforrevisonafnavnemm(rs.getBigDecimal("aarforrevisonafnavnemm"));
+    dto.setAarfortopografi(rs.getBigDecimal("aarfortopografi"));
+    dto.setAarforudgivelse(rs.getBigDecimal("aarforudgivelse"));
+    dto.setAarforudtegning(rs.getBigDecimal("aarforudtegning"));
     dto.setVersion(rs.getString("version"));
 
     return dto;
@@ -195,10 +196,10 @@ public class KortDtoMapper implements RowMapper<KortDto> {
 
     dto.setDaasenummer(rs.getString("daasenummer"));
     dto.setFarveskalatype(rs.getString("farveskalatype"));
-    dto.setFlyvehoejde(rs.getDouble("flyvehoejde"));
+    dto.setFlyvehoejde((Double) rs.getObject("flyvehoejde"));
     dto.setFlyverute(rs.getString("flyverute"));
-    dto.setFotocenterxkoordinat(rs.getDouble("fotocenterxkoordinat"));
-    dto.setFotocenterykoordinat(rs.getDouble("fotocenterykoordinat"));
+    dto.setFotocenterxkoordinat((Double) rs.getObject("fotocenterxkoordinat"));
+    dto.setFotocenterykoordinat((Double) rs.getObject("fotocenterykoordinat"));
     dto.setFotonummer(rs.getString("fotonummer"));
 
     if (rs.getTimestamp("fototid") != null) {
@@ -219,7 +220,7 @@ public class KortDtoMapper implements RowMapper<KortDto> {
     // Mapper db og giver en ny instans med af LandoekonomiskekortDto
     LandoekonomiskekortDto dto = mapKortDto(rs, ctx, new LandoekonomiskekortDto());
 
-    dto.setAarformaalt(rs.getInt("aarformaalt"));
+    dto.setAarformaalt(rs.getBigDecimal("aarformaalt"));
     dto.setTegner(rs.getString("tegner"));
 
     return dto;
@@ -230,14 +231,14 @@ public class KortDtoMapper implements RowMapper<KortDto> {
     // Mapper db og giver en ny instans med af MaalebordsbladeDto
     MaalebordsbladeDto dto = mapKortDto(rs, ctx, new MaalebordsbladeDto());
 
-    dto.setAarfordata(rs.getInt("aarfordata"));
-    dto.setAarforenkeltrettelser(rs.getInt("aarforenkeltrettelser"));
-    dto.setAarformaalt(rs.getInt("aarformaalt"));
-    dto.setAarforopmaalingsluttet(rs.getInt("aarforopmaalingsluttet"));
-    dto.setAarforrettelse(rs.getInt("aarforrettelse"));
-    dto.setAarforudarbejdelse(rs.getInt("aarforudarbejdelse"));
-    dto.setAarforudgivelse(rs.getInt("aarforudgivelse"));
-    dto.setAarforvejdata(rs.getInt("aarforvejdata"));
+    dto.setAarfordata(rs.getBigDecimal("aarfordata"));
+    dto.setAarforenkeltrettelser(rs.getBigDecimal("aarforenkeltrettelser"));
+    dto.setAarformaalt(rs.getBigDecimal("aarformaalt"));
+    dto.setAarforopmaalingsluttet(rs.getBigDecimal("aarforopmaalingsluttet"));
+    dto.setAarforrettelse(rs.getBigDecimal("aarforrettelse"));
+    dto.setAarforudarbejdelse(rs.getBigDecimal("aarforudarbejdelse"));
+    dto.setAarforudgivelse(rs.getBigDecimal("aarforudgivelse"));
+    dto.setAarforvejdata(rs.getBigDecimal("aarforvejdata"));
     dto.setTegner(rs.getString("tegner"));
     dto.setVersion(rs.getString("version"));
 
@@ -249,9 +250,9 @@ public class KortDtoMapper implements RowMapper<KortDto> {
     // Mapper db og giver en ny instans med af MatrikelkortDto
     MatrikelkortDto dto = mapKortDto(rs, ctx, new MatrikelkortDto());
 
-    dto.setAarforkortproeve(rs.getInt("aarforkortproeve"));
-    dto.setAarforopmaalingsluttet(rs.getInt("aarforopmaalingsluttet"));
-    dto.setAarforudskiftning(rs.getInt("aarforudskiftning"));
+    dto.setAarforkortproeve(rs.getBigDecimal("aarforkortproeve"));
+    dto.setAarforopmaalingsluttet(rs.getBigDecimal("aarforopmaalingsluttet"));
+    dto.setAarforudskiftning(rs.getBigDecimal("aarforudskiftning"));
     dto.setKortart(rs.getString("kortart"));
     dto.setKortdimensioner(rs.getString("kortdimensioner"));
     dto.setOpmaaltaf(rs.getString("opmaaltaf"));
@@ -266,9 +267,9 @@ public class KortDtoMapper implements RowMapper<KortDto> {
     // Mapper db og giver en ny instans med af SoekortDto
     SoekortDto dto = mapKortDto(rs, ctx, new SoekortDto());
 
-    dto.setAarforhenlaeggelse(rs.getInt("aarforhenlaeggelse"));
-    dto.setAarformaalt(rs.getInt("aarformaalt"));
-    dto.setAarforudgivelse(rs.getInt("aarforudgivelse"));
+    dto.setAarforhenlaeggelse(rs.getBigDecimal("aarforhenlaeggelse"));
+    dto.setAarformaalt(rs.getBigDecimal("aarformaalt"));
+    dto.setAarforudgivelse(rs.getBigDecimal("aarforudgivelse"));
     dto.setKortart(rs.getString("kortart"));
     dto.setSoeomraade(rs.getString("soeomraade"));
     dto.setTegner(rs.getString("tegner"));
@@ -282,8 +283,8 @@ public class KortDtoMapper implements RowMapper<KortDto> {
     // Mapper db og giver en ny instans med af TematiskekortDto
     TematiskekortDto dto = mapKortDto(rs, ctx, new TematiskekortDto());
 
-    dto.setAarforudarbejdetmateriale(rs.getInt("aarforudarbejdetmateriale"));
-    dto.setAarforudgivelse(rs.getInt("aarforudgivelse"));
+    dto.setAarforudarbejdetmateriale(rs.getBigDecimal("aarforudarbejdetmateriale"));
+    dto.setAarforudgivelse(rs.getBigDecimal("aarforudgivelse"));
 
     return dto;
   }

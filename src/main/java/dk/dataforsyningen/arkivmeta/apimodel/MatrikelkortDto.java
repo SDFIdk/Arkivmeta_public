@@ -1,18 +1,19 @@
 package dk.dataforsyningen.arkivmeta.apimodel;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
 public class MatrikelkortDto extends KortDto {
   @Schema(description = "Anvendes pt ikke.")
-  private Integer aarforkortproeve;
+  private BigDecimal aarforkortproeve;
 
   @Schema(description = "År for opmåling af matrikelkortet. Hvis kortet er opmålt i flere etaper, er det afslutningen på sidste etape.")
-  private Integer aarforopmaalingsluttet;
+  private BigDecimal aarforopmaalingsluttet;
 
   @Schema(description = "År for udskiftningen af den pågældende landsby eller ejerlav.")
-  private Integer aarforudskiftning;
+  private BigDecimal aarforudskiftning;
 
   @Schema(description = "Oplysninger vedr. produktionen af kortet, f.eks. om det er aktivt, henlagt el.lign.")
   private String kortart;
@@ -41,8 +42,8 @@ public class MatrikelkortDto extends KortDto {
                          String bemaerkning,
                          List<String> daekningsomraade,
                          List<String> filer,
-                         Integer gaeldendefra,
-                         Integer gaeldendetil,
+                         BigDecimal gaeldendefra,
+                         BigDecimal gaeldendetil,
                          String geometri,
                          String kortbladnummer,
                          String kortvaerk,
@@ -53,9 +54,9 @@ public class MatrikelkortDto extends KortDto {
                          LocalDateTime registreringtil,
                          String titel,
                          String uniktkortnavn,
-                         Integer aarforkortproeve,
-                         Integer aarforopmaalingsluttet,
-                         Integer aarforudskiftning,
+                         BigDecimal aarforkortproeve,
+                         BigDecimal aarforopmaalingsluttet,
+                         BigDecimal aarforudskiftning,
                          String kortart,
                          String kortdimensioner,
                          String opmaaltaf,
@@ -91,27 +92,27 @@ public class MatrikelkortDto extends KortDto {
     this.udskiftetaf = udskiftetaf;
   }
 
-  public Integer getAarforkortproeve() {
+  public BigDecimal getAarforkortproeve() {
     return aarforkortproeve;
   }
 
-  public void setAarforkortproeve(Integer aarforkortproeve) {
+  public void setAarforkortproeve(BigDecimal aarforkortproeve) {
     this.aarforkortproeve = aarforkortproeve;
   }
 
-  public Integer getAarforopmaalingsluttet() {
+  public BigDecimal getAarforopmaalingsluttet() {
     return aarforopmaalingsluttet;
   }
 
-  public void setAarforopmaalingsluttet(Integer aarforopmaalingsluttet) {
+  public void setAarforopmaalingsluttet(BigDecimal aarforopmaalingsluttet) {
     this.aarforopmaalingsluttet = aarforopmaalingsluttet;
   }
 
-  public Integer getAarforudskiftning() {
+  public BigDecimal getAarforudskiftning() {
     return aarforudskiftning;
   }
 
-  public void setAarforudskiftning(Integer aarforudskiftning) {
+  public void setAarforudskiftning(BigDecimal aarforudskiftning) {
     this.aarforudskiftning = aarforudskiftning;
   }
 

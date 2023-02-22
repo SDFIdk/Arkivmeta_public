@@ -1,6 +1,7 @@
 package dk.dataforsyningen.arkivmeta.apimodel;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -24,10 +25,10 @@ public abstract class KortDto {
   protected List<String> filer;
 
   @Schema(description = "Starttid for kortets gyldighedsperiode. Angives i hele år. Gyldighedsperiodens starttid er et korts trykke-, tegne-, optage- eller opmålingsår – dvs. det år hvor kortet kan siges at være nyeste kort.")
-  protected Integer gaeldendefra;
+  protected BigDecimal gaeldendefra;
 
   @Schema(description = "Sluttid for kortets gyldighedsperiode. Angives i hele år. Typisk fordi kortet erstattes af et nyere. Hvis der ikke er fundet en specifik gældende til periode angives et årstal der ligger 50 år efter gældende fra.")
-  protected Integer gaeldendetil;
+  protected BigDecimal gaeldendetil;
 
   @Schema(description = "Det geografiske område, ofte en polygon, som kortet ligger indenfor. WKT med SRS = EPSG:4326")
   protected String geometri;
@@ -69,8 +70,8 @@ public abstract class KortDto {
                  String bemaerkning,
                  List<String> daekningsomraade,
                  List<String> filer,
-                 Integer gaeldendefra,
-                 Integer gaeldendetil,
+                 BigDecimal gaeldendefra,
+                 BigDecimal gaeldendetil,
                  String geometri,
                  String kortbladnummer,
                  String kortvaerk,
@@ -125,11 +126,11 @@ public abstract class KortDto {
     return filer;
   }
 
-  public Integer getGaeldendefra() {
+  public BigDecimal getGaeldendefra() {
     return gaeldendefra;
   }
 
-  public Integer getGaeldendetil() {
+  public BigDecimal getGaeldendetil() {
     return gaeldendetil;
   }
 
@@ -197,11 +198,11 @@ public abstract class KortDto {
     this.filer = filer;
   }
 
-  public void setGaeldendefra(Integer gaeldendefra) {
+  public void setGaeldendefra(BigDecimal gaeldendefra) {
     this.gaeldendefra = gaeldendefra;
   }
 
-  public void setGaeldendetil(Integer gaeldendetil) {
+  public void setGaeldendetil(BigDecimal gaeldendetil) {
     this.gaeldendetil = gaeldendetil;
   }
 

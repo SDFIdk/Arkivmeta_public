@@ -1,39 +1,40 @@
 package dk.dataforsyningen.arkivmeta.apimodel;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
 public class CentimeterkortDto extends KortDto {
   @Schema(description = "Året hvor administrative grænser er rettet på kortet.")
-  private Integer aarforadministrativerettelser;
+  private BigDecimal aarforadministrativerettelser;
 
   @Schema(description = "Kort udarbejdet på grundlag af data fra dette år eller data sammenstillet i dette år.")
-  private Integer aarfordata;
+  private BigDecimal aarfordata;
 
   @Schema(description = "År hvor kortet er lavet på basis af flyfoto.")
-  private Integer aarforfotogrametriskudtegning;
+  private BigDecimal aarforfotogrametriskudtegning;
 
   @Schema(description = "År hvor kortet er opdateret på basis af flyfoto.")
-  private Integer aarforfotorekogrettelser;
+  private BigDecimal aarforfotorekogrettelser;
 
   @Schema(description = "År, hvor kortet er opdateret efter opmåling i marken.")
-  private Integer aarforkompleteteretimarken;
+  private BigDecimal aarforkompleteteretimarken;
 
   @Schema(description = "Det år den oprindelige opmåling til kortet blev afsluttet.")
-  private Integer aarformaalt;
+  private BigDecimal aarformaalt;
 
   @Schema(description = "År for revision af kortet. En revision er typisk en kvalitetskontrol.")
-  private Integer aarforrevision;
+  private BigDecimal aarforrevision;
 
   @Schema(description = "Året hvor udarbejdelsen blev afsluttet første gang.")
-  private Integer aarforudarbejdelse;
+  private BigDecimal aarforudarbejdelse;
 
   @Schema(description = "Det år kortet blev udgivet eller trykt. Kortene er udgivet efter deres opmåling og eventuelt genudgivet som følge af rettelser eller at kortet blev udsolgt.")
-  private Integer aarforudgivelse;
+  private BigDecimal aarforudgivelse;
 
   @Schema(description = "År hvor kortet er opdateret med vejdata.")
-  private Integer aarforvejdata;
+  private BigDecimal aarforvejdata;
 
   @Schema(description = "Versionsnummer for kortet. Et kort kan være udgivet i flere versioner.")
   private String version;
@@ -47,8 +48,8 @@ public class CentimeterkortDto extends KortDto {
                            String bemaerkning,
                            List<String> daekningsomraade,
                            List<String> filer,
-                           Integer gaeldendefra,
-                           Integer gaeldendetil,
+                           BigDecimal gaeldendefra,
+                           BigDecimal gaeldendetil,
                            String geometri,
                            String kortbladnummer,
                            String kortvaerk,
@@ -59,16 +60,16 @@ public class CentimeterkortDto extends KortDto {
                            LocalDateTime registreringtil,
                            String titel,
                            String uniktkortnavn,
-                           Integer aarforadministrativerettelser,
-                           Integer aarfordata,
-                           Integer aarforfotogrametriskudtegning,
-                           Integer aarforfotorekogrettelser,
-                           Integer aarforkompleteteretimarken,
-                           Integer aarformaalt,
-                           Integer aarforrevision,
-                           Integer aarforudarbejdelse,
-                           Integer aarforudgivelse,
-                           Integer aarforvejdata,
+                           BigDecimal aarforadministrativerettelser,
+                           BigDecimal aarfordata,
+                           BigDecimal aarforfotogrametriskudtegning,
+                           BigDecimal aarforfotorekogrettelser,
+                           BigDecimal aarforkompleteteretimarken,
+                           BigDecimal aarformaalt,
+                           BigDecimal aarforrevision,
+                           BigDecimal aarforudarbejdelse,
+                           BigDecimal aarforudgivelse,
+                           BigDecimal aarforvejdata,
                            String version) {
     super(id,
         alternativtitel,
@@ -101,83 +102,83 @@ public class CentimeterkortDto extends KortDto {
     this.version = version;
   }
 
-  public Integer getAarforadministrativerettelser() {
+  public BigDecimal getAarforadministrativerettelser() {
     return aarforadministrativerettelser;
   }
 
-  public void setAarforadministrativerettelser(Integer aarforadministrativerettelser) {
+  public void setAarforadministrativerettelser(BigDecimal aarforadministrativerettelser) {
     this.aarforadministrativerettelser = aarforadministrativerettelser;
   }
 
-  public Integer getAarfordata() {
+  public BigDecimal getAarfordata() {
     return aarfordata;
   }
 
-  public void setAarfordata(Integer aarfordata) {
+  public void setAarfordata(BigDecimal aarfordata) {
     this.aarfordata = aarfordata;
   }
 
-  public Integer getAarforfotogrametriskudtegning() {
+  public BigDecimal getAarforfotogrametriskudtegning() {
     return aarforfotogrametriskudtegning;
   }
 
-  public void setAarforfotogrametriskudtegning(Integer aarforfotogrametriskudtegning) {
+  public void setAarforfotogrametriskudtegning(BigDecimal aarforfotogrametriskudtegning) {
     this.aarforfotogrametriskudtegning = aarforfotogrametriskudtegning;
   }
 
-  public Integer getAarforfotorekogrettelser() {
+  public BigDecimal getAarforfotorekogrettelser() {
     return aarforfotorekogrettelser;
   }
 
-  public void setAarforfotorekogrettelser(Integer aarforfotorekogrettelser) {
+  public void setAarforfotorekogrettelser(BigDecimal aarforfotorekogrettelser) {
     this.aarforfotorekogrettelser = aarforfotorekogrettelser;
   }
 
-  public Integer getAarforkompleteteretimarken() {
+  public BigDecimal getAarforkompleteteretimarken() {
     return aarforkompleteteretimarken;
   }
 
-  public void setAarforkompleteteretimarken(Integer aarforkompleteteretimarken) {
+  public void setAarforkompleteteretimarken(BigDecimal aarforkompleteteretimarken) {
     this.aarforkompleteteretimarken = aarforkompleteteretimarken;
   }
 
-  public Integer getAarformaalt() {
+  public BigDecimal getAarformaalt() {
     return aarformaalt;
   }
 
-  public void setAarformaalt(Integer aarformaalt) {
+  public void setAarformaalt(BigDecimal aarformaalt) {
     this.aarformaalt = aarformaalt;
   }
 
-  public Integer getAarforrevision() {
+  public BigDecimal getAarforrevision() {
     return aarforrevision;
   }
 
-  public void setAarforrevision(Integer aarforrevision) {
+  public void setAarforrevision(BigDecimal aarforrevision) {
     this.aarforrevision = aarforrevision;
   }
 
-  public Integer getAarforudarbejdelse() {
+  public BigDecimal getAarforudarbejdelse() {
     return aarforudarbejdelse;
   }
 
-  public void setAarforudarbejdelse(Integer aarforudarbejdelse) {
+  public void setAarforudarbejdelse(BigDecimal aarforudarbejdelse) {
     this.aarforudarbejdelse = aarforudarbejdelse;
   }
 
-  public Integer getAarforudgivelse() {
+  public BigDecimal getAarforudgivelse() {
     return aarforudgivelse;
   }
 
-  public void setAarforudgivelse(Integer aarforudgivelse) {
+  public void setAarforudgivelse(BigDecimal aarforudgivelse) {
     this.aarforudgivelse = aarforudgivelse;
   }
 
-  public Integer getAarforvejdata() {
+  public BigDecimal getAarforvejdata() {
     return aarforvejdata;
   }
 
-  public void setAarforvejdata(Integer aarforvejdata) {
+  public void setAarforvejdata(BigDecimal aarforvejdata) {
     this.aarforvejdata = aarforvejdata;
   }
 

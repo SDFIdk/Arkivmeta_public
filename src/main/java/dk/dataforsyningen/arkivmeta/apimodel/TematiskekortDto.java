@@ -1,15 +1,16 @@
 package dk.dataforsyningen.arkivmeta.apimodel;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
 public class TematiskekortDto extends KortDto {
   @Schema(description = "Året hvor kortet blev færdigtegnet.")
-  private Integer aarforudarbejdetmateriale;
+  private BigDecimal aarforudarbejdetmateriale;
 
   @Schema(description = "Det år kortet blev udgivet eller trykt. Kortene er udgivet efter deres opmåling og eventuelt genudgivet som følge af rettelser eller at kortet blev udsolgt.")
-  private Integer aarforudgivelse;
+  private BigDecimal aarforudgivelse;
 
   public TematiskekortDto() {
   }
@@ -20,8 +21,8 @@ public class TematiskekortDto extends KortDto {
                           String bemaerkning,
                           List<String> daekningsomraade,
                           List<String> filer,
-                          Integer gaeldendefra,
-                          Integer gaeldendetil,
+                          BigDecimal gaeldendefra,
+                          BigDecimal gaeldendetil,
                           String geometri,
                           String kortbladnummer,
                           String kortvaerk,
@@ -32,8 +33,8 @@ public class TematiskekortDto extends KortDto {
                           LocalDateTime registreringtil,
                           String titel,
                           String uniktkortnavn,
-                          Integer aarforudarbejdetmateriale,
-                          Integer aarforudgivelse) {
+                          BigDecimal aarforudarbejdetmateriale,
+                          BigDecimal aarforudgivelse) {
     super(id,
         alternativtitel,
         arketype,
@@ -56,19 +57,19 @@ public class TematiskekortDto extends KortDto {
     this.aarforudgivelse = aarforudgivelse;
   }
 
-  public Integer getAarforudarbejdetmateriale() {
+  public BigDecimal getAarforudarbejdetmateriale() {
     return aarforudarbejdetmateriale;
   }
 
-  public void setAarforudarbejdetmateriale(Integer aarforudarbejdetmateriale) {
+  public void setAarforudarbejdetmateriale(BigDecimal aarforudarbejdetmateriale) {
     this.aarforudarbejdetmateriale = aarforudarbejdetmateriale;
   }
 
-  public Integer getAarforudgivelse() {
+  public BigDecimal getAarforudgivelse() {
     return aarforudgivelse;
   }
 
-  public void setAarforudgivelse(Integer aarforudgivelse) {
+  public void setAarforudgivelse(BigDecimal aarforudgivelse) {
     this.aarforudgivelse = aarforudgivelse;
   }
 }

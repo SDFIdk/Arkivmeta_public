@@ -1,12 +1,13 @@
 package dk.dataforsyningen.arkivmeta.apimodel;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
 public class LandoekonomiskekortDto extends KortDto {
   @Schema(description = "Det år den oprindelige opmåling til kortet blev afsluttet. Kortet kan senere være nymålt eller rettet.")
-  private Integer aarformaalt;
+  private BigDecimal aarformaalt;
 
   @Schema(description = "Navn på personen der har tegnet kortet, kortet kan være opmålt af en eller flere opmålere, evt. også af tegneren.")
   private String tegner;
@@ -20,8 +21,8 @@ public class LandoekonomiskekortDto extends KortDto {
                                 String bemaerkning,
                                 List<String> daekningsomraade,
                                 List<String> filer,
-                                Integer gaeldendefra,
-                                Integer gaeldendetil,
+                                BigDecimal gaeldendefra,
+                                BigDecimal gaeldendetil,
                                 String geometri,
                                 String kortbladnummer,
                                 String kortvaerk,
@@ -32,7 +33,7 @@ public class LandoekonomiskekortDto extends KortDto {
                                 LocalDateTime registreringtil,
                                 String titel,
                                 String uniktkortnavn,
-                                Integer aarformaalt,
+                                BigDecimal aarformaalt,
                                 String tegner) {
     super(id,
         alternativtitel,
@@ -56,11 +57,11 @@ public class LandoekonomiskekortDto extends KortDto {
     this.tegner = tegner;
   }
 
-  public Integer getAarformaalt() {
+  public BigDecimal getAarformaalt() {
     return aarformaalt;
   }
 
-  public void setAarformaalt(Integer aarformaalt) {
+  public void setAarformaalt(BigDecimal aarformaalt) {
     this.aarformaalt = aarformaalt;
   }
 

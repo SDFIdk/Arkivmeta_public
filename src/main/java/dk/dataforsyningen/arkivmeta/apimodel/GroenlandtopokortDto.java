@@ -1,33 +1,34 @@
 package dk.dataforsyningen.arkivmeta.apimodel;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
 public class GroenlandtopokortDto extends KortDto {
   @Schema(description = "År for optagelse af flyfoto til brug for produktion af kortet.")
-  private Integer aarforfotografering;
+  private BigDecimal aarforfotografering;
 
   @Schema(description = "År for rettelser på grundlag af lodret fotografering.")
-  private Integer aarforlineaerrettelse;
+  private BigDecimal aarforlineaerrettelse;
 
   @Schema(description = "Det år den oprindelige opmåling til kortet blev afsluttet. Kortet kan senere være nymålt eller rettet.")
-  private Integer aarformaalt;
+  private BigDecimal aarformaalt;
 
   @Schema(description = "År hvor kortets punktgrundlag er skabt eller opdateret.")
-  private Integer aarforpunktgrundlag;
+  private BigDecimal aarforpunktgrundlag;
 
   @Schema(description = "År for revision af bebyggelsesnavne og andre topografiske enkeltheder.")
-  private Integer aarforrevisonafnavnemm;
+  private BigDecimal aarforrevisonafnavnemm;
 
   @Schema(description = "År hvor kortets topografiske elementer er kortlagt eller opdateret.")
-  private Integer aarfortopografi;
+  private BigDecimal aarfortopografi;
 
   @Schema(description = "Det år kortet blev udgivet eller trykt. Kortene er udgivet efter deres opmåling og eventuelt genudgivet som følge af rettelser eller at kortet blev udsolgt")
-  private Integer aarforudgivelse;
+  private BigDecimal aarforudgivelse;
 
   @Schema(description = "År for udtegning i 1:200000 på grundlag af skråfotografering.")
-  private Integer aarforudtegning;
+  private BigDecimal aarforudtegning;
 
   @Schema(description = "Versionsnummer for kortet. Et kort kan være udgivet i flere versioner.")
   private String version;
@@ -41,8 +42,8 @@ public class GroenlandtopokortDto extends KortDto {
                               String bemaerkning,
                               List<String> daekningsomraade,
                               List<String> filer,
-                              Integer gaeldendefra,
-                              Integer gaeldendetil,
+                              BigDecimal gaeldendefra,
+                              BigDecimal gaeldendetil,
                               String geometri,
                               String kortbladnummer,
                               String kortvaerk,
@@ -53,14 +54,14 @@ public class GroenlandtopokortDto extends KortDto {
                               LocalDateTime registreringtil,
                               String titel,
                               String uniktkortnavn,
-                              Integer aarforfotografering,
-                              Integer aarforlineaerrettelse,
-                              Integer aarformaalt,
-                              Integer aarforpunktgrundlag,
-                              Integer aarforrevisonafnavnemm,
-                              Integer aarfortopografi,
-                              Integer aarforudgivelse,
-                              Integer aarforudtegning,
+                              BigDecimal aarforfotografering,
+                              BigDecimal aarforlineaerrettelse,
+                              BigDecimal aarformaalt,
+                              BigDecimal aarforpunktgrundlag,
+                              BigDecimal aarforrevisonafnavnemm,
+                              BigDecimal aarfortopografi,
+                              BigDecimal aarforudgivelse,
+                              BigDecimal aarforudtegning,
                               String version) {
     super(id,
         alternativtitel,
@@ -91,67 +92,67 @@ public class GroenlandtopokortDto extends KortDto {
     this.version = version;
   }
 
-  public Integer getAarforfotografering() {
+  public BigDecimal getAarforfotografering() {
     return aarforfotografering;
   }
 
-  public void setAarforfotografering(Integer aarforfotografering) {
+  public void setAarforfotografering(BigDecimal aarforfotografering) {
     this.aarforfotografering = aarforfotografering;
   }
 
-  public Integer getAarforlineaerrettelse() {
+  public BigDecimal getAarforlineaerrettelse() {
     return aarforlineaerrettelse;
   }
 
-  public void setAarforlineaerrettelse(Integer aarforlineaerrettelse) {
+  public void setAarforlineaerrettelse(BigDecimal aarforlineaerrettelse) {
     this.aarforlineaerrettelse = aarforlineaerrettelse;
   }
 
-  public Integer getAarformaalt() {
+  public BigDecimal getAarformaalt() {
     return aarformaalt;
   }
 
-  public void setAarformaalt(Integer aarformaalt) {
+  public void setAarformaalt(BigDecimal aarformaalt) {
     this.aarformaalt = aarformaalt;
   }
 
-  public Integer getAarforpunktgrundlag() {
+  public BigDecimal getAarforpunktgrundlag() {
     return aarforpunktgrundlag;
   }
 
-  public void setAarforpunktgrundlag(Integer aarforpunktgrundlag) {
+  public void setAarforpunktgrundlag(BigDecimal aarforpunktgrundlag) {
     this.aarforpunktgrundlag = aarforpunktgrundlag;
   }
 
-  public Integer getAarforrevisonafnavnemm() {
+  public BigDecimal getAarforrevisonafnavnemm() {
     return aarforrevisonafnavnemm;
   }
 
-  public void setAarforrevisonafnavnemm(Integer aarforrevisonafnavnemm) {
+  public void setAarforrevisonafnavnemm(BigDecimal aarforrevisonafnavnemm) {
     this.aarforrevisonafnavnemm = aarforrevisonafnavnemm;
   }
 
-  public Integer getAarfortopografi() {
+  public BigDecimal getAarfortopografi() {
     return aarfortopografi;
   }
 
-  public void setAarfortopografi(Integer aarfortopografi) {
+  public void setAarfortopografi(BigDecimal aarfortopografi) {
     this.aarfortopografi = aarfortopografi;
   }
 
-  public Integer getAarforudgivelse() {
+  public BigDecimal getAarforudgivelse() {
     return aarforudgivelse;
   }
 
-  public void setAarforudgivelse(Integer aarforudgivelse) {
+  public void setAarforudgivelse(BigDecimal aarforudgivelse) {
     this.aarforudgivelse = aarforudgivelse;
   }
 
-  public Integer getAarforudtegning() {
+  public BigDecimal getAarforudtegning() {
     return aarforudtegning;
   }
 
-  public void setAarforudtegning(Integer aarforudtegning) {
+  public void setAarforudtegning(BigDecimal aarforudtegning) {
     this.aarforudtegning = aarforudtegning;
   }
 

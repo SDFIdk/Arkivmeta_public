@@ -1,6 +1,7 @@
 package dk.dataforsyningen.arkivmeta.apimodel;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -47,8 +48,8 @@ public class HistoriskeflyfotoDto extends KortDto {
                               String bemaerkning,
                               List<String> daekningsomraade,
                               List<String> filer,
-                              Integer gaeldendefra,
-                              Integer gaeldendetil,
+                              BigDecimal gaeldendefra,
+                              BigDecimal gaeldendetil,
                               String geometri,
                               String kortbladnummer,
                               String kortvaerk,

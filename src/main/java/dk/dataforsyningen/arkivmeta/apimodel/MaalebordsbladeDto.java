@@ -1,33 +1,34 @@
 package dk.dataforsyningen.arkivmeta.apimodel;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
 public class MaalebordsbladeDto extends KortDto {
   @Schema(description = "Kort udarbejdet på grundlag af data fra dette år eller data sammenstillet i dette år.")
-  private Integer aarfordata;
+  private BigDecimal aarfordata;
 
   @Schema(description = "År for opdatering af kortet med enkelte rettelser, f.eks. en ny bro.")
-  private Integer aarforenkeltrettelser;
+  private BigDecimal aarforenkeltrettelser;
 
   @Schema(description = "Det år den oprindelige opmåling til kortet blev afsluttet. Kortet kan senere være nymålt eller rettet.")
-  private Integer aarformaalt;
+  private BigDecimal aarformaalt;
 
   @Schema(description = "År for opmåling af matrikelkortet. Hvis kortet er opmålt i flere etaper, er det afslutningen på sidste etape.")
-  private Integer aarforopmaalingsluttet;
+  private BigDecimal aarforopmaalingsluttet;
 
   @Schema(description = "År for opdatering af kortet med rettelser, typisk efter at kontrolmålinger er udført.")
-  private Integer aarforrettelse;
+  private BigDecimal aarforrettelse;
 
   @Schema(description = "Året hvor udarbejdelsen blev afsluttet første gang.")
-  private Integer aarforudarbejdelse;
+  private BigDecimal aarforudarbejdelse;
 
   @Schema(description = "Det år kortet blev udgivet eller trykt. Kortene er udgivet efter deres opmåling og eventuelt genudgivet som følge af rettelser eller at kortet blev udsolgt.")
-  private Integer aarforudgivelse;
+  private BigDecimal aarforudgivelse;
 
   @Schema(description = "År hvor kortet er opdateret med vejdata.")
-  private Integer aarforvejdata;
+  private BigDecimal aarforvejdata;
 
   @Schema(description = "Navn på personen der har tegnet kortet, kortet kan være opmålt af en eller flere opmålere, evt. også af tegneren.")
   private String tegner;
@@ -44,8 +45,8 @@ public class MaalebordsbladeDto extends KortDto {
                             String bemaerkning,
                             List<String> daekningsomraade,
                             List<String> filer,
-                            Integer gaeldendefra,
-                            Integer gaeldendetil,
+                            BigDecimal gaeldendefra,
+                            BigDecimal gaeldendetil,
                             String geometri,
                             String kortbladnummer,
                             String kortvaerk,
@@ -56,14 +57,14 @@ public class MaalebordsbladeDto extends KortDto {
                             LocalDateTime registreringtil,
                             String titel,
                             String uniktkortnavn,
-                            Integer aarfordata,
-                            Integer aarforenkeltrettelser,
-                            Integer aarformaalt,
-                            Integer aarforopmaalingsluttet,
-                            Integer aarforrettelse,
-                            Integer aarforudarbejdelse,
-                            Integer aarforudgivelse,
-                            Integer aarforvejdata,
+                            BigDecimal aarfordata,
+                            BigDecimal aarforenkeltrettelser,
+                            BigDecimal aarformaalt,
+                            BigDecimal aarforopmaalingsluttet,
+                            BigDecimal aarforrettelse,
+                            BigDecimal aarforudarbejdelse,
+                            BigDecimal aarforudgivelse,
+                            BigDecimal aarforvejdata,
                             String tegner,
                             String version) {
     super(id,
@@ -96,67 +97,67 @@ public class MaalebordsbladeDto extends KortDto {
     this.version = version;
   }
 
-  public Integer getAarfordata() {
+  public BigDecimal getAarfordata() {
     return aarfordata;
   }
 
-  public void setAarfordata(Integer aarfordata) {
+  public void setAarfordata(BigDecimal aarfordata) {
     this.aarfordata = aarfordata;
   }
 
-  public Integer getAarforenkeltrettelser() {
+  public BigDecimal getAarforenkeltrettelser() {
     return aarforenkeltrettelser;
   }
 
-  public void setAarforenkeltrettelser(Integer aarforenkeltrettelser) {
+  public void setAarforenkeltrettelser(BigDecimal aarforenkeltrettelser) {
     this.aarforenkeltrettelser = aarforenkeltrettelser;
   }
 
-  public Integer getAarformaalt() {
+  public BigDecimal getAarformaalt() {
     return aarformaalt;
   }
 
-  public void setAarformaalt(Integer aarformaalt) {
+  public void setAarformaalt(BigDecimal aarformaalt) {
     this.aarformaalt = aarformaalt;
   }
 
-  public Integer getAarforopmaalingsluttet() {
+  public BigDecimal getAarforopmaalingsluttet() {
     return aarforopmaalingsluttet;
   }
 
-  public void setAarforopmaalingsluttet(Integer aarforopmaalingsluttet) {
+  public void setAarforopmaalingsluttet(BigDecimal aarforopmaalingsluttet) {
     this.aarforopmaalingsluttet = aarforopmaalingsluttet;
   }
 
-  public Integer getAarforrettelse() {
+  public BigDecimal getAarforrettelse() {
     return aarforrettelse;
   }
 
-  public void setAarforrettelse(Integer aarforrettelse) {
+  public void setAarforrettelse(BigDecimal aarforrettelse) {
     this.aarforrettelse = aarforrettelse;
   }
 
-  public Integer getAarforudarbejdelse() {
+  public BigDecimal getAarforudarbejdelse() {
     return aarforudarbejdelse;
   }
 
-  public void setAarforudarbejdelse(Integer aarforudarbejdelse) {
+  public void setAarforudarbejdelse(BigDecimal aarforudarbejdelse) {
     this.aarforudarbejdelse = aarforudarbejdelse;
   }
 
-  public Integer getAarforudgivelse() {
+  public BigDecimal getAarforudgivelse() {
     return aarforudgivelse;
   }
 
-  public void setAarforudgivelse(Integer aarforudgivelse) {
+  public void setAarforudgivelse(BigDecimal aarforudgivelse) {
     this.aarforudgivelse = aarforudgivelse;
   }
 
-  public Integer getAarforvejdata() {
+  public BigDecimal getAarforvejdata() {
     return aarforvejdata;
   }
 
-  public void setAarforvejdata(Integer aarforvejdata) {
+  public void setAarforvejdata(BigDecimal aarforvejdata) {
     this.aarforvejdata = aarforvejdata;
   }
 

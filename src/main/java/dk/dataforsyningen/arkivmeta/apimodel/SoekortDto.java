@@ -1,18 +1,19 @@
 package dk.dataforsyningen.arkivmeta.apimodel;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
 public class SoekortDto extends KortDto {
   @Schema(description = "Arkivteknisk betegnelse for kort der er gået i arkiv. 9999 anvendes for ukendt år.")
-  private Integer aarforhenlaeggelse;
+  private BigDecimal aarforhenlaeggelse;
 
   @Schema(description = "Det år den oprindelige opmåling til kortet blev afsluttet. Kortet kan senere være nymålt eller rettet.")
-  private Integer aarformaalt;
+  private BigDecimal aarformaalt;
 
   @Schema(description = "Det år kortet blev udgivet eller trykt. Kortene er udgivet efter deres opmåling og eventuelt genudgivet som følge af rettelser eller at kortet blev udsolgt.")
-  private Integer aarforudgivelse;
+  private BigDecimal aarforudgivelse;
 
   @Schema(description = "Oplysninger vedr. produktionen af kortet, f.eks. om det er aktivt, henlagt el.lign.")
   private String kortart;
@@ -35,8 +36,8 @@ public class SoekortDto extends KortDto {
                     String bemaerkning,
                     List<String> daekningsomraade,
                     List<String> filer,
-                    Integer gaeldendefra,
-                    Integer gaeldendetil,
+                    BigDecimal gaeldendefra,
+                    BigDecimal gaeldendetil,
                     String geometri,
                     String kortbladnummer,
                     String kortvaerk,
@@ -47,9 +48,9 @@ public class SoekortDto extends KortDto {
                     LocalDateTime registreringtil,
                     String titel,
                     String uniktkortnavn,
-                    Integer aarforhenlaeggelse,
-                    Integer aarformaalt,
-                    Integer aarforudgivelse,
+                    BigDecimal aarforhenlaeggelse,
+                    BigDecimal aarformaalt,
+                    BigDecimal aarforudgivelse,
                     String kortart,
                     String soeomraade,
                     String tegner,
@@ -81,27 +82,27 @@ public class SoekortDto extends KortDto {
     this.udgiver = udgiver;
   }
 
-  public Integer getAarforhenlaeggelse() {
+  public BigDecimal getAarforhenlaeggelse() {
     return aarforhenlaeggelse;
   }
 
-  public void setAarforhenlaeggelse(Integer aarforhenlaeggelse) {
+  public void setAarforhenlaeggelse(BigDecimal aarforhenlaeggelse) {
     this.aarforhenlaeggelse = aarforhenlaeggelse;
   }
 
-  public Integer getAarformaalt() {
+  public BigDecimal getAarformaalt() {
     return aarformaalt;
   }
 
-  public void setAarformaalt(Integer aarformaalt) {
+  public void setAarformaalt(BigDecimal aarformaalt) {
     this.aarformaalt = aarformaalt;
   }
 
-  public Integer getAarforudgivelse() {
+  public BigDecimal getAarforudgivelse() {
     return aarforudgivelse;
   }
 
-  public void setAarforudgivelse(Integer aarforudgivelse) {
+  public void setAarforudgivelse(BigDecimal aarforudgivelse) {
     this.aarforudgivelse = aarforudgivelse;
   }
 
