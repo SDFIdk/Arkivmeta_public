@@ -18,6 +18,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Pattern;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.http.HttpHeaders;
@@ -179,6 +180,7 @@ public class ArkivApiService {
       @RequestParam(required = false) List<String> daekningsomraade,
 
       @Parameter(description = "Sorteringsretning, 'asc' for stigende, 'desc' for faldende")
+      @Pattern(regexp = "asc|desc")
       @RequestParam(required = false, defaultValue = "asc") String direction,
 
       @Parameter(description = "Fritekstsøgning")

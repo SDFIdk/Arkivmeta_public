@@ -3,6 +3,7 @@ package dk.dataforsyningen.arkivmeta.apimodel;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Pattern;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,6 +15,7 @@ public class KortParam {
   private List<String> daekningsomraade;
 
   @Schema(description = "Sorteringsretning, 'asc' for stigende, 'desc' for faldende")
+  @Pattern(regexp = "asc|desc")
   private String direction;
 
   @Schema(description = "Fritekstsøgning")

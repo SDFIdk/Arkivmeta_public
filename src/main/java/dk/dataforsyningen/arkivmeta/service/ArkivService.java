@@ -142,11 +142,6 @@ public class ArkivService implements IArkivService {
    */
   @Cacheable(cacheNames = "kort", key = "#kortParam")
   public KortResult getKortResult(KortParam kortParam) {
-    
-    Set<String> sortDirections = Set.of("asc", "desc");
-    if (!sortDirections.contains(kortParam.getDirection())) {
-      throw new IllegalArgumentException("direction must be: asc or desc");
-    }
 
     Geometry area = new GeometryFactory().createGeometry(null);
     if (StringUtils.isNotBlank(kortParam.getGeometri())) {
