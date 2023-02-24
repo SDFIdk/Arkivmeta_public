@@ -12,7 +12,7 @@ import org.locationtech.jts.geom.Geometry;
 
 // For printing sql statements
 //@LogSqlFactory
-public interface IKortDBDao {
+public interface IKortDao {
 
   /**
    * @RegisterRowMapper use the registered mapper to map the select columns from the database to GetOrderDto

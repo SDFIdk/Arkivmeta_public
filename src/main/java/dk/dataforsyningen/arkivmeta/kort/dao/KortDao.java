@@ -10,19 +10,19 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class KortDBDao implements IKortDBDao {
+public class KortDao implements IKortDao {
 
   @Qualifier("arkivmetaJdbi")
   private final Jdbi arkivmetaJdbi;
 
   @Autowired
-  public KortDBDao(@Qualifier("arkivmetaJdbi") Jdbi arkivmetaJdbi) {
+  public KortDao(@Qualifier("arkivmetaJdbi") Jdbi arkivmetaJdbi) {
     this.arkivmetaJdbi = arkivmetaJdbi;
   }
 
   @Override
   public Optional<KortDto> getKortById(String id) {
-    return arkivmetaJdbi.withExtension(IKortDBDao.class, dao -> dao.getKortById(id));
+    return arkivmetaJdbi.withExtension(IKortDao.class, dao -> dao.getKortById(id));
   }
 
   @Override
@@ -32,7 +32,7 @@ public class KortDBDao implements IKortDBDao {
                                   String kortvaerk, List<String> maalestok, String tegner,
                                   String titel, int limit, int offset, String sort,
                                   String direction) {
-    return arkivmetaJdbi.withExtension(IKortDBDao.class,
+    return arkivmetaJdbi.withExtension(IKortDao.class,
         dao -> dao.getAllKort(arketype, daekningsomraade, fritekstsoegning, gaeldendefra,
             gaeldendetil, area, kortbladnummer, kortvaerk, maalestok, tegner, titel, limit, offset,
             sort, direction));
@@ -44,7 +44,7 @@ public class KortDBDao implements IKortDBDao {
                        Integer gaeldendetil, Geometry area, String kortbladnummer,
                        String kortvaerk, List<String> maalestok, String tegner,
                        String titel, int limit, int offset) {
-    return arkivmetaJdbi.withExtension(IKortDBDao.class,
+    return arkivmetaJdbi.withExtension(IKortDao.class,
         dao -> dao.getCount(arketype, daekningsomraade, fritekstsoegning, gaeldendefra,
             gaeldendetil, area, kortbladnummer, kortvaerk, maalestok, tegner, titel, limit,
             offset));
