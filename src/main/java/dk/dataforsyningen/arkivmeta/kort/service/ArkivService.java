@@ -12,7 +12,7 @@ import dk.dataforsyningen.arkivmeta.kort.dao.IDaekningsomraadeDao;
 import dk.dataforsyningen.arkivmeta.kort.dao.IKortDBDao;
 import dk.dataforsyningen.arkivmeta.kort.dao.IKortvaerkerDao;
 import dk.dataforsyningen.arkivmeta.kort.dao.IMaalestokDao;
-import dk.dataforsyningen.arkivmeta.kort.rest.ArkivApiService;
+import dk.dataforsyningen.arkivmeta.kort.rest.ArkivApi;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -29,7 +29,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ArkivService implements IArkivService {
-  private static final Logger logger = LoggerFactory.getLogger(ArkivApiService.class);
+  private static final Logger logger = LoggerFactory.getLogger(ArkivApi.class);
   private final IArketypeDao iArketypeDao;
   private final IDaekningsomraadeDao iDaekningsomraadeDao;
   private final IKortDBDao iKortDBDao;

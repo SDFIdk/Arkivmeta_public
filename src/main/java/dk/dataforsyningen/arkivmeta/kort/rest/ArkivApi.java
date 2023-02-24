@@ -37,10 +37,10 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "ArkivApiService", description = "Arkiv metadata API")
 @RestController
 @Validated
-public class ArkivApiService {
+public class ArkivApi {
   private final IArkivService iArkivService;
 
-  public ArkivApiService(IArkivService iArkivService) {
+  public ArkivApi(IArkivService iArkivService) {
     this.iArkivService = iArkivService;
   }
 
