@@ -15,9 +15,6 @@ import org.locationtech.jts.geom.Geometry;
 public interface IKortDBDao {
 
   /**
-   * To @BindList we need to use < instead of :
-   * https://jdbi.org/#_binding_arguments_2
-   *
    * @RegisterRowMapper use the registered mapper to map the select columns from the database to GetOrderDto
    * https://jdbi.org/#_registerrowmapper
    * https://jdbi.org/#_getgeneratedkeys
@@ -29,7 +26,7 @@ public interface IKortDBDao {
       FROM
           arkivmeta.arkivmeta
       WHERE
-          id ILIKE :id
+          id = :id
       """)
   @RegisterRowMapper(KortDtoMapper.class)
   Optional<KortDto> getKortById(@Bind("id") String id);
