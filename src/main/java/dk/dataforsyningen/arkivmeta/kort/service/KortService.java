@@ -9,7 +9,7 @@ import dk.dataforsyningen.arkivmeta.kort.apimodel.KortvaerkDto;
 import dk.dataforsyningen.arkivmeta.kort.apimodel.MaalestokDto;
 import dk.dataforsyningen.arkivmeta.kort.dao.IArketypeDao;
 import dk.dataforsyningen.arkivmeta.kort.dao.IDaekningsomraadeDao;
-import dk.dataforsyningen.arkivmeta.kort.dao.IKortDBDao;
+import dk.dataforsyningen.arkivmeta.kort.dao.IKortDao;
 import dk.dataforsyningen.arkivmeta.kort.dao.IKortvaerkerDao;
 import dk.dataforsyningen.arkivmeta.kort.dao.IMaalestokDao;
 import dk.dataforsyningen.arkivmeta.kort.rest.KortApi;
@@ -32,7 +32,7 @@ public class KortService implements IKortService {
   private static final Logger logger = LoggerFactory.getLogger(KortApi.class);
   private final IArketypeDao iArketypeDao;
   private final IDaekningsomraadeDao iDaekningsomraadeDao;
-  private final IKortDBDao iKortDBDao;
+  private final IKortDao iKortDao;
   private final IKortvaerkerDao iKortvaerkerDao;
   private final IMaalestokDao iMaalestokDao;
 
@@ -48,12 +48,12 @@ public class KortService implements IKortService {
    */
   public KortService(@Qualifier("arketypeDao") IArketypeDao iArketypeDao,
                      @Qualifier("daekningsomraadeDao") IDaekningsomraadeDao iDaekningsomraadeDao,
-                     @Qualifier("kortDBDao") IKortDBDao iKortDBDao,
+                     @Qualifier("kortDao") IKortDao iKortDao,
                      @Qualifier("kortvaerkerDao") IKortvaerkerDao iKortvaerkerDao,
                      @Qualifier("maalestokDao") IMaalestokDao iMaalestokDao) {
     this.iArketypeDao = iArketypeDao;
     this.iDaekningsomraadeDao = iDaekningsomraadeDao;
-    this.iKortDBDao = iKortDBDao;
+    this.iKortDao = iKortDao;
     this.iKortvaerkerDao = iKortvaerkerDao;
     this.iMaalestokDao = iMaalestokDao;
   }
@@ -81,7 +81,7 @@ public class KortService implements IKortService {
   public KortDto getKortById(String arketype, String id) {
     String searchId = arketype + "/" + id;
 
-    Optional<KortDto> returnedKort = iKortDBDao.getKortById(searchId);
+    Optional<KortDto> returnedKort = iKortDao.getKortById(searchId);
 
     return returnedKort.orElseThrow(
         () -> new NoSuchElementException("Intet kort matchede det givne id: " + searchId));
@@ -156,7 +156,7 @@ public class KortService implements IKortService {
     String daekningsomraade = StringUtils.join(kortParam.getDaekningsomraade(), "|");
     String kortvaerk = StringUtils.join(kortParam.getKortvaerk(), "|");
 
-    List<KortDto> kortDtoList = iKortDBDao.getAllKort(
+    List<KortDto> kortDtoList = iKortDao.getAllKort(
         kortParam.getArketype(), daekningsomraade, kortParam.getFritekstsoegning(),
         kortParam.getGaeldendefra(), kortParam.getGaeldendetil(), area,
         kortParam.getKortbladnummer(), kortvaerk, kortParam.getMaalestok(), kortParam.getTegner(),
@@ -166,7 +166,7 @@ public class KortService implements IKortService {
     long count;
 
     if (kortDtoList.size() >= kortParam.getLimit()) {
-      count = iKortDBDao.getCount(kortParam.getArketype(), daekningsomraade,
+      count = iKortDao.getCount(kortParam.getArketype(), daekningsomraade,
           kortParam.getFritekstsoegning(), kortParam.getGaeldendefra(), kortParam.getGaeldendetil(),
           area, kortParam.getKortbladnummer(), kortvaerk, kortParam.getMaalestok(),
           kortParam.getTegner(), kortParam.getTitel(), kortParam.getLimit(), kortParam.getOffset());

@@ -120,7 +120,7 @@ public class KortDtoMapper implements RowMapper<KortDto> {
   }
 
   /**
-   * Map AeldretopografiskekortDB to AeldretopografiskekortDto
+   * Map Aeldretopografiskekort to AeldretopografiskekortDto
    *
    * @param
    * @return
