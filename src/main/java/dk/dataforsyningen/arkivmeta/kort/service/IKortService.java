@@ -9,7 +9,7 @@ import dk.dataforsyningen.arkivmeta.kort.apimodel.KortvaerkDto;
 import dk.dataforsyningen.arkivmeta.kort.apimodel.MaalestokDto;
 import java.util.List;
 
-public interface IArkivService {
+public interface IKortService {
   List<ArketypeDto> getArketyper();
 
   KortDto getKortById(String arketype, String id);

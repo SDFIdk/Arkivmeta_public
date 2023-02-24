@@ -7,7 +7,7 @@ import dk.dataforsyningen.arkivmeta.kort.apimodel.KortParam;
 import dk.dataforsyningen.arkivmeta.kort.apimodel.KortResult;
 import dk.dataforsyningen.arkivmeta.kort.apimodel.KortvaerkDto;
 import dk.dataforsyningen.arkivmeta.kort.apimodel.MaalestokDto;
-import dk.dataforsyningen.arkivmeta.kort.service.IArkivService;
+import dk.dataforsyningen.arkivmeta.kort.service.IKortService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -34,14 +34,14 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-@Tag(name = "ArkivApi", description = "Kort metadata API")
+@Tag(name = "KortApi", description = "Kort metadata API")
 @RestController
 @Validated
-public class ArkivApi {
-  private final IArkivService iArkivService;
+public class KortApi {
+  private final IKortService iKortService;
 
-  public ArkivApi(IArkivService iArkivService) {
-    this.iArkivService = iArkivService;
+  public KortApi(IKortService iKortService) {
+    this.iKortService = iKortService;
   }
 
   /**
@@ -75,7 +75,7 @@ public class ArkivApi {
   @Operation(summary = "Hent arketyper", description = "Leverer en liste af tilgængelige arketyper")
   @CrossOrigin
   public List<String> arketyper() {
-    List<String> arketypeList = iArkivService.getArketyper()
+    List<String> arketypeList = iKortService.getArketyper()
         .stream()
         .map(ArketypeDto::getArketype)
         .collect(Collectors.toList());
@@ -90,7 +90,7 @@ public class ArkivApi {
   @Operation(summary = "Hent arketyper med underliggende kortværker", description = "Leverer en liste af tilgængelige arketyper, med de kortværker som hører til")
   @CrossOrigin
   public List<ArketypeDto> arketyperWithKortvaerker() {
-    List<ArketypeDto> arketypeList = iArkivService.getArketyper();
+    List<ArketypeDto> arketypeList = iKortService.getArketyper();
 
     return arketypeList;
   }
@@ -105,7 +105,7 @@ public class ArkivApi {
   public List<String> daekningsomraade(
       @Parameter(description = "Filtrer med søgestreng") @RequestParam(defaultValue = "")
           String daekningsomraade) {
-    List<String> daekningsomraadeList = iArkivService.getDaekningsomraader(daekningsomraade)
+    List<String> daekningsomraadeList = iKortService.getDaekningsomraader(daekningsomraade)
         .stream()
         .map(DaekningsomraadeDto::getDaekningsomraade)
         .collect(Collectors.toList());
@@ -124,7 +124,7 @@ public class ArkivApi {
       @RequestParam(defaultValue = "") String arketype,
       @Parameter(description = "Filtrer med søgestreng") @RequestParam(defaultValue = "")
           String kortvaerk) {
-    List<String> kortvaerkerList = iArkivService.getKortvaerker(arketype, kortvaerk)
+    List<String> kortvaerkerList = iKortService.getKortvaerker(arketype, kortvaerk)
         .stream()
         .map(KortvaerkDto::getKortvaerk)
         .collect(Collectors.toList());
@@ -141,7 +141,7 @@ public class ArkivApi {
   List<String> maalestok(
       @Parameter(description = "Filtrer med søgestreng") @RequestParam(defaultValue = "")
           String maalestok) {
-    List<String> maalestokList = iArkivService.getMaalestokke(maalestok)
+    List<String> maalestokList = iKortService.getMaalestokke(maalestok)
         .stream()
         .map(MaalestokDto::getMaalestok)
         .collect(Collectors.toList());
@@ -261,7 +261,7 @@ public class ArkivApi {
   ResponseEntity<KortResult> postKort(
       @Parameter(description = "kortParam er en pladsholder, der ikke benyttes, benyt samme parametre ved POST som ved GET")
       @Valid @RequestBody KortParam kortParam) {
-    KortResult kortresult = iArkivService.getKortResult(kortParam);
+    KortResult kortresult = iKortService.getKortResult(kortParam);
 
     return new ResponseEntity<>(kortresult, HttpStatus.OK);
   }
@@ -280,7 +280,7 @@ public class ArkivApi {
   ResponseEntity<KortDto> kortById(
       @Parameter(description = "arketype") @PathVariable String arketype,
       @Parameter(description = "id") @PathVariable String id) {
-    KortDto result = iArkivService.getKortById(arketype, id);
+    KortDto result = iKortService.getKortById(arketype, id);
 
     return new ResponseEntity<>(result, HttpStatus.OK);
   }

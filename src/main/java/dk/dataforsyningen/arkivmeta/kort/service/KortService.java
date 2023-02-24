@@ -12,7 +12,7 @@ import dk.dataforsyningen.arkivmeta.kort.dao.IDaekningsomraadeDao;
 import dk.dataforsyningen.arkivmeta.kort.dao.IKortDBDao;
 import dk.dataforsyningen.arkivmeta.kort.dao.IKortvaerkerDao;
 import dk.dataforsyningen.arkivmeta.kort.dao.IMaalestokDao;
-import dk.dataforsyningen.arkivmeta.kort.rest.ArkivApi;
+import dk.dataforsyningen.arkivmeta.kort.rest.KortApi;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -28,8 +28,8 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ArkivService implements IArkivService {
-  private static final Logger logger = LoggerFactory.getLogger(ArkivApi.class);
+public class KortService implements IKortService {
+  private static final Logger logger = LoggerFactory.getLogger(KortApi.class);
   private final IArketypeDao iArketypeDao;
   private final IDaekningsomraadeDao iDaekningsomraadeDao;
   private final IKortDBDao iKortDBDao;
@@ -46,11 +46,11 @@ public class ArkivService implements IArkivService {
    * https://stackoverflow.com/questions/40620000/spring-autowire-on-properties-vs-constructor
    * https://reflectoring.io/constructor-injection/
    */
-  public ArkivService(@Qualifier("arketypeDao") IArketypeDao iArketypeDao,
-                      @Qualifier("daekningsomraadeDao") IDaekningsomraadeDao iDaekningsomraadeDao,
-                      @Qualifier("kortDBDao") IKortDBDao iKortDBDao,
-                      @Qualifier("kortvaerkerDao") IKortvaerkerDao iKortvaerkerDao,
-                      @Qualifier("maalestokDao") IMaalestokDao iMaalestokDao) {
+  public KortService(@Qualifier("arketypeDao") IArketypeDao iArketypeDao,
+                     @Qualifier("daekningsomraadeDao") IDaekningsomraadeDao iDaekningsomraadeDao,
+                     @Qualifier("kortDBDao") IKortDBDao iKortDBDao,
+                     @Qualifier("kortvaerkerDao") IKortvaerkerDao iKortvaerkerDao,
+                     @Qualifier("maalestokDao") IMaalestokDao iMaalestokDao) {
     this.iArketypeDao = iArketypeDao;
     this.iDaekningsomraadeDao = iDaekningsomraadeDao;
     this.iKortDBDao = iKortDBDao;
