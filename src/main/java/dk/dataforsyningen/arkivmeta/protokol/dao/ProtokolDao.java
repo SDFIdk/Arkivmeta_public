@@ -4,17 +4,19 @@ import dk.dataforsyningen.arkivmeta.protokol.apimodel.ProtokolDto;
 import java.util.Optional;
 import org.jdbi.v3.core.Jdbi;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class ProtokolDao implements IProtokolDao {
-  private final Jdbi protokolJdbi;
+  private final Jdbi arkivmetaJdbi;
 
   @Autowired
-  public ProtokolDao(Jdbi protokolJdbi) {
-    this.protokolJdbi = protokolJdbi;
+  public ProtokolDao(Jdbi arkivmetaJdbi) {
+    this.arkivmetaJdbi = arkivmetaJdbi;
   }
 
   @Override
   public Optional<ProtokolDto> getProtokolById(String id) {
-    return protokolJdbi.withExtension(IProtokolDao.class, dao -> dao.getProtokolById(id));
+    return arkivmetaJdbi.withExtension(IProtokolDao.class, dao -> dao.getProtokolById(id));
   }
 }
