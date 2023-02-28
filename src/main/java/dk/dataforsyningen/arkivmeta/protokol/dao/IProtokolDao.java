@@ -12,7 +12,7 @@ public interface IProtokolDao {
       SELECT
           *
       FROM
-          arkivmeta.protokoller
+          arkivmeta.protokoller.protokoller
       WHERE
           id = :id
   """)
