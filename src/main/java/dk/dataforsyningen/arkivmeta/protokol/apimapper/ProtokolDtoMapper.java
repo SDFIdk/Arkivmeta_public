@@ -1,5 +1,6 @@
 package dk.dataforsyningen.arkivmeta.protokol.apimapper;
 
+import dk.dataforsyningen.arkivmeta.enums.Dokumentsamling;
 import dk.dataforsyningen.arkivmeta.kort.apimapper.MapperDaekningsomraade;
 import dk.dataforsyningen.arkivmeta.kort.apimodel.KortDto;
 import dk.dataforsyningen.arkivmeta.mapperhelper.MapperFiler;
@@ -16,9 +17,22 @@ import org.locationtech.jts.io.WKBReader;
 
 public class ProtokolDtoMapper implements RowMapper<ProtokolDto> {
 
+  /**
+   * The mapper must have a default constructor https://jdbi.org/#_registerrowmapper
+   */
+  public ProtokolDtoMapper() {
+
+  }
+
   @Override
   public ProtokolDto map(ResultSet rs, StatementContext ctx) throws SQLException {
-    return null;
+    String dokumentsamling = rs.getString("dokumentsamling").toUpperCase();
+
+    Dokumentsamling type = Dokumentsamling.valueOf(dokumentsamling);
+    if (type == Dokumentsamling.HARTKORNSEKSTRAKT) {
+      return mapHartkornsEkstraktDto(rs, ctx);
+    }
+    throw new IllegalStateException("Could not resolve mapping strategy for object");
   }
 
   public <T extends ProtokolDto> T mapProtokolDto(ResultSet rs, StatementContext ctx, T dto)
