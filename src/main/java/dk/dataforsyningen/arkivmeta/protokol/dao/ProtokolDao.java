@@ -4,14 +4,16 @@ import dk.dataforsyningen.arkivmeta.protokol.apimodel.ProtokolDto;
 import java.util.Optional;
 import org.jdbi.v3.core.Jdbi;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class ProtokolDao implements IProtokolDao {
+  @Qualifier("arkivmetaJdbi")
   private final Jdbi arkivmetaJdbi;
 
   @Autowired
-  public ProtokolDao(Jdbi arkivmetaJdbi) {
+  public ProtokolDao(@Qualifier("arkivmetaJdbi") Jdbi arkivmetaJdbi) {
     this.arkivmetaJdbi = arkivmetaJdbi;
   }
 
