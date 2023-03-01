@@ -21,6 +21,9 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Pattern;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -149,102 +152,13 @@ public class KortApi {
   }
 
   /**
-   * @param arketype         type of kort
-   * @param daekningsomraade
-   * @param titel
-   * @param kortvaerk
-   * @param gaeldendefra
-   * @param gaeldendetil
-   * @param geometri
-   * @param kortbladnummer
-   * @param maalestok
-   * @param offset
-   * @param limit
-   * @param sort
-   * @param direction
-   * @param requestHeaders   the clients request header
-   * @return the method postkort() that handles the request
+   * @return the method postKort() that handles the request
    */
   @GetMapping(path = "/kort")
-  @Operation(summary = "Liste af kort der matcher søgekriterierne", description = "Hvis gaeldendefra og gaeldendetil bliver brugt samtidig, er det alle kort, der er indenfor gyldighedperioden eller har været gældende fra eller gældende til i perioden")
+  @Operation(summary = "Liste af kort der matcher søgekriterierne", description = "Hvis gaeldendefra og gaeldendetil bliver brugt samtidig, er det alle kort, der er indenfor gyldighedsperioden eller har været gældende fra eller gældende til, i perioden")
   @CrossOrigin
-  ResponseEntity<KortResult> getKort(
-      @Parameter(description =
-          "Arketype, se /metadata/arketyper. Hvis der ønskes at søge på flere arketyper på en gang, skal man adskille hvert søgekriterie ved at bruge komma , . " +
-              "Eksempel: arketype=matrikelkort,centimeterkort.")
-      @RequestParam(required = false) List<String> arketype,
-
-      @Parameter(description =
-          "Dækningsområde, se /metadata/daekningsomraader. Hvis der ønskes at søge på flere dækningsområde på en gang, skal man adskille hvert søgekriterie ved at bruge , . " +
-              "Eksempel: daekningsomraade=Slesvig,Danmark")
-      @RequestParam(required = false) List<String> daekningsomraade,
-
-      @Parameter(description = "Sorteringsretning, 'asc' for stigende, 'desc' for faldende")
-      @Pattern(regexp = "asc|desc")
-      @RequestParam(required = false, defaultValue = "asc") String direction,
-
-      @Parameter(description = "Fritekstsøgning")
-      @RequestParam(required = false) String fritekstsoegning,
-
-      @Parameter(description = "Gyldig i år (åååå), eks. 1966")
-      @RequestParam(required = false) Integer gaeldendefra,
-
-      @Parameter(description = "Gyldig i år (åååå), eks. 1966")
-      @RequestParam(required = false) Integer gaeldendetil,
-
-      @Parameter(description = "Geometri angives som WKT med SRS = EPSG:4326. Bruges til at finde kort der indeholder denne polygon.")
-      @RequestParam(required = false) String geometri,
-
-      @Parameter(description = "Kortbladnummer")
-      @RequestParam(required = false) String kortbladnummer,
-
-      @Parameter(description =
-          "Kortværk. Hvis der ønskes at søge på flere kortværker på en gang, skal man angive `kortvaerk` query parameteren for hvert eneste en kortværk man vil søge efter." +
-              "Eksempel: kortvaerk=Trap, tegnede kort&kortvaerk=Mejer")
-      @RequestParam(required = false) List<String> kortvaerk,
-
-      @Parameter(description =
-          "Målestoksforhold. Hvis der ønskes at søge på flere målestoksforhold på en gang, skal man adskille hvert søgekriterie ved at bruge , . " +
-              "Eksempel: maalestok=1:40000,1:180000")
-      @RequestParam(required = false) List<String> maalestok,
-
-      @Parameter(description = "Sidestørrelse, dvs. hvor mange poster pr. side. Maximum = 1000")
-      @Min(1)
-      @Max(1000)
-      @RequestParam(required = false, defaultValue = "100") int limit,
-
-      @Parameter(description = "Offset, dvs. fra hvilken post")
-      @RequestParam(required = false, defaultValue = "0") int offset,
-
-      @Parameter(description = "Sorteringsfelt, kan sortere på følgende typer: arketype, daekningsomraade, gaeldendefra, gaeldendetil, id, kortvaerk, maalestok, titel")
-      @RequestParam(required = false) String sort,
-
-      @Parameter(description = "Tegner")
-      @RequestParam(required = false) String tegner,
-
-      @Parameter(description = "Titel")
-      @RequestParam(required = false) String titel,
-
-      @RequestHeader HttpHeaders requestHeaders) {
-    return postKort(
-        new KortParam(
-            arketype,
-            daekningsomraade,
-            direction,
-            fritekstsoegning,
-            gaeldendefra,
-            gaeldendetil,
-            geometri,
-            kortbladnummer,
-            kortvaerk,
-            maalestok,
-            limit,
-            offset,
-            sort,
-            tegner,
-            titel
-        )
-    );
+  ResponseEntity<KortResult> getKort(@Valid @ParameterObject KortParam kortParam) {
+    return postKort(kortParam);
   }
 
   /**
@@ -256,11 +170,21 @@ public class KortApi {
    * @return the kortresult with count of all kort matching search criteria and all kort matching search criteria. If not search criteria given then it returns all kort and the count
    */
   @PostMapping(path = "/kort")
-  @Operation(summary = "Liste af kort der matcher søgekriterierne")
+  @Operation(summary = "Liste af kort der matcher søgekriterierne", description = "Hvis gaeldendefra og gaeldendetil bliver brugt samtidig, er det alle kort, der er indenfor gyldighedsperioden eller har været gældende fra eller gældende til, i perioden")
   @CrossOrigin
   ResponseEntity<KortResult> postKort(
-      @Parameter(description = "kortParam er en pladsholder, der ikke benyttes, benyt samme parametre ved POST som ved GET")
       @Valid @RequestBody KortParam kortParam) {
+    // For GET and POST direction, limit and offset need a default value, but it should only be set,
+    // if the client did not specify them.
+    if (StringUtils.isBlank(kortParam.getDirection())) {
+      kortParam.setDirection("asc");
+    }
+    if (ObjectUtils.isEmpty(kortParam.getLimit())) {
+      kortParam.setLimit(100);
+    }
+    if (ObjectUtils.isEmpty(kortParam.getOffset())) {
+      kortParam.setOffset(0);
+    }
     KortResult kortresult = iKortService.getKortResult(kortParam);
 
     return new ResponseEntity<>(kortresult, HttpStatus.OK);
