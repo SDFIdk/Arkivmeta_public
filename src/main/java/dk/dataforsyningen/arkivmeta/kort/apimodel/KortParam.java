@@ -25,6 +25,7 @@ public class KortParam {
 
   @Schema(description = "Sorteringsretning, `asc` for stigende, `desc` for faldende", defaultValue = "asc")
   @Pattern(regexp = "asc|desc")
+  // How @Pattern works: https://stackoverflow.com/questions/4922655/javax-validation-to-validate-list-of-values
   private String direction;
 
   @Parameter(description = "Fritekstsøgning")

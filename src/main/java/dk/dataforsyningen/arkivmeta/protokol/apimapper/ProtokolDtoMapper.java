@@ -50,6 +50,7 @@ public class ProtokolDtoMapper implements RowMapper<ProtokolDto> {
     if (rs.getString("geometri") != null) {
       // Geometri in database is the database geomtry, but JDBI does not have map/converter for
       // that datatype, so we fetch it as a String, convert it to datatype Geometry
+      // https://github.com/jdbi/jdbi/blob/6210ddb7e9a6cfe91e1c4d76e1ac4bd8f67d2754/postgis/src/main/java/org/jdbi/v3/postgis/PostgisCodec.java
       byte[] bytes = hexStringToByteArray(rs.getString("geometri"));
 
       Geometry geometry = (deserialize(bytes));
