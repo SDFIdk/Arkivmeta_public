@@ -39,7 +39,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Tag(name = "KortApi", description = "Kort metadata API")
 @RestController
-@Validated
 public class KortApi {
   private final IKortService iKortService;
 
@@ -173,7 +172,7 @@ public class KortApi {
   @Operation(summary = "Liste af kort der matcher søgekriterierne", description = "Hvis gaeldendefra og gaeldendetil bliver brugt samtidig, er det alle kort, der er indenfor gyldighedsperioden eller har været gældende fra eller gældende til, i perioden")
   @CrossOrigin
   ResponseEntity<KortResult> postKort(
-      @Valid @RequestBody KortParam kortParam) {
+      @Valid @RequestBody @ParameterObject KortParam kortParam) {
     // For GET and POST direction, limit and offset need a default value, but it should only be set,
     // if the client did not specify them.
     if (StringUtils.isBlank(kortParam.getDirection())) {
