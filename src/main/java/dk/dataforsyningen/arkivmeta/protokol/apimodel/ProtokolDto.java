@@ -2,7 +2,6 @@ package dk.dataforsyningen.arkivmeta.protokol.apimodel;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
-import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.List;
 

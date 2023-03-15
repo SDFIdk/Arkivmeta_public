@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,7 +28,7 @@ public class ProtokolDao implements IProtokolDao {
 
   // @Override
   public List<ProtokolDto> getAllProtokoller(
-          String herredsnavn, int herredsnummer, String sognenavn ,int sogneid,
+          String herredsnavn, Integer herredsnummer, String sognenavn, Integer sogneid,
           Geometry area,
           List<String> dokumentsamling,
           int limit,
@@ -41,7 +42,7 @@ public class ProtokolDao implements IProtokolDao {
 
   // @Override
   public Long getCount(
-          String herredsnavn, int herredsnummer, String sognenavn, int sogneid,
+          String herredsnavn, Integer herredsnummer, String sognenavn, Integer sogneid,
           Geometry area,
           List<String> dokumentsamling,
           int limit,

@@ -40,7 +40,7 @@ public class SogneprotokolMapper implements RowMapper<SogneprotokolDto> {
         dto.setHerredsnavn(rs.getString("herredsnavn"));
         dto.setProtokoltype(rs.getString("protokoltype"));
         dto.setSognenavn(rs.getString("sognenavn"));
-        dto.setSogneid(rs.getInt("sogneid"));
+        dto.setSogneid(rs.getBigDecimal("sogneid"));
 
         return dto;
     }

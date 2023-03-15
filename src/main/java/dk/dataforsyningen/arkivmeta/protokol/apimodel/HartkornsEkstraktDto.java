@@ -1,6 +1,8 @@
 package dk.dataforsyningen.arkivmeta.protokol.apimodel;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -11,7 +13,7 @@ public class HartkornsEkstraktDto extends ProtokolDto {
     @Schema(description = "Navn på herredet")
     private String herredsnavn;
     @Schema(description = "Nummer")
-    private int herredsnummer;
+    private BigDecimal herredsnummer;
     @Schema(description = "Yngre eller ældre type")
     private String protokoltype;
 
@@ -29,7 +31,7 @@ public class HartkornsEkstraktDto extends ProtokolDto {
             List<String> filer,
             String dokumentsamling,
             String herredsnavn,
-            int herredsnummer,
+            BigDecimal herredsnummer,
             String protokoltype) {
          super(id,
               arketype,
@@ -63,8 +65,8 @@ public class HartkornsEkstraktDto extends ProtokolDto {
         this.herredsnavn = herredsnavn;
     }
 
-    public int getHerredsnummer() {return herredsnummer;}
-    public void setHerredsnummer(int herredsnummer) {this.herredsnummer = herredsnummer; }
+    public BigDecimal getHerredsnummer() {return herredsnummer;}
+    public void setHerredsnummer(BigDecimal herredsnummer) {this.herredsnummer = herredsnummer; }
 
     public String getProtokoltype() {
         return protokoltype;

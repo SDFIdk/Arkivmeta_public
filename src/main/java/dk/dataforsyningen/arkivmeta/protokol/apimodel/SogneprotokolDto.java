@@ -1,6 +1,8 @@
 package dk.dataforsyningen.arkivmeta.protokol.apimodel;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -18,7 +20,7 @@ public class SogneprotokolDto extends ProtokolDto {
     @Schema(description = "Navn på sognet")
     private String sognenavn;
     @Schema(description = "Nummer på sognet")
-    private int sogneid;
+    private BigDecimal sogneid;
 
 
     public SogneprotokolDto(){}
@@ -38,7 +40,7 @@ public class SogneprotokolDto extends ProtokolDto {
             String herredsnavn,
             String protokoltype,
             String sognenavn,
-            int sogneid) {
+            BigDecimal sogneid) {
         super(id,
                 arketype,
                 titel,
@@ -97,7 +99,7 @@ public class SogneprotokolDto extends ProtokolDto {
         this.sognenavn = sognenavn;
     }
 
-    public int getSogneid() {return sogneid;}
+    public BigDecimal getSogneid() {return sogneid;}
 
-    public void setSogneid(int sogneid) {this.sogneid = sogneid;}
+    public void setSogneid(BigDecimal sogneid) {this.sogneid = sogneid;}
 }

@@ -9,7 +9,7 @@ import org.jdbi.v3.sqlobject.customizer.Bind;
 import org.jdbi.v3.sqlobject.customizer.BindList;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.locationtech.jts.geom.Geometry;
-
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,21 +43,21 @@ public interface IProtokolDao {
    * https://jdbi.org/#_getgeneratedkeys
    * https://jdbi.org/#_timestamped
    */
-  @SqlQuery("""
+  @SqlQuery( """
       SELECT
           *
       FROM
-          arkivmeta.arkivmeta.protokoller
+          arkivmeta.protokoller.protokoller
       WHERE
-           (:herredsnavn IS NULL
+          (:herredsnavn IS NULL
               OR herredsnavn ILIKE '%' || :herredsnavn || '%')
           AND (:herredsnummer  IS NULL
-              OR herredsnummer  ILIKE :herredsnummer)
+              OR herredsnummer  = :herredsnummer)
           AND (:sognenavn IS NULL
               OR sognenavn ILIKE :sognenavn)
           AND (:sogneid IS NULL
-              OR sogneid ILIKE :sogneid)
-          AND (:area IS NULL
+              OR sogneid = :sogneid)
+          AND  (:area IS NULL
               OR ST_Intersects(geometri,
               ST_SetSRID(CAST(:area AS geometry),
               4326)))
@@ -70,22 +70,19 @@ public interface IProtokolDao {
           -- user value
           CASE
               WHEN (:direction = 'asc' AND :sort = 'herredsnavn') THEN herredsnavn
-              WHEN (:direction = 'asc' AND :sort = 'herredsnummer') THEN herredsnummer
+              WHEN (:direction = 'asc' AND :sort = 'herredsnummer') THEN herredsnummer::varchar
               WHEN (:direction = 'asc' AND :sort = 'sognenavn') THEN sognenavn
-              WHEN (:direction = 'asc' AND :sort = 'sogneid') THEN sogneid
+              WHEN (:direction = 'asc' AND :sort = 'sogneid') THEN sogneid::varchar
               WHEN (:direction = 'asc' AND :sort = 'dokumentsamling') THEN dokumentsamling
           END ASC,
           CASE
               WHEN (:direction = 'desc' AND :sort = 'herredsnavn') THEN herredsnavn
-              WHEN (:direction = 'desc' AND :sort = 'herredsnummer') THEN herredsnummer
+              WHEN (:direction = 'desc' AND :sort = 'herredsnummer') THEN herredsnummer::varchar
               WHEN (:direction = 'desc' AND :sort = 'sognenavn') THEN sognenavn
-              WHEN (:direction = 'desc' AND :sort = 'sogneid') THEN sogneid
+              WHEN (:direction = 'desc' AND :sort = 'sogneid') THEN sogneid::varchar
               WHEN (:direction = 'desc' AND :sort = 'dokumentsamling') THEN dokumentsamling
           END DESC,
-          CASE
-              WHEN :fritekstsoegning IS NOT NULL THEN ts_rank(fritekstsoegning, plainto_tsquery('danish', :fritekstsoegning))
-          END ASC,
-          -- There should always be an order by on id for consistent result because we have limit
+               -- There should always be an order by on id for consistent result because we have limit
           -- and offset
           CASE
               WHEN :direction = 'asc' THEN id
@@ -96,12 +93,12 @@ public interface IProtokolDao {
       LIMIT :limit
       OFFSET :offset
       """)
-  @RegisterRowMapper(KortDtoMapper.class)
+  @RegisterRowMapper(ProtokolDtoMapper.class)
   List<ProtokolDto> getAllProtokoller(
           @Bind("herredsnavn") String herredsnavn,
-          @Bind("herredsnummer") int herredsnummer,
+          @Bind("herredsnummer") Integer herredsnummer,
           @Bind("sognenavn") String sognenavn,
-          @Bind("sogneid") int sogneid,
+          @Bind("sogneid") Integer sogneid,
           @Bind("area") Geometry area,
           @BindList(value = "dokumentsamling", onEmpty = BindList.EmptyHandling.NULL_STRING)
               List<String> dokumentsamling,
@@ -113,14 +110,14 @@ public interface IProtokolDao {
 
   @SqlQuery("""
       SELECT
-        COUNT(*)
+          COUNT(*)
       FROM
-          arkivmeta.arkivmeta.protokoller
+          arkivmeta.protokoller.protokoller
       WHERE
            (:herredsnavn IS NULL
               OR herredsnavn ILIKE '%' || :herredsnavn || '%')
           AND (:herredsnummer  IS NULL
-              OR herredsnummer  ILIKE :herredsnummer)
+              OR herredsnummer  ILIKE :herredsnummer::integer)
           AND (:sognenavn IS NULL
               OR sognenavn ILIKE :sognenavn)
           AND (:sogneid IS NULL
@@ -138,21 +135,18 @@ public interface IProtokolDao {
           -- user value
           CASE
               WHEN (:direction = 'asc' AND :sort = 'herredsnavn') THEN herredsnavn
-              WHEN (:direction = 'asc' AND :sort = 'herredsnummer') THEN herredsnummer
+              WHEN (:direction = 'asc' AND :sort = 'herredsnummer') THEN herredsnummer::varchar
               WHEN (:direction = 'asc' AND :sort = 'sognenavn') THEN sognenavn
-              WHEN (:direction = 'asc' AND :sort = 'sogneid') THEN sogneid
+              WHEN (:direction = 'asc' AND :sort = 'sogneid') THEN sogneid::varchar
               WHEN (:direction = 'asc' AND :sort = 'dokumentsamling') THEN dokumentsamling
           END ASC,
           CASE
               WHEN (:direction = 'desc' AND :sort = 'herredsnavn') THEN herredsnavn
-              WHEN (:direction = 'desc' AND :sort = 'herredsnummer') THEN herredsnummer
+              WHEN (:direction = 'desc' AND :sort = 'herredsnummer') THEN herredsnummer::varchar
               WHEN (:direction = 'desc' AND :sort = 'sognenavn') THEN sognenavn
-              WHEN (:direction = 'desc' AND :sort = 'sogneid') THEN sogneid
+              WHEN (:direction = 'desc' AND :sort = 'sogneid') THEN sogneid::varchar
               WHEN (:direction = 'desc' AND :sort = 'dokumentsamling') THEN dokumentsamling
           END DESC,
-          CASE
-              WHEN :fritekstsoegning IS NOT NULL THEN ts_rank(fritekstsoegning, plainto_tsquery('danish', :fritekstsoegning))
-          END ASC,
           -- There should always be an order by on id for consistent result because we have limit
           -- and offset
           CASE
@@ -167,9 +161,9 @@ public interface IProtokolDao {
   @RegisterRowMapper(ProtokolDtoMapper.class)
   Long getCount(
           @Bind("herredsnavn") String herredsnavn,
-          @Bind("herredsnummer") int herredsnummer,
+          @Bind("herredsnummer") Integer herredsnummer,
           @Bind("sognenavn") String sognenavn,
-          @Bind("sogneid") int sogneid,
+          @Bind("sogneid") Integer sogneid,
           @Bind("area") Geometry area,
           @BindList(value = "dokumentsamling", onEmpty = BindList.EmptyHandling.NULL_STRING)
               List<String> dokumentsamling,
