@@ -18,14 +18,14 @@ public abstract class ProtokolDto {
   @Schema(description = "En eventuel anden titel protokollen kan have.")
   protected String alternativtitel;
 
-  @Schema(description = "<mangler beskrivelse>")
+  @Schema(description = "Gældende fra dette tidspunkt")
   protected LocalDateTime registreringfra;
 
-  @Schema(description = "<mangler beskrivelse>")
+  @Schema(description = "Ikke mere gældende")
   protected LocalDateTime registreringtil;
   @Schema(description = "Det navn, som entydigt definerer protokollen.")
   protected String uniktdokumentnavn;
-  @Schema(description = "<mangler beskrivelse>")
+  @Schema(description = "Sti til protokollen i filsystem")
   protected String stinavn;
 
   @Schema(description = "Det geografiske område, ofte en polygon, som kortet ligger indenfor. WKT med SRS = EPSG:4326")
