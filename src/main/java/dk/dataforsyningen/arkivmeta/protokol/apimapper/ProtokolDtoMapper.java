@@ -51,31 +51,11 @@ public class ProtokolDtoMapper implements RowMapper<ProtokolDto> {
         throw new IllegalStateException("Could not resolve mapping strategy for object");
     }
 
-  public <T extends ProtokolDto> T mapProtokolDto(ResultSet rs, StatementContext ctx, T dto)
-          throws SQLException {
-    MapperDaekningsomraade mapperDaekningsomraade = new MapperDaekningsomraade();
-    MapperFiler mapperFiler = new MapperFiler();
-    MapperGeometri mapperGeometri = new MapperGeometri();
-
-    dto.setAlternativtitel(rs.getString("alternativtitel"));
-
-    dto.setArketype(rs.getString("arketype"));
-    dto.setBemaerkning(rs.getString("bemaerkning"));
-
-
-    if (rs.getString("geometri") != null) {
-      // Geometri in database is the database geomtry, but JDBI does not have map/converter for
-      // that datatype, so we fetch it as a String, convert it to datatype Geometry
-      // https://github.com/jdbi/jdbi/blob/6210ddb7e9a6cfe91e1c4d76e1ac4bd8f67d2754/postgis/src/main/java/org/jdbi/v3/postgis/PostgisCodec.java
-      byte[] bytes = hexStringToByteArray(rs.getString("geometri"));
-
-      Geometry geometry = (deserialize(bytes));
-
-      // Then we take the geomtry and convert it to String as WKT formattet geomtry
-      dto.setGeometri(mapperGeometri.mapGeometri(geometry));
-    } else {
-      dto.setGeometri(mapperGeometri.mapGeometri(null));
-    }
+    public <T extends ProtokolDto> T mapProtokolDto(ResultSet rs, StatementContext ctx, T dto)
+            throws SQLException {
+        MapperDaekningsomraade mapperDaekningsomraade = new MapperDaekningsomraade();
+        MapperFiler mapperFiler = new MapperFiler();
+        dto.setArketype(rs.getString("arketype"));
 
         dto.setId(rs.getString("id"));
         dto.setArketype(rs.getString("arketype"));
