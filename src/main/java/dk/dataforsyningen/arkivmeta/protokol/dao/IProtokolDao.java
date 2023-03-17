@@ -63,7 +63,7 @@ public interface IProtokolDao {
               4326)))
           AND ((<dokumentsamling>) IS NULL
               OR dokumentsamling IN (<dokumentsamling>))
-             ORDER BY
+      ORDER BY
           -- Sql statements can not take user values and use them as column name. So we need to make
           -- a match with a CASE to map the user value to the correct column name.
           -- We also need to split ASC and DESC because it is SQL feature and can not be a given
@@ -117,18 +117,18 @@ public interface IProtokolDao {
            (:herredsnavn IS NULL
               OR herredsnavn ILIKE '%' || :herredsnavn || '%')
           AND (:herredsnummer  IS NULL
-              OR herredsnummer  ILIKE :herredsnummer::integer)
+              OR herredsnummer  = :herredsnummer)
           AND (:sognenavn IS NULL
               OR sognenavn ILIKE :sognenavn)
           AND (:sogneid IS NULL
-              OR sogneid ILIKE :sogneid)
+              OR sogneid = :sogneid)
           AND (:area IS NULL
               OR ST_Intersects(geometri,
               ST_SetSRID(CAST(:area AS geometry),
               4326)))
           AND ((<dokumentsamling>) IS NULL
               OR dokumentsamling IN (<dokumentsamling>))
-             ORDER BY
+      ORDER BY
           -- Sql statements can not take user values and use them as column name. So we need to make
           -- a match with a CASE to map the user value to the correct column name.
           -- We also need to split ASC and DESC because it is SQL feature and can not be a given
