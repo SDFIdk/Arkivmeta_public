@@ -128,33 +128,6 @@ public interface IProtokolDao {
               4326)))
           AND ((<dokumentsamling>) IS NULL
               OR dokumentsamling IN (<dokumentsamling>))
-      ORDER BY
-          -- Sql statements can not take user values and use them as column name. So we need to make
-          -- a match with a CASE to map the user value to the correct column name.
-          -- We also need to split ASC and DESC because it is SQL feature and can not be a given
-          -- user value
-          CASE
-              WHEN (:direction = 'asc' AND :sort = 'herredsnavn') THEN herredsnavn
-              WHEN (:direction = 'asc' AND :sort = 'herredsnummer') THEN herredsnummer::varchar
-              WHEN (:direction = 'asc' AND :sort = 'sognenavn') THEN sognenavn
-              WHEN (:direction = 'asc' AND :sort = 'sogneid') THEN sogneid::varchar
-              WHEN (:direction = 'asc' AND :sort = 'dokumentsamling') THEN dokumentsamling
-          END ASC,
-          CASE
-              WHEN (:direction = 'desc' AND :sort = 'herredsnavn') THEN herredsnavn
-              WHEN (:direction = 'desc' AND :sort = 'herredsnummer') THEN herredsnummer::varchar
-              WHEN (:direction = 'desc' AND :sort = 'sognenavn') THEN sognenavn
-              WHEN (:direction = 'desc' AND :sort = 'sogneid') THEN sogneid::varchar
-              WHEN (:direction = 'desc' AND :sort = 'dokumentsamling') THEN dokumentsamling
-          END DESC,
-          -- There should always be an order by on id for consistent result because we have limit
-          -- and offset
-          CASE
-              WHEN :direction = 'asc' THEN id
-          END ASC,
-          CASE
-              WHEN :direction = 'desc' THEN id
-          END DESC
       LIMIT :limit
       OFFSET :offset
       """)
