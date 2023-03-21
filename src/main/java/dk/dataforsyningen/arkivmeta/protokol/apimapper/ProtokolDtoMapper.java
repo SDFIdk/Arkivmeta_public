@@ -53,7 +53,6 @@ public class ProtokolDtoMapper implements RowMapper<ProtokolDto> {
 
     public <T extends ProtokolDto> T mapProtokolDto(ResultSet rs, StatementContext ctx, T dto)
             throws SQLException {
-        MapperDaekningsomraade mapperDaekningsomraade = new MapperDaekningsomraade();
         MapperFiler mapperFiler = new MapperFiler();
         dto.setArketype(rs.getString("arketype"));
 
