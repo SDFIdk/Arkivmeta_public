@@ -4,14 +4,11 @@ import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 
-@Component
 public class MapperFiler {
 
-  @Value("${ARKIVKORT_URL}")
-  private String arkivkortUrl;
+  public MapperFiler() {
+  }
 
   /**
    * Uses Base64url encoding so there is no / in the encoded String but instead _
@@ -30,7 +27,7 @@ public class MapperFiler {
     List<String> resultMapFiler = filer.stream()
         .map(s -> s.replace('\\', '/'))
         .map(s -> '/' + Base64.getUrlEncoder().encodeToString(s.getBytes(StandardCharsets.UTF_8)))
-        .map(s -> arkivkortUrl + s)
+        .map(s -> System.getenv().get("ARKIVKORT_URL") + s)
         .collect(Collectors.toList());
 
     return resultMapFiler;
