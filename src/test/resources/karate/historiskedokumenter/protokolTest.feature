@@ -11,12 +11,6 @@ Feature: Historiske Dokumenter API Integration Test
     Then status 200
     And match response.dokumenter == '#[100]'
 
-  Scenario: POST - Returns the 100 first json objects of all historiske dokumenter
-
-    Given path '/protokol'
-    When method post
-    Then status 200
-    And match response.dokumenter == '#[100]'
 
   Scenario: GET - Search not existing sognenavn
 
@@ -130,15 +124,12 @@ Feature: Historiske Dokumenter API Integration Test
     Given path '/protokol'
     And param limit = -1
     When method get
-    Then status 400
+    Then status 422
     And match response ==
     """
     {
-      "status": "BAD_REQUEST",
-      "message": "getProtokol.limit: must be greater than or equal to 1",
-      "errors": [
-      "jakarta.validation.ConstraintViolationException: getProtokol.limit: must be greater than or equal to 1"
-      ]
+      "status": "UNPROCESSABLE_ENTITY",
+      "errors": ["limit: skal være større end eller lig med 1"]
     }
     """
 
@@ -147,31 +138,40 @@ Feature: Historiske Dokumenter API Integration Test
     Given path '/protokol'
     And param limit = 1001
     When method get
-    Then status 400
+    Then status 422
     And match response ==
     """
     {
-        "status": "BAD_REQUEST",
-        "message": "getProtokol.limit: must be less than or equal to 1000",
-        "errors": [
-            "jakarta.validation.ConstraintViolationException: getProtokol.limit: must be less than or equal to 1000"
-        ]
+        "status": "UNPROCESSABLE_ENTITY",
+        "errors": ["limit: skal være mindre end eller lig med 1000"]
     }
     """
 
-  Scenario: direction casesensitive
+  Scenario: GET - direction casesensitive
 
     Given path '/protokol'
     And param direction = 'ASC'
     When method get
-    Then status 400
+    Then status 422
     And match response ==
     """
     {
-        "status": "BAD_REQUEST",
-        "message": "getProtokol.direction: must match \"asc|desc\"",
-        "errors": [
-            "jakarta.validation.ConstraintViolationException: getProtokol.direction: must match \"asc|desc\""
-        ]
+      "status": "UNPROCESSABLE_ENTITY",
+      "errors": ["direction: skal matche \"asc|desc\""]
+    }
+    """
+
+  Scenario: POST - direction casesensitive
+
+    Given path '/protokol'
+    And header Accept = 'application/json'
+    And request { direction: 'ASC' }
+    When method post
+    Then status 422
+    And match response ==
+    """
+    {
+      "status": "UNPROCESSABLE_ENTITY",
+      "errors": ["direction: skal matche \"asc|desc\""]
     }
     """
