@@ -173,53 +173,89 @@ Feature: Arkivmeta API Integration Test
     And match response.kort == '#[100]'
 
 
-  Scenario: Limit -1
+  Scenario: GET - Limit -1
 
     Given path '/kort'
     And param limit = -1
     When method get
-    Then status 400
+    Then status 422
     And match response ==
     """
     {
-      "status": "BAD_REQUEST",
-      "message": "getKort.limit: must be greater than or equal to 1",
-      "errors": [
-      "jakarta.validation.ConstraintViolationException: getKort.limit: must be greater than or equal to 1"
-      ]
+      "status": "UNPROCESSABLE_ENTITY",
+      "errors": ["limit: must be greater than or equal to 1"]
     }
     """
 
-  Scenario: Limit 1000
+  Scenario: POST - Limit -1
+
+    Given path '/kort'
+    And header Accept = 'application/json'
+    And request { limit: -1 }
+    When method post
+    Then status 422
+    And match response ==
+    """
+    {
+      "status": "UNPROCESSABLE_ENTITY",
+      "errors": ["limit: must be greater than or equal to 1"]
+    }
+    """
+
+  Scenario: GET - Limit 1001
 
     Given path '/kort'
     And param limit = 1001
     When method get
-    Then status 400
+    Then status 422
     And match response ==
     """
     {
-        "status": "BAD_REQUEST",
-        "message": "getKort.limit: must be less than or equal to 1000",
-        "errors": [
-            "jakarta.validation.ConstraintViolationException: getKort.limit: must be less than or equal to 1000"
-        ]
+      "status": "UNPROCESSABLE_ENTITY",
+      "errors": ["limit: must be less than or equal to 1000"]
     }
     """
 
-  Scenario: direction casesensitive
+  Scenario: POST - Limit 1001
+
+    Given path '/kort'
+    And header Accept = 'application/json'
+    And request { limit: 1001 }
+    When method post
+    Then status 422
+    And match response ==
+    """
+    {
+      "status": "UNPROCESSABLE_ENTITY",
+      "errors": ["limit: must be less than or equal to 1000"]
+    }
+    """
+
+  Scenario: GET - direction casesensitive
 
     Given path '/kort'
     And param direction = 'ASC'
     When method get
-    Then status 400
+    Then status 422
     And match response ==
     """
     {
-        "status": "BAD_REQUEST",
-        "message": "getKort.direction: must match \"asc|desc\"",
-        "errors": [
-            "jakarta.validation.ConstraintViolationException: getKort.direction: must match \"asc|desc\""
-        ]
+      "status": "UNPROCESSABLE_ENTITY",
+      "errors": ["direction: must match \"asc|desc\""]
+    }
+    """
+
+  Scenario: GET - direction casesensitive
+
+    Given path '/kort'
+    And header Accept = 'application/json'
+    And request { direction: 'ASC' }
+    When method post
+    Then status 422
+    And match response ==
+    """
+    {
+      "status": "UNPROCESSABLE_ENTITY",
+      "errors": ["direction: must match \"asc|desc\""]
     }
     """

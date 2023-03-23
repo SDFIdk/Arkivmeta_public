@@ -28,6 +28,12 @@ public class ErrorResponse {
     this.message = message;
   }
 
+  public ErrorResponse(HttpStatus status, List<String> errors) {
+    super();
+    this.status = status;
+    this.errors = errors;
+  }
+
   public ErrorResponse(HttpStatus status, String message, List<String> errors) {
     super();
     this.status = status;

@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.lang.NonNull;
+import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
@@ -38,6 +39,42 @@ public class ApiServiceAdvice extends ResponseEntityExceptionHandler {
   private static final String ERROR_STRING = "FEJL!";
 
   /**
+   * HttpStatus.UNPROCESSABLE_ENTITY = 422
+   *
+   * <p>BindException: This exception is thrown when argument annotated
+   * with @Valid failed validation
+   *
+   * @param exception BindException
+   * @param headers   HttpHeaders
+   * @param status    HttpStatus
+   * @param request   WebRequest
+   * @return ResponseEntity<Object>
+   */
+  @Override
+  protected ResponseEntity<Object> handleBindException(
+      BindException exception,
+      HttpHeaders headers,
+      HttpStatusCode status,
+      WebRequest request) {
+    List<String> errors = new ArrayList<>();
+
+    for (FieldError error : exception.getBindingResult().getFieldErrors()) {
+      errors.add(error.getField() + ": " + error.getDefaultMessage());
+    }
+
+    for (ObjectError error : exception.getBindingResult().getGlobalErrors()) {
+      errors.add(error.getObjectName() + ": " + error.getDefaultMessage());
+    }
+
+    ErrorResponse errorResponse =
+        new ErrorResponse(HttpStatus.UNPROCESSABLE_ENTITY, errors);
+    logger.info(ERROR_STRING, exception);
+    logger.info(ERROR_STRING, errors);
+    return handleExceptionInternal(
+        exception, errorResponse, headers, errorResponse.getStatus(), request);
+  }
+
+  /**
    * Indicates that the client closed the connection, so it does not make sense to return af response
    * to the client
    *
@@ -50,12 +87,17 @@ public class ApiServiceAdvice extends ResponseEntityExceptionHandler {
     logger.info(ERROR_STRING, exceptionCause);
   }
 
+  /**
+   * Gets triggered sometimes when values fail the validation check.
+   * @param exception
+   * @return ResponseEntity<ErrorResponse>
+   */
   @ExceptionHandler(ConstraintViolationException.class)
   ResponseEntity<ErrorResponse> handleConstraintViolationException(Exception exception) {
     String exceptionCause = getRootCause(exception).toString();
 
     ErrorResponse errorResponse =
-        new ErrorResponse(HttpStatus.BAD_REQUEST, exception.getMessage(), exceptionCause);
+        new ErrorResponse(HttpStatus.UNPROCESSABLE_ENTITY, exception.getMessage(), exceptionCause);
     logger.info(ERROR_STRING, exception);
     logger.info(ERROR_STRING, exceptionCause);
     return new ResponseEntity<>(errorResponse, errorResponse.getStatus());
@@ -157,9 +199,9 @@ public class ApiServiceAdvice extends ResponseEntityExceptionHandler {
     }
 
     ErrorResponse errorResponse =
-        new ErrorResponse(HttpStatus.UNPROCESSABLE_ENTITY, exception.getLocalizedMessage(), errors);
+        new ErrorResponse(HttpStatus.UNPROCESSABLE_ENTITY, errors);
     logger.info(ERROR_STRING, exception);
-    logger.info(ERROR_STRING + errors);
+    logger.info(ERROR_STRING, errors);
     return handleExceptionInternal(
         exception, errorResponse, headers, errorResponse.getStatus(), request);
   }
