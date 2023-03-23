@@ -18,6 +18,7 @@ public interface IMaalestokDao {
       SELECT maalestok
       FROM arkivmeta_latest.a_maalestok
       WHERE (:maalestok IS NULL OR maalestok ilike '%' || :maalestok || '%')
+      ORDER BY maalestok
       """)
   @RegisterRowMapper(MaalestokMapper.class)
   List<MaalestokDto> getMaalestok(String maalestok);
