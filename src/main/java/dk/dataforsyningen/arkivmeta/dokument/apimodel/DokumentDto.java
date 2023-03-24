@@ -55,13 +55,13 @@ public class DokumentDto {
   private String herredsnavn;
 
   @Schema(description = "Nummeret på herredet")
-  private Integer herredsnummer;
+  private Long herredsnummer;
 
   @Schema(description = "Gældende eller fra før udskiftning")
   private String protokoltype;
 
   @Schema(description = "Nummer på sognet")
-  private Integer sogneid;
+  private Long sogneid;
 
   @Schema(description = "Navn på sognet")
   private String sognenavn;
@@ -74,7 +74,7 @@ public class DokumentDto {
                      String uniktdokumentnavn, String stinavn, String bemaerkning,
                      String geometri, String omraade, List<String> filer, String datatype,
                      String filtype, String dokumentsamling, String herredsnavn,
-                     Integer herredsnummer, String protokoltype, Integer sogneid,
+                     Long herredsnummer, String protokoltype, Long sogneid,
                      String sognenavn) {
     this.id = id;
     this.arketype = arketype;
@@ -226,11 +226,11 @@ public class DokumentDto {
     this.herredsnavn = herredsnavn;
   }
 
-  public Integer getHerredsnummer() {
+  public Long getHerredsnummer() {
     return herredsnummer;
   }
 
-  public void setHerredsnummer(Integer herredsnummer) {
+  public void setHerredsnummer(Long herredsnummer) {
     this.herredsnummer = herredsnummer;
   }
 
@@ -242,11 +242,11 @@ public class DokumentDto {
     this.protokoltype = protokoltype;
   }
 
-  public Integer getSogneid() {
+  public Long getSogneid() {
     return sogneid;
   }
 
-  public void setSogneid(Integer sogneid) {
+  public void setSogneid(Long sogneid) {
     this.sogneid = sogneid;
   }
 
