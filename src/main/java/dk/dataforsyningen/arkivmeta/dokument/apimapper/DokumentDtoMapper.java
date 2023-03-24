@@ -59,9 +59,9 @@ public class DokumentDtoMapper implements RowMapper<DokumentDto> {
         dto.setFiltype(rs.getString("filtype"));
         dto.setDokumentsamling(rs.getString("dokumentsamling"));
         dto.setHerredsnavn(rs.getString("herredsnavn"));
-        dto.setHerredsnummer(rs.getInt("herredsnummer"));
+        dto.setHerredsnummer((Integer) rs.getObject("herredsnummer"));
         dto.setProtokoltype(rs.getString("protokoltype"));
-        dto.setSogneid(rs.getInt("sogneid"));
+        dto.setSogneid((Integer) rs.getObject("sogneid"));
         dto.setSognenavn(rs.getString("sognenavn"));
 
         return dto;
