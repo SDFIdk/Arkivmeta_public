@@ -1,9 +1,9 @@
-package dk.dataforsyningen.arkivmeta.protokol.service;
+package dk.dataforsyningen.arkivmeta.dokument.service;
 
-import dk.dataforsyningen.arkivmeta.protokol.apimodel.ProtokolDto;
-import dk.dataforsyningen.arkivmeta.protokol.apimodel.ProtokolParam;
-import dk.dataforsyningen.arkivmeta.protokol.apimodel.ProtokolResult;
-import dk.dataforsyningen.arkivmeta.protokol.dao.IProtokolDao;
+import dk.dataforsyningen.arkivmeta.dokument.apimodel.DokumentDto;
+import dk.dataforsyningen.arkivmeta.dokument.apimodel.DokumentParam;
+import dk.dataforsyningen.arkivmeta.dokument.apimodel.DokumentResult;
+import dk.dataforsyningen.arkivmeta.dokument.dao.IDokumentDao;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -17,18 +17,13 @@ import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.io.ParseException;
 import org.locationtech.jts.io.WKTReader;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.stereotype.Service;
 
 @Service
-public class ProtokolService implements IProtokolService {
-  private final IProtokolDao iProtokolDao;
+public class DokumentService implements IDokumentService {
+  private final IDokumentDao iDokumentDao;
 
-  public ProtokolService(@Qualifier("protokolDao") IProtokolDao iProtokolDao) {
-    this.iProtokolDao = iProtokolDao;
+  public DokumentService(@Qualifier("dokumentDao") IDokumentDao iDokumentDao) {
+    this.iDokumentDao = iDokumentDao;
   }
 
   /**
@@ -39,71 +34,71 @@ public class ProtokolService implements IProtokolService {
    *
    * @param arketype
    * @param id
-   * @return ProtokolDto with the matching datamodel of the protokol
+   * @return DokumentDto with the matching datamodel of the dokument
    */
 
 
   @Override
-  public ProtokolDto getProtokolById(String arketype, String id) {
+  public DokumentDto getDokumentById(String arketype, String id) {
     String searchId = arketype + "/" + id;
 
-    Optional<ProtokolDto> returnedProtokol = iProtokolDao.getProtokolById(searchId);
+    Optional<DokumentDto> returnedProtokol = iDokumentDao.getDokumentById(searchId);
 
     return returnedProtokol.orElseThrow(
-            () -> new NoSuchElementException("Ingen protokol matchede det givne id: " + searchId)
+            () -> new NoSuchElementException("Ingen dokument matchede det givne id: " + searchId)
     );
   }
 
   /**
    *
-   * @param protokolParam
+   * @param dokumentParam
    * @return the object with a list of kort that matched users requirements (up to 1000) and a total of how many
    * match result there was in total
    */
-  @Cacheable(cacheNames = "protokol", key = "#protokolParam")
-  public ProtokolResult getProtokolResult(ProtokolParam protokolParam) {
+  @Cacheable(cacheNames = "dokument", key = "#dokumentParam")
+  public DokumentResult getDokumentResult(DokumentParam dokumentParam) {
     Geometry area = new GeometryFactory().createGeometry(null);
-    if (StringUtils.isNotBlank(protokolParam.getGeometri())) {
+    if (StringUtils.isNotBlank(dokumentParam.getGeometri())) {
       try {
-        area = new WKTReader().read(protokolParam.getGeometri());
+        area = new WKTReader().read(dokumentParam.getGeometri());
       } catch (ParseException parseException) {
         throw new IllegalArgumentException(
                 "Could not read geometry. Should be a WKT with SRS = EPSG:4326", parseException);
       }
     }
 
-    List<ProtokolDto> protokolDtoList = iProtokolDao.getAllProtokoller(
-            protokolParam.getHerredsnavn(),
-            protokolParam.getHerredsnummer(),
-            protokolParam.getSognenavn(),
-            protokolParam.getSogneid(),
+    List<DokumentDto> dokumentDtoList = iDokumentDao.getAllDokumenter(
+            dokumentParam.getHerredsnavn(),
+            dokumentParam.getHerredsnummer(),
+            dokumentParam.getSognenavn(),
+            dokumentParam.getSogneid(),
             area,
-            protokolParam.getDokumentsamling(),
-            protokolParam.getLimit(),
-            protokolParam.getOffset(),
-            protokolParam.getSort(),
-            protokolParam.getDirection());
+            dokumentParam.getDokumentsamling(),
+            dokumentParam.getLimit(),
+            dokumentParam.getOffset(),
+            dokumentParam.getSort(),
+            dokumentParam.getDirection());
 
 
     long count;
 
-    if (protokolDtoList.size() >= protokolParam.getLimit()) {
-      count = iProtokolDao.getCount( protokolParam.getHerredsnavn(),
-              protokolParam.getHerredsnummer(),
-              protokolParam.getSognenavn(),
-              protokolParam.getSogneid(),
+    if (dokumentDtoList.size() >= dokumentParam.getLimit()) {
+      count = iDokumentDao.getCount( dokumentParam.getHerredsnavn(),
+              dokumentParam.getHerredsnummer(),
+              dokumentParam.getSognenavn(),
+              dokumentParam.getSogneid(),
               area,
-              protokolParam.getDokumentsamling(),
-              protokolParam.getLimit(),
-              protokolParam.getOffset(),
-              protokolParam.getSort(),
-              protokolParam.getDirection());
+              dokumentParam.getDokumentsamling(),
+              dokumentParam.getLimit(),
+              dokumentParam.getOffset(),
+              dokumentParam.getSort(),
+              dokumentParam.getDirection());
     } else {
-      count = protokolDtoList.size();
+      count = dokumentDtoList.size();
     }
 
-    ProtokolResult protokolResult = new ProtokolResult(count, protokolDtoList);
-    return protokolResult;
+    DokumentResult dokumentResult = new DokumentResult(count, dokumentDtoList);
+    return dokumentResult;
   }
 
 }

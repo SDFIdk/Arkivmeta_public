@@ -4,9 +4,9 @@ import dk.dataforsyningen.arkivmeta.dokument.apimodel.DokumentParam;
 import dk.dataforsyningen.arkivmeta.dokument.apimodel.DokumentResult;
 import dk.dataforsyningen.arkivmeta.dokument.apimodel.DokumentDto;
 
-public interface IProtokolService {
-  DokumentDto getProtokolById(String arketype, String id);
+public interface IDokumentService {
+  DokumentDto getDokumentById(String arketype, String id);
 
-  DokumentResult getProtokolResult(DokumentParam dokumentParam);
+  DokumentResult getDokumentResult(DokumentParam dokumentParam);
 
 }

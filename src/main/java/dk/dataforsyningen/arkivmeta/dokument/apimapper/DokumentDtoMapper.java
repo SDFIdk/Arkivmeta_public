@@ -1,12 +1,8 @@
-package dk.dataforsyningen.arkivmeta.protokol.apimapper;
+package dk.dataforsyningen.arkivmeta.dokument.apimapper;
 
-import dk.dataforsyningen.arkivmeta.enums.Dokumentsamling;
-import dk.dataforsyningen.arkivmeta.protokol.apimapper.MapperDaekningsomraade;
-import dk.dataforsyningen.arkivmeta.kort.apimodel.AeldretopografiskekortDto;
-import dk.dataforsyningen.arkivmeta.kort.apimodel.KortDto;
 import dk.dataforsyningen.arkivmeta.mapperhelper.MapperFiler;
 import dk.dataforsyningen.arkivmeta.mapperhelper.MapperGeometri;
-import dk.dataforsyningen.arkivmeta.protokol.apimodel.*;
+import dk.dataforsyningen.arkivmeta.dokument.apimodel.*;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,17 +14,17 @@ import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.io.ParseException;
 import org.locationtech.jts.io.WKBReader;
 
-public class ProtokolDtoMapper implements RowMapper<ProtokolDto> {
+public class DokumentDtoMapper implements RowMapper<DokumentDto> {
 
     /**
      * The mapper must have a default constructor https://jdbi.org/#_registerrowmapper
      */
-    public ProtokolDtoMapper() {
+    public DokumentDtoMapper() {
     }
 
     @Override
-    public ProtokolDto map(ResultSet rs, StatementContext ctx) throws SQLException {
-        ProtokolDto dto = new ProtokolDto();
+    public DokumentDto map(ResultSet rs, StatementContext ctx) throws SQLException {
+        DokumentDto dto = new DokumentDto();
         MapperFiler mapperFiler = new MapperFiler();
         MapperGeometri mapperGeometri = new MapperGeometri();
 

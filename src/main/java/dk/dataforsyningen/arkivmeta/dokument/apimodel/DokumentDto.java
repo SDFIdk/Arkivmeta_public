@@ -1,18 +1,18 @@
-package dk.dataforsyningen.arkivmeta.protokol.apimodel;
+package dk.dataforsyningen.arkivmeta.dokument.apimodel;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class ProtokolDto {
-  @Schema(description = "Unik id for protokollen.")
+public class DokumentDto {
+  @Schema(description = "Unik id for dokumentet.")
   private String id;
 
-  @Schema(description = "Protokollens arketype.")
+  @Schema(description = "Dokumentes arketype.")
   private String arketype;
 
-  @Schema(description = "Protokollens titel.")
+  @Schema(description = "Dokumentes titel.")
   private String titel;
 
   @Schema(description = "Typisk på formen sp+nummer")
@@ -24,10 +24,10 @@ public class ProtokolDto {
   @Schema(description = "Ikke mere gældende")
   private LocalDateTime registreringtil;
 
-  @Schema(description = "Det navn, som entydigt definerer protokollen.")
+  @Schema(description = "Det navn, som entydigt definerer dokumentet.")
   private String uniktdokumentnavn;
 
-  @Schema(description = "Sti til protokollen i filsystem")
+  @Schema(description = "Sti til dokumentet i filsystem")
   private String stinavn;
 
   @Schema(description = "Bemærkning til dokumentet")
@@ -66,10 +66,10 @@ public class ProtokolDto {
   @Schema(description = "Navn på sognet")
   private String sognenavn;
 
-  public ProtokolDto() {
+  public DokumentDto() {
   }
 
-  public ProtokolDto(String id, String arketype, String titel, String alternativtitel,
+  public DokumentDto(String id, String arketype, String titel, String alternativtitel,
                      LocalDateTime registreringfra, LocalDateTime registreringtil,
                      String uniktdokumentnavn, String stinavn, String bemaerkning,
                      String geometri, String omraade, List<String> filer, String datatype,

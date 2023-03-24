@@ -1,4 +1,4 @@
-package dk.dataforsyningen.arkivmeta.protokol.apimapper;
+package dk.dataforsyningen.arkivmeta.dokument.apimapper;
 
 import java.util.Arrays;
 import java.util.List;

@@ -1,20 +1,18 @@
-package dk.dataforsyningen.arkivmeta.protokol.dao;
+package dk.dataforsyningen.arkivmeta.dokument.dao;
 
 import dk.dataforsyningen.arkivmeta.configuration.LogSqlFactory;
-import dk.dataforsyningen.arkivmeta.kort.apimapper.KortDtoMapper;
-import dk.dataforsyningen.arkivmeta.protokol.apimapper.ProtokolDtoMapper;
-import dk.dataforsyningen.arkivmeta.protokol.apimodel.ProtokolDto;
+import dk.dataforsyningen.arkivmeta.dokument.apimapper.DokumentDtoMapper;
+import dk.dataforsyningen.arkivmeta.dokument.apimodel.DokumentDto;
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper;
 import org.jdbi.v3.sqlobject.customizer.Bind;
 import org.jdbi.v3.sqlobject.customizer.BindList;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.locationtech.jts.geom.Geometry;
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
 @LogSqlFactory
-public interface IProtokolDao {
+public interface IDokumentDao {
 
   /**
    * @RegisterRowMapper use the registered mapper to map the select columns from the database to GetOrderDto
@@ -30,8 +28,8 @@ public interface IProtokolDao {
       WHERE
           p.id = :id
   """)
-  @RegisterRowMapper(ProtokolDtoMapper.class)
-  Optional<ProtokolDto> getProtokolById(@Bind("id") String id);
+  @RegisterRowMapper(DokumentDtoMapper.class)
+  Optional<DokumentDto> getDokumentById(@Bind("id") String id);
 
 
   /**
@@ -93,8 +91,8 @@ public interface IProtokolDao {
       LIMIT :limit
       OFFSET :offset
       """)
-  @RegisterRowMapper(ProtokolDtoMapper.class)
-  List<ProtokolDto> getAllProtokoller(
+  @RegisterRowMapper(DokumentDtoMapper.class)
+  List<DokumentDto> getAllDokumenter(
           @Bind("herredsnavn") String herredsnavn,
           @Bind("herredsnummer") Integer herredsnummer,
           @Bind("sognenavn") String sognenavn,
@@ -131,7 +129,7 @@ public interface IProtokolDao {
       LIMIT :limit
       OFFSET :offset
       """)
-  @RegisterRowMapper(ProtokolDtoMapper.class)
+  @RegisterRowMapper(DokumentDtoMapper.class)
   Long getCount(
           @Bind("herredsnavn") String herredsnavn,
           @Bind("herredsnummer") Integer herredsnummer,

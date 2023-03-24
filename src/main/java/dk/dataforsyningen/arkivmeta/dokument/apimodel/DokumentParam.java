@@ -1,14 +1,13 @@
-package dk.dataforsyningen.arkivmeta.protokol.apimodel;
+package dk.dataforsyningen.arkivmeta.dokument.apimodel;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Pattern;
 
-import java.math.BigDecimal;
 import java.util.List;
 
-public class ProtokolParam {
+public class DokumentParam {
 
     @Schema(description = "Herredets navn.")
     private String herredsnavn;
@@ -40,8 +39,8 @@ public class ProtokolParam {
     private String direction;
 
 
-    public ProtokolParam(String herredsnavn, Integer herredsnummer, String sognenavn,  Integer sogneid, List<String> dokumentsamling,
-                         String geometri, Integer limit,  Integer offset, String sort,  String direction) {
+    public DokumentParam(String herredsnavn, Integer herredsnummer, String sognenavn, Integer sogneid, List<String> dokumentsamling,
+                         String geometri, Integer limit, Integer offset, String sort, String direction) {
         this.herredsnavn = herredsnavn;
         this.herredsnummer = herredsnummer;
         this.sognenavn = sognenavn;

@@ -1,33 +1,32 @@
-package dk.dataforsyningen.arkivmeta.protokol.dao;
+package dk.dataforsyningen.arkivmeta.dokument.dao;
 
-import dk.dataforsyningen.arkivmeta.protokol.apimodel.ProtokolDto;
+import dk.dataforsyningen.arkivmeta.dokument.apimodel.DokumentDto;
 import org.jdbi.v3.core.Jdbi;
 import org.locationtech.jts.geom.Geometry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class ProtokolDao implements IProtokolDao {
+public class DokumentDao implements IDokumentDao {
   @Qualifier("arkivmetaJdbi")
   private final Jdbi arkivmetaJdbi;
 
   @Autowired
-  public ProtokolDao(@Qualifier("arkivmetaJdbi") Jdbi arkivmetaJdbi) {
+  public DokumentDao(@Qualifier("arkivmetaJdbi") Jdbi arkivmetaJdbi) {
     this.arkivmetaJdbi = arkivmetaJdbi;
   }
 
   @Override
-  public Optional<ProtokolDto> getProtokolById(String id) {
-    return arkivmetaJdbi.withExtension(IProtokolDao.class, dao -> dao.getProtokolById(id));
+  public Optional<DokumentDto> getDokumentById(String id) {
+    return arkivmetaJdbi.withExtension(IDokumentDao.class, dao -> dao.getDokumentById(id));
   }
 
   // @Override
-  public List<ProtokolDto> getAllProtokoller(
+  public List<DokumentDto> getAllDokumenter(
           String herredsnavn, Integer herredsnummer, String sognenavn, Integer sogneid,
           Geometry area,
           List<String> dokumentsamling,
@@ -35,8 +34,8 @@ public class ProtokolDao implements IProtokolDao {
           int offset,
           String sort,
           String direction) {
-    return arkivmetaJdbi.withExtension(IProtokolDao.class,
-            dao -> dao.getAllProtokoller(herredsnavn, herredsnummer, sognenavn, sogneid, area,
+    return arkivmetaJdbi.withExtension(IDokumentDao.class,
+            dao -> dao.getAllDokumenter(herredsnavn, herredsnummer, sognenavn, sogneid, area,
                     dokumentsamling, limit, offset, sort, direction));
   }
 
@@ -49,7 +48,7 @@ public class ProtokolDao implements IProtokolDao {
           int offset,
           String sort,
           String direction) {
-    return arkivmetaJdbi.withExtension(IProtokolDao.class,
+    return arkivmetaJdbi.withExtension(IDokumentDao.class,
             dao -> dao.getCount(herredsnavn, herredsnummer, sognenavn, sogneid, area,
                     dokumentsamling, limit, offset, sort, direction));
   }

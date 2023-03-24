@@ -2,7 +2,7 @@ Feature: Historiske Dokumenter API Integration Test
 
   Background:
     * url url
-    
+
   Scenario: Arkiv API /dokument/{arketype}/{id}' - get dokument by id
 
     Given path 'dokument/andetdokument/500'

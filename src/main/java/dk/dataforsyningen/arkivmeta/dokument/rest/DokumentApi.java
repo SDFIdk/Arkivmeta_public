@@ -1,9 +1,9 @@
-package dk.dataforsyningen.arkivmeta.protokol.rest;
+package dk.dataforsyningen.arkivmeta.dokument.rest;
 
-import dk.dataforsyningen.arkivmeta.protokol.apimodel.ProtokolParam;
-import dk.dataforsyningen.arkivmeta.protokol.apimodel.ProtokolResult;
-import dk.dataforsyningen.arkivmeta.protokol.apimodel.ProtokolDto;
-import dk.dataforsyningen.arkivmeta.protokol.service.IProtokolService;
+import dk.dataforsyningen.arkivmeta.dokument.apimodel.DokumentParam;
+import dk.dataforsyningen.arkivmeta.dokument.apimodel.DokumentResult;
+import dk.dataforsyningen.arkivmeta.dokument.apimodel.DokumentDto;
+import dk.dataforsyningen.arkivmeta.dokument.service.IDokumentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -19,60 +19,59 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "ProtokolApi", description = "Protokol metadata API")
 @RestController
 @Validated
-public class ProtokolApi {
-  private final IProtokolService iProtokolService;
+public class DokumentApi {
+  private final IDokumentService iDokumentService;
 
-  public ProtokolApi(IProtokolService iProtokolService) {
-    this.iProtokolService = iProtokolService;
+  public DokumentApi(IDokumentService iDokumentService) {
+    this.iDokumentService = iDokumentService;
   }
-
 
   /**
    * @return the method postKort() that handles the request
    */
-  @GetMapping(path = "/historiskdokument")
-  @Operation(summary = "Liste af protokoller der matcher søgekriterierne", description = "Disse er parametrerne i ProtokolParam")
+  @GetMapping(path = "/dokument")
+  @Operation(summary = "Liste af dokumenter der matcher søgekriterierne", description = "Disse er parametrerne i DokumentParam")
   @CrossOrigin
-  ResponseEntity<ProtokolResult> getProtokoller(@Valid @ParameterObject ProtokolParam protokolParam) {
-    return postProtokol(protokolParam);
+  ResponseEntity<DokumentResult> getDokument(@Valid @ParameterObject DokumentParam dokumentParam) {
+    return postDokument(dokumentParam);
   }
 
   /**
-   * Returns all protokols matching search criteria if given any or else returns all kort.
-   * Gets the parameters from KortParam that is initialized with data from getprotokoller
+   * Returns all dokuments matching search criteria if given any or else returns all kort.
+   * Gets the parameters from KortParam that is initialized with data from getDokument
    * <p>
    *
-   * @param protokolParam
-   * @return the protokolresult with count of all protokols matching search criteria and all protokols matching search criteria. If not search criteria given then it returns all protokols and the count
+   * @param dokumentParam
+   * @return the dokumentresult with count of all dokuments matching search criteria and all dokuments matching search criteria. If not search criteria given then it returns all dokuments and the count
    */
-  @PostMapping(path = "/historiskdokument")
-  @Operation(summary = "Liste af protokoller der matcher søgekriterierne", description = "Disse er parametrerne i ProtokolParam")
+  @PostMapping(path = "/dokument")
+  @Operation(summary = "Liste af dokumenter der matcher søgekriterierne", description = "Disse er parametrerne i DokumentParam")
   @CrossOrigin
-  ResponseEntity<ProtokolResult> postProtokol(
-          @Valid @RequestBody ProtokolParam protokolParam) {
+  ResponseEntity<DokumentResult> postDokument(
+          @Valid @RequestBody DokumentParam dokumentParam) {
     // For GET and POST direction, limit and offset need a default value, but it should only be set,
     // if the client did not specify them.
-    if (StringUtils.isBlank(protokolParam.getDirection())) {
-      protokolParam.setDirection("asc");
+    if (StringUtils.isBlank(dokumentParam.getDirection())) {
+      dokumentParam.setDirection("asc");
     }
-    if (ObjectUtils.isEmpty(protokolParam.getLimit())) {
-      protokolParam.setLimit(100);
+    if (ObjectUtils.isEmpty(dokumentParam.getLimit())) {
+      dokumentParam.setLimit(100);
     }
-    if (ObjectUtils.isEmpty(protokolParam.getOffset())) {
-      protokolParam.setOffset(0);
+    if (ObjectUtils.isEmpty(dokumentParam.getOffset())) {
+      dokumentParam.setOffset(0);
     }
-    ProtokolResult protokolresult = iProtokolService.getProtokolResult(protokolParam);
+    DokumentResult dokumentresult = iDokumentService.getDokumentResult(dokumentParam);
 
-    return new ResponseEntity<>(protokolresult, HttpStatus.OK);
+    return new ResponseEntity<>(dokumentresult, HttpStatus.OK);
   }
 
-  @GetMapping(path = "/historiskdokument/{arketype}/{id}")
-  @Operation(summary = "Find protokol ud fra unik id")
+  @GetMapping(path = "/dokument/{arketype}/{id}")
+  @Operation(summary = "Find dokument ud fra unik id")
   @CrossOrigin
-  public ResponseEntity<ProtokolDto> protokolById(
+  public ResponseEntity<DokumentDto> dokumentById(
       @Parameter(description = "arketype") @PathVariable String arketype,
       @Parameter(description = "id") @PathVariable String id) {
-    ProtokolDto result = iProtokolService.getProtokolById(arketype, id);
+    DokumentDto result = iDokumentService.getDokumentById(arketype, id);
 
     return new ResponseEntity<>(result, HttpStatus.OK);
   }
