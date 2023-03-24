@@ -15,9 +15,6 @@ public abstract class ProtokolDto {
   @Schema(description = "Protokollens titel.")
   protected String titel;
 
-  @Schema(description = "En eventuel anden titel protokollen kan have.")
-  protected String alternativtitel;
-
   @Schema(description = "Gældende fra dette tidspunkt")
   protected LocalDateTime registreringfra;
 
@@ -27,6 +24,9 @@ public abstract class ProtokolDto {
   protected String uniktdokumentnavn;
   @Schema(description = "Sti til protokollen i filsystem")
   protected String stinavn;
+
+  @Schema(description = "Bemærkning til dokumentet")
+  protected String bemaerkning;
 
   @Schema(description = "Det geografiske område, ofte en polygon, som kortet ligger indenfor. WKT med SRS = EPSG:4326")
   protected String geometri;
@@ -46,18 +46,7 @@ public abstract class ProtokolDto {
     this.id = id;
   }
 
-
-  public ProtokolDto(
-          String id,
-          String arketype,
-          String titel,
-          LocalDateTime registreringfra,
-          LocalDateTime registreringtil,
-          String uniktdokumentnavn,
-          String stinavn,
-          List<String> filer,
-          String dokumentsamling
-    ) {
+  public ProtokolDto(String id, String arketype, String titel, LocalDateTime registreringfra, LocalDateTime registreringtil, String uniktdokumentnavn, String stinavn, String bemaerkning, String geometri, List<String> filer, String dokumentsamling, String protokoltype) {
     this.id = id;
     this.arketype = arketype;
     this.titel = titel;
@@ -65,9 +54,12 @@ public abstract class ProtokolDto {
     this.registreringtil = registreringtil;
     this.uniktdokumentnavn = uniktdokumentnavn;
     this.stinavn = stinavn;
+    this.bemaerkning = bemaerkning;
+    this.geometri = geometri;
     this.filer = filer;
     this.dokumentsamling = dokumentsamling;
-    }
+    this.protokoltype = protokoltype;
+  }
 
   public String getId() {
     return id;
@@ -120,6 +112,23 @@ public abstract class ProtokolDto {
   public void setStinavn(String stinavn) {
     this.stinavn = stinavn;
   }
+
+  public String getBemaerkning() {
+    return bemaerkning;
+  }
+
+  public void setBemaerkning(String bemaerkning) {
+    this.bemaerkning = bemaerkning;
+  }
+
+  public String getGeometri() {
+    return geometri;
+  }
+
+  public void setGeometri(String geometri) {
+    this.geometri = geometri;
+  }
+
   public List<String> getFiler() {return filer;}
   public void setFiler(List<String> filer) {
     this.filer = filer;  }
@@ -130,5 +139,13 @@ public abstract class ProtokolDto {
 
   public void setDokumentsamling(String dokumentsamling) {
     this.dokumentsamling = dokumentsamling;
+  }
+
+  public String getProtokoltype() {
+    return protokoltype;
+  }
+
+  public void setProtokoltype(String protokoltype) {
+    this.protokoltype = protokoltype;
   }
 }

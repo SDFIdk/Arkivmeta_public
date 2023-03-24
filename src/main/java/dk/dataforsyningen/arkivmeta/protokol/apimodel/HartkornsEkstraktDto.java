@@ -8,8 +8,6 @@ import java.util.List;
 
 public class HartkornsEkstraktDto extends ProtokolDto {
 
-    @Schema(description = "Herredets geometri i WKB format")
-    private String geometri;
     @Schema(description = "Navn på herredet")
     private String herredsnavn;
     @Schema(description = "Nummer")
@@ -19,42 +17,11 @@ public class HartkornsEkstraktDto extends ProtokolDto {
 
     public HartkornsEkstraktDto(){}
 
-    public HartkornsEkstraktDto(
-            String id,
-            String arketype,
-            String titel,
-            LocalDateTime registreringfra,
-            LocalDateTime registreringtil,
-            String uniktdokumentnavn,
-            String stinavn,
-            String geometri,
-            List<String> filer,
-            String dokumentsamling,
-            String herredsnavn,
-            BigDecimal herredsnummer,
-            String protokoltype) {
-         super(id,
-              arketype,
-              titel,
-              registreringfra,
-              registreringtil,
-              uniktdokumentnavn,
-              stinavn,
-              filer,
-              dokumentsamling
-        );
-         this.geometri = geometri;
-         this.herredsnavn = herredsnavn;
-         this.herredsnummer = herredsnummer;
-         this.protokoltype = protokoltype;
-    }
-
-    public String getGeometri() {
-        return geometri;
-    }
-
-    public void setGeometri(String geometri) {
-        this.geometri = geometri;
+    public HartkornsEkstraktDto(String id, String arketype, String titel, LocalDateTime registreringfra, LocalDateTime registreringtil, String uniktdokumentnavn, String stinavn, String bemaerkning, String geometri, List<String> filer, String dokumentsamling, String protokoltype, String herredsnavn, BigDecimal herredsnummer, String protokoltype1) {
+        super(id, arketype, titel, registreringfra, registreringtil, uniktdokumentnavn, stinavn, bemaerkning, geometri, filer, dokumentsamling, protokoltype);
+        this.herredsnavn = herredsnavn;
+        this.herredsnummer = herredsnummer;
+        this.protokoltype = protokoltype1;
     }
 
     public String getHerredsnavn() {

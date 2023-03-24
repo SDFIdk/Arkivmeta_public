@@ -8,11 +8,8 @@ import java.util.List;
 
 public class SogneprotokolDto extends ProtokolDto {
 
-
     @Schema(description = "Typisk på formen sp+nummer")
     private String alternativtitel;
-    @Schema(description = "Herredets geometri i WKB format")
-    private String geometri;
     @Schema(description = "Navn på herredet")
     private String herredsnavn;
     @Schema(description = "Yngre eller ældre type")
@@ -22,39 +19,13 @@ public class SogneprotokolDto extends ProtokolDto {
     @Schema(description = "Nummer på sognet")
     private BigDecimal sogneid;
 
-
     public SogneprotokolDto(){}
 
-    public SogneprotokolDto(
-            String id,
-            String arketype,
-            String titel,
-            String alternativtitel,
-            LocalDateTime registreringfra,
-            LocalDateTime registreringtil,
-            String uniktdokumentnavn,
-            String stinavn,
-            String geometri,
-            List<String> filer,
-            String dokumentsamling,
-            String herredsnavn,
-            String protokoltype,
-            String sognenavn,
-            BigDecimal sogneid) {
-        super(id,
-                arketype,
-                titel,
-                registreringfra,
-                registreringtil,
-                uniktdokumentnavn,
-                stinavn,
-                filer,
-                dokumentsamling
-        );
+    public SogneprotokolDto(String id, String arketype, String titel, LocalDateTime registreringfra, LocalDateTime registreringtil, String uniktdokumentnavn, String stinavn, String bemaerkning, String geometri, List<String> filer, String dokumentsamling, String protokoltype, String alternativtitel, String herredsnavn, String protokoltype1, String sognenavn, BigDecimal sogneid) {
+        super(id, arketype, titel, registreringfra, registreringtil, uniktdokumentnavn, stinavn, bemaerkning, geometri, filer, dokumentsamling, protokoltype);
         this.alternativtitel = alternativtitel;
-        this.geometri = geometri;
         this.herredsnavn = herredsnavn;
-        this.protokoltype = protokoltype;
+        this.protokoltype = protokoltype1;
         this.sognenavn = sognenavn;
         this.sogneid = sogneid;
     }
@@ -65,14 +36,6 @@ public class SogneprotokolDto extends ProtokolDto {
 
     public void setAlternativtitel(String alternativtitel) {
         this.alternativtitel = alternativtitel;
-    }
-
-    public String getGeometri() {
-        return geometri;
-    }
-
-    public void setGeometri(String geometri) {
-        this.geometri = geometri;
     }
 
     public String getHerredsnavn() {

@@ -83,22 +83,13 @@ Feature: Historiske Dokumenter API Integration Test
   Scenario: Search mulitple dokumentsamling
 
     Given path '/protokol'
-    And param dokumentsamling = 'sogneprotokoller'
+    And param dokumentsamling = 'sogneprotokoller,hartkornsekstrakter'
     When method get
     Then status 200
     # match the response with the keys from the json objects
     And match response == { total: '#present', dokumenter: '#present' }
-    # assigning response.total to firstKortvaerkTotal
+    # assigning response.total to firstDokumentsamlingTotal
     Then def firstDokumentsamlingTotal = response.total
-
-    Given path '/protokol'
-    And param dokumentsamling = 'hartkornsekstrakter'
-    When method get
-    Then status 200
-    # match the response with the keys from the json objects
-    And match response == { total: '#present', dokumenter: '#present' }
-    # assigning response.total to secondKortvaerkTotal
-    Then def secondDokumentsamlingTotal = response.total
 
     Given path '/protokol'
     # Use the delimiter way right now, because switchboards does not understand string arrays
@@ -108,8 +99,7 @@ Feature: Historiske Dokumenter API Integration Test
     Then status 200
     # match the response with the keys from the json objects
     And match response == { total: '#present', dokumenter: '#present' }
-    Then match response.total == firstKortvaerkTotal
-    Then match response.total == secondKortvaerkTotal
+    Then match response.total == firstDokumentsamlingTotal
 
   Scenario: Search with geometry
 
