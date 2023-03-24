@@ -2,11 +2,10 @@ Feature: Historiske Dokumenter API Integration Test
 
   Background:
     * url url
+    
+  Scenario: Arkiv API /dokument/{arketype}/{id}' - get dokument by id
 
-
-  Scenario: Arkiv API /historiskdokument/{dokumentsamling}/{id}' - get protokol by id
-
-    Given path 'protokol/andetdokument/500'
+    Given path 'dokument/andetdokument/500'
     When method get
     Then status 200
 
