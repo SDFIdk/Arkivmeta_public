@@ -5,60 +5,97 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public abstract class ProtokolDto {
+public class ProtokolDto {
   @Schema(description = "Unik id for protokollen.")
-  protected String id;
+  private String id;
 
   @Schema(description = "Protokollens arketype.")
-  protected String arketype;
+  private String arketype;
 
   @Schema(description = "Protokollens titel.")
-  protected String titel;
+  private String titel;
+
+  @Schema(description = "Typisk på formen sp+nummer")
+  private String alternativtitel;
 
   @Schema(description = "Gældende fra dette tidspunkt")
-  protected LocalDateTime registreringfra;
+  private LocalDateTime registreringfra;
 
   @Schema(description = "Ikke mere gældende")
-  protected LocalDateTime registreringtil;
+  private LocalDateTime registreringtil;
+
   @Schema(description = "Det navn, som entydigt definerer protokollen.")
-  protected String uniktdokumentnavn;
+  private String uniktdokumentnavn;
+
   @Schema(description = "Sti til protokollen i filsystem")
-  protected String stinavn;
+  private String stinavn;
 
   @Schema(description = "Bemærkning til dokumentet")
-  protected String bemaerkning;
+  private String bemaerkning;
 
   @Schema(description = "Det geografiske område, ofte en polygon, som kortet ligger indenfor. WKT med SRS = EPSG:4326")
-  protected String geometri;
+  private String geometri;
+
+  @Schema(description = "Hvilket område dokumentet dækker over")
+  private String omraade;
 
   @Schema(description = "En liste af URL-stier til kortfiler efter IIIF-specifikationen.")
-  protected List<String> filer;
+  private List<String> filer;
+
+  @Schema(description = "Hvilket data format dokumentet er i")
+  private String datatype;
+
+  @Schema(description = "fortegnelse")
+  private String filtype;
 
   @Schema(description = "Typen af dokumenterne.")
-  protected String dokumentsamling;
+  private String dokumentsamling;
+
+  @Schema(description = "Navn på herredet")
+  private String herredsnavn;
+
+  @Schema(description = "Nummeret på herredet")
+  private Integer herredsnummer;
+
   @Schema(description = "Gældende eller fra før udskiftning")
-  protected String protokoltype;
+  private String protokoltype;
+
+  @Schema(description = "Nummer på sognet")
+  private Integer sogneid;
+
+  @Schema(description = "Navn på sognet")
+  private String sognenavn;
 
   public ProtokolDto() {
   }
 
-  public ProtokolDto(String id) {
-    this.id = id;
-  }
-
-  public ProtokolDto(String id, String arketype, String titel, LocalDateTime registreringfra, LocalDateTime registreringtil, String uniktdokumentnavn, String stinavn, String bemaerkning, String geometri, List<String> filer, String dokumentsamling, String protokoltype) {
+  public ProtokolDto(String id, String arketype, String titel, String alternativtitel,
+                     LocalDateTime registreringfra, LocalDateTime registreringtil,
+                     String uniktdokumentnavn, String stinavn, String bemaerkning,
+                     String geometri, String omraade, List<String> filer, String datatype,
+                     String filtype, String dokumentsamling, String herredsnavn,
+                     Integer herredsnummer, String protokoltype, Integer sogneid,
+                     String sognenavn) {
     this.id = id;
     this.arketype = arketype;
     this.titel = titel;
+    this.alternativtitel = alternativtitel;
     this.registreringfra = registreringfra;
     this.registreringtil = registreringtil;
     this.uniktdokumentnavn = uniktdokumentnavn;
     this.stinavn = stinavn;
     this.bemaerkning = bemaerkning;
     this.geometri = geometri;
+    this.omraade = omraade;
     this.filer = filer;
+    this.datatype = datatype;
+    this.filtype = filtype;
     this.dokumentsamling = dokumentsamling;
+    this.herredsnavn = herredsnavn;
+    this.herredsnummer = herredsnummer;
     this.protokoltype = protokoltype;
+    this.sogneid = sogneid;
+    this.sognenavn = sognenavn;
   }
 
   public String getId() {
@@ -85,7 +122,15 @@ public abstract class ProtokolDto {
     this.titel = titel;
   }
 
-   public LocalDateTime getRegistreringfra() {
+  public String getAlternativtitel() {
+    return alternativtitel;
+  }
+
+  public void setAlternativtitel(String alternativtitel) {
+    this.alternativtitel = alternativtitel;
+  }
+
+  public LocalDateTime getRegistreringfra() {
     return registreringfra;
   }
 
@@ -93,9 +138,13 @@ public abstract class ProtokolDto {
     this.registreringfra = registreringfra;
   }
 
-  public LocalDateTime getRegistreringtil() {return registreringtil;}
+  public LocalDateTime getRegistreringtil() {
+    return registreringtil;
+  }
 
-  public void setRegistreringtil(LocalDateTime registreringtil) {this.registreringtil = registreringtil;}
+  public void setRegistreringtil(LocalDateTime registreringtil) {
+    this.registreringtil = registreringtil;
+  }
 
   public String getUniktdokumentnavn() {
     return uniktdokumentnavn;
@@ -129,9 +178,37 @@ public abstract class ProtokolDto {
     this.geometri = geometri;
   }
 
-  public List<String> getFiler() {return filer;}
+  public String getOmraade() {
+    return omraade;
+  }
+
+  public void setOmraade(String omraade) {
+    this.omraade = omraade;
+  }
+
+  public List<String> getFiler() {
+    return filer;
+  }
+
   public void setFiler(List<String> filer) {
-    this.filer = filer;  }
+    this.filer = filer;
+  }
+
+  public String getDatatype() {
+    return datatype;
+  }
+
+  public void setDatatype(String datatype) {
+    this.datatype = datatype;
+  }
+
+  public String getFiltype() {
+    return filtype;
+  }
+
+  public void setFiltype(String filtype) {
+    this.filtype = filtype;
+  }
 
   public String getDokumentsamling() {
     return dokumentsamling;
@@ -141,11 +218,43 @@ public abstract class ProtokolDto {
     this.dokumentsamling = dokumentsamling;
   }
 
+  public String getHerredsnavn() {
+    return herredsnavn;
+  }
+
+  public void setHerredsnavn(String herredsnavn) {
+    this.herredsnavn = herredsnavn;
+  }
+
+  public Integer getHerredsnummer() {
+    return herredsnummer;
+  }
+
+  public void setHerredsnummer(Integer herredsnummer) {
+    this.herredsnummer = herredsnummer;
+  }
+
   public String getProtokoltype() {
     return protokoltype;
   }
 
   public void setProtokoltype(String protokoltype) {
     this.protokoltype = protokoltype;
+  }
+
+  public Integer getSogneid() {
+    return sogneid;
+  }
+
+  public void setSogneid(Integer sogneid) {
+    this.sogneid = sogneid;
+  }
+
+  public String getSognenavn() {
+    return sognenavn;
+  }
+
+  public void setSognenavn(String sognenavn) {
+    this.sognenavn = sognenavn;
   }
 }
