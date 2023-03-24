@@ -4,7 +4,7 @@ Feature: Historiske Dokumenter API Integration Test
     * url url
 
 
-  Scenario: Arkiv API /protokol/{dokumentsamling}/{id}' - get protokol by id
+  Scenario: Arkiv API /historiskdokument/{dokumentsamling}/{id}' - get protokol by id
 
     Given path 'protokol/andetdokument/500'
     When method get

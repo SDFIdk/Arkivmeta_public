@@ -6,7 +6,7 @@ Feature: Historiske Dokumenter API Integration Test
 
   Scenario: GET - Returns the 100 first json objects of all historiske dokumenter
 
-    Given path '/protokol'
+    Given path '/historiskdokument'
     When method get
     Then status 200
     And match response.dokumenter == '#[100]'
@@ -14,7 +14,7 @@ Feature: Historiske Dokumenter API Integration Test
 
   Scenario: GET - Search not existing sognenavn
 
-    Given path '/protokol'
+    Given path '/historiskdokument'
     And param sognenavn = 'findes ikke'
     When method get
     Then status 200
@@ -22,7 +22,7 @@ Feature: Historiske Dokumenter API Integration Test
 
   Scenario: POST - Search not existing sognenavn
 
-    Given path '/protokol'
+    Given path '/historiskdokument'
     And request
     """
     {
@@ -35,7 +35,7 @@ Feature: Historiske Dokumenter API Integration Test
 
   Scenario: GET - Search sognenavn insensitive
 
-    Given path '/protokol'
+    Given path '/historiskdokument'
     And param sognenavn = 'dronninglund'
     When method get
     Then status 200
@@ -44,7 +44,7 @@ Feature: Historiske Dokumenter API Integration Test
     # assigning response to lower
     Then def lower = response
 
-    Given path '/protokol'
+    Given path '/historiskdokument'
     And param sognenavn = 'DRONNINGLUND'
     When method get
     Then status 200
@@ -53,7 +53,7 @@ Feature: Historiske Dokumenter API Integration Test
 
   Scenario: POST - Search sognenavn insensitive
 
-    Given path '/protokol'
+    Given path '/historiskdokument'
     And request
     """
     {
@@ -67,7 +67,7 @@ Feature: Historiske Dokumenter API Integration Test
     # assigning response to lower
     Then def lower = response
 
-    Given path '/protokol'
+    Given path '/historiskdokument'
     And request
     """
     {
@@ -82,7 +82,7 @@ Feature: Historiske Dokumenter API Integration Test
 
   Scenario: Search mulitple dokumentsamling
 
-    Given path '/protokol'
+    Given path '/historiskdokument'
     And param dokumentsamling = 'sogneprotokoller,hartkornsekstrakter'
     When method get
     Then status 200
@@ -91,7 +91,7 @@ Feature: Historiske Dokumenter API Integration Test
     # assigning response.total to firstDokumentsamlingTotal
     Then def firstDokumentsamlingTotal = response.total
 
-    Given path '/protokol'
+    Given path '/historiskdokument'
     # Use the delimiter way right now, because switchboards does not understand string arrays
     And param dokumentsamling = 'sogneprotokoller'
     And param dokumentsamling = 'hartkornsekstrakter'
@@ -103,7 +103,7 @@ Feature: Historiske Dokumenter API Integration Test
 
   Scenario: Search with geometry
 
-    Given path '/protokol'
+    Given path '/historiskdokument'
     And param geometri = 'POINT(667450 6163387)'
     When method get
     Then status 200
@@ -111,7 +111,7 @@ Feature: Historiske Dokumenter API Integration Test
 
   Scenario: Search with geometry not found
 
-    Given path '/protokol'
+    Given path '/historiskdokument'
     And param geometri = 'POINT(12.226727129244841 55.86164621853605)'
     When method get
     Then status 200
@@ -119,7 +119,7 @@ Feature: Historiske Dokumenter API Integration Test
 
   Scenario: Limit -1
 
-    Given path '/protokol'
+    Given path '/historiskdokument'
     And param limit = -1
     When method get
     Then status 422
@@ -127,13 +127,13 @@ Feature: Historiske Dokumenter API Integration Test
     """
     {
       "status": "UNPROCESSABLE_ENTITY",
-      "errors": ["limit: skal være større end eller lig med 1"]
+      "errors": ["limit: must be greater than or equal to 1"]
     }
     """
 
   Scenario: Limit 1000
 
-    Given path '/protokol'
+    Given path '/historiskdokument'
     And param limit = 1001
     When method get
     Then status 422
@@ -141,13 +141,13 @@ Feature: Historiske Dokumenter API Integration Test
     """
     {
         "status": "UNPROCESSABLE_ENTITY",
-        "errors": ["limit: skal være mindre end eller lig med 1000"]
+        "errors": ["limit: must be less than or equal to 1000"]
     }
     """
 
   Scenario: GET - direction casesensitive
 
-    Given path '/protokol'
+    Given path '/historiskdokument'
     And param direction = 'ASC'
     When method get
     Then status 422
@@ -155,13 +155,13 @@ Feature: Historiske Dokumenter API Integration Test
     """
     {
       "status": "UNPROCESSABLE_ENTITY",
-      "errors": ["direction: skal matche \"asc|desc\""]
+      "errors": ["direction: must match \"asc|desc\""]
     }
     """
 
   Scenario: POST - direction casesensitive
 
-    Given path '/protokol'
+    Given path '/historiskdokument'
     And header Accept = 'application/json'
     And request { direction: 'ASC' }
     When method post
@@ -170,6 +170,6 @@ Feature: Historiske Dokumenter API Integration Test
     """
     {
       "status": "UNPROCESSABLE_ENTITY",
-      "errors": ["direction: skal matche \"asc|desc\""]
+      "errors": ["direction: must match \"asc|desc\""]
     }
     """

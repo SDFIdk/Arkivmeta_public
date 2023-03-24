@@ -30,7 +30,7 @@ public class ProtokolApi {
   /**
    * @return the method postKort() that handles the request
    */
-  @GetMapping(path = "/protokol")
+  @GetMapping(path = "/historiskdokument")
   @Operation(summary = "Liste af protokoller der matcher søgekriterierne", description = "Disse er parametrerne i ProtokolParam")
   @CrossOrigin
   ResponseEntity<ProtokolResult> getProtokoller(@Valid @ParameterObject ProtokolParam protokolParam) {
@@ -45,7 +45,7 @@ public class ProtokolApi {
    * @param protokolParam
    * @return the protokolresult with count of all protokols matching search criteria and all protokols matching search criteria. If not search criteria given then it returns all protokols and the count
    */
-  @PostMapping(path = "/protokol")
+  @PostMapping(path = "/historiskdokument")
   @Operation(summary = "Liste af protokoller der matcher søgekriterierne", description = "Disse er parametrerne i ProtokolParam")
   @CrossOrigin
   ResponseEntity<ProtokolResult> postProtokol(
@@ -66,7 +66,7 @@ public class ProtokolApi {
     return new ResponseEntity<>(protokolresult, HttpStatus.OK);
   }
 
-  @GetMapping(path = "/protokol/{arketype}/{id}")
+  @GetMapping(path = "/historiskdokument/{arketype}/{id}")
   @Operation(summary = "Find protokol ud fra unik id")
   @CrossOrigin
   public ResponseEntity<ProtokolDto> protokolById(
