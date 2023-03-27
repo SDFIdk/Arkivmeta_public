@@ -93,8 +93,7 @@ Feature: Historiske Dokumenter API Integration Test
 
     Given path '/dokument'
     # Use the delimiter way right now, because switchboards does not understand string arrays
-    And param dokumentsamling = 'sogneprotokoller'
-    And param dokumentsamling = 'hartkornsekstrakter'
+    And param dokumentsamling = ['sogneprotokoller', 'hartkornsekstrakter']
     When method get
     Then status 200
     # match the response with the keys from the json objects
