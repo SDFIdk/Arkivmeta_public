@@ -28,7 +28,10 @@ public class DokumentDao implements IDokumentDao {
   public List<DokumentDto> getAllDokumenter(
       List<String> dokumentsamling,
       Geometry area,
-      String herredsnavn, Integer herredsnummer, Integer sogneid, String sognenavn,
+      String herredsnavn,
+      Integer herredsnummer,
+      Integer sogneid,
+      String sognenavn,
       String direction,
       String sort,
       int limit,
@@ -36,15 +39,17 @@ public class DokumentDao implements IDokumentDao {
   ) {
     return arkivmetaJdbi.withExtension(IDokumentDao.class,
         dao -> dao.getAllDokumenter(dokumentsamling, area, herredsnavn, herredsnummer, sogneid,
-            sognenavn,
-            direction, sort, limit, offset));
+            sognenavn, direction, sort, limit, offset));
   }
 
   @Override
   public Long getCount(
       List<String> dokumentsamling,
       Geometry area,
-      String herredsnavn, Integer herredsnummer, Integer sogneid, String sognenavn,
+      String herredsnavn, 
+      Integer herredsnummer,
+      Integer sogneid,
+      String sognenavn,
       int limit,
       int offset) {
     return arkivmetaJdbi.withExtension(IDokumentDao.class,
