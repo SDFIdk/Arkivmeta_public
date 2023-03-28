@@ -3,12 +3,12 @@ Feature: Historiske Dokumenter API Integration Test
   Background:
     * url url
 
-  Scenario: Get all dokumentsamlinger
+  Scenario: Get all sognenavne
 
-    Given path '/metadata/dokumentsamling'
+    Given path '/metadata/sognenavn'
     When method get
     Then status 200
 
     # should be an array of strings with size 10
     # https://karatelabs.github.io/karate/#schema-validation
-    And match response == '#[6] #string'
+    And match response == '#array'
