@@ -14,12 +14,6 @@ import org.locationtech.jts.geom.Geometry;
 @LogSqlFactory
 public interface IDokumentDao {
 
-  /**
-   * @RegisterRowMapper use the registered mapper to map the select columns from the database to GetOrderDto
-   * https://jdbi.org/#_registerrowmapper
-   * https://jdbi.org/#_getgeneratedkeys
-   * https://jdbi.org/#_timestamped
-   */
   @SqlQuery("""
           SELECT
              DISTINCT dokumentsamling
@@ -27,6 +21,15 @@ public interface IDokumentDao {
              arkivmeta.protokoller.protokoller p
       """)
   List<String> getDokumentSamling();
+
+  @SqlQuery("""
+          SELECT
+             DISTINCT sognenavn
+          FROM
+             arkivmeta.protokoller.protokoller p
+      """)
+  List<String> getSognenavn();
+
 
   /**
    * @RegisterRowMapper use the registered mapper to map the select columns from the database to GetOrderDto

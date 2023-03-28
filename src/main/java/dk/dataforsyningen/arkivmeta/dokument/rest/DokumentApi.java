@@ -37,14 +37,23 @@ public class DokumentApi {
   }
 
   /**
-   * @return list of string of all dokumentsamling available
+   * @return list of string of all dokumentsamlinger available
    */
   @GetMapping(path = "/metadata/dokumentsamling")
-  @Operation(summary = "Hent dokumentsamling", description = "Leverer en liste af dokumentsamlinger")
-  @CrossOrigin
+  @Operation(summary = "Hent dokumentsamlinger", description = "Leverer en liste af dokumentsamlinger")
   public List<String> getDokumentSamling() {
 
     return iDokumentService.getDokumentSamling();
+  }
+
+  /**
+   * @return list of string of all sognenavne available
+   */
+  @GetMapping(path = "/metadata/sognenavn")
+  @Operation(summary = "Hent sognenavne", description = "Leverer en liste af sognenavne")
+  public List<String> getSognenavn() {
+
+    return iDokumentService.getSognenavn();
   }
 
   /**
@@ -52,7 +61,6 @@ public class DokumentApi {
    */
   @GetMapping(path = "/dokument")
   @Operation(summary = "Liste af dokumenter der matcher søgekriterierne", description = "Disse er parametrerne i DokumentParam")
-  @CrossOrigin
   ResponseEntity<DokumentResult> getDokument(@Valid @ParameterObject DokumentParam dokumentParam) {
     return postDokument(dokumentParam);
   }
@@ -67,7 +75,6 @@ public class DokumentApi {
    */
   @PostMapping(path = "/dokument")
   @Operation(summary = "Liste af dokumenter der matcher søgekriterierne", description = "Disse er parametrerne i DokumentParam")
-  @CrossOrigin
   ResponseEntity<DokumentResult> postDokument(
       @Valid @RequestBody DokumentParam dokumentParam) {
     // For GET and POST direction, limit and offset need a default value, but it should only be set,
@@ -88,7 +95,6 @@ public class DokumentApi {
 
   @GetMapping(path = "/dokument/{arketype}/{id}")
   @Operation(summary = "Find dokument ud fra unik id")
-  @CrossOrigin
   public ResponseEntity<DokumentDto> dokumentById(
       @Parameter(description = "arketype") @PathVariable String arketype,
       @Parameter(description = "id") @PathVariable String id) {

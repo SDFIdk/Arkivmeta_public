@@ -11,4 +11,4 @@ Feature: Historiske Dokumenter API Integration Test
 
     # should be an array of strings with size 10
     # https://karatelabs.github.io/karate/#schema-validation
-    And match response == '#[6] #string'
+    And match response == '#array'

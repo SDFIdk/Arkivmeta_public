@@ -8,6 +8,8 @@ import java.util.List;
 public interface IDokumentService {
   List<String> getDokumentSamling();
 
+  List<String> getSognenavn();
+
   DokumentDto getDokumentById(String arketype, String id);
 
   DokumentResult getDokumentResult(DokumentParam dokumentParam);

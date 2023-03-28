@@ -25,6 +25,11 @@ public class DokumentDao implements IDokumentDao {
   }
 
   @Override
+  public List<String> getSognenavn() {
+    return arkivmetaJdbi.withExtension(IDokumentDao.class, dao -> dao.getSognenavn());
+  }
+
+  @Override
   public Optional<DokumentDto> getDokumentById(String id) {
     return arkivmetaJdbi.withExtension(IDokumentDao.class, dao -> dao.getDokumentById(id));
   }

@@ -30,6 +30,12 @@ public class DokumentService implements IDokumentService {
     return iDokumentDao.getDokumentSamling();
   }
 
+  @Cacheable(cacheNames = "sognenavn")
+  @Override
+  public List<String> getSognenavn() {
+    return iDokumentDao.getSognenavn();
+  }
+
   /**
    * Protokol's id in the database consists of it's arketype and id. There can be given incorrect arketype and/or id, so
    * there is used Optional to take care if the result is null.
