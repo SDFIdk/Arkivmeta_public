@@ -35,4 +35,4 @@ target/
 /karate-1.2.0.jar
 /karate-config-*.js
 /src/test/resources/http-client.env.json
-docker/.env.dev
+/docker/.env.dev
