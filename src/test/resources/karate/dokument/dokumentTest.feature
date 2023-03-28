@@ -79,6 +79,52 @@ Feature: Historiske Dokumenter API Integration Test
     # match the new response match with the variable lower
     And match response == lower
 
+  Scenario: GET - Search herredsnummer
+
+    Given path '/dokument'
+    And param herredsnummer = 1
+    When method get
+    Then status 200
+    # match the response with the keys from the json objects
+    And match response == { total: '#present', dokumenter: '#present' }
+
+  Scenario: POST - Search herredsnummer
+
+    Given path '/dokument'
+    And request
+    """
+    {
+      "herredsnummer": 1
+    }
+    """
+    When method post
+    Then status 200
+    # match the response with the keys from the json objects
+    And match response == { total: '#present', dokumenter: '#present' }
+
+  Scenario: GET - Search fritekstsoegning
+
+    Given path '/dokument'
+    And param fritekstsoegning = "vest"
+    When method get
+    Then status 200
+    # match the response with the keys from the json objects
+    And match response == { total: '#present', dokumenter: '#present' }
+
+  Scenario: POST - Search fritekstsoegning
+
+    Given path '/dokument'
+    And request
+    """
+    {
+      "fritekstsoegning": "vest"
+    }
+    """
+    When method post
+    Then status 200
+    # match the response with the keys from the json objects
+    And match response == { total: '#present', dokumenter: '#present' }
+
 
   Scenario: Search mulitple dokumentsamling
 
@@ -116,7 +162,7 @@ Feature: Historiske Dokumenter API Integration Test
     Then status 200
     And match response.total == 0
 
-  Scenario: Limit -1
+  Scenario: GET - Limit -1
 
     Given path '/dokument'
     And param limit = -1
@@ -130,7 +176,7 @@ Feature: Historiske Dokumenter API Integration Test
     }
     """
 
-  Scenario: Limit 1000
+  Scenario: GET - Limit 1000
 
     Given path '/dokument'
     And param limit = 1001
@@ -141,6 +187,111 @@ Feature: Historiske Dokumenter API Integration Test
     {
         "status": "UNPROCESSABLE_ENTITY",
         "errors": ["limit: must be less than or equal to 1000"]
+    }
+    """
+
+  Scenario: POST - Limit -1
+
+    Given path '/dokument'
+    And request
+    """
+    {
+      "limit": -1
+    }
+    """
+    When method post
+    Then status 422
+    And match response ==
+    """
+    {
+      "status": "UNPROCESSABLE_ENTITY",
+      "errors": ["limit: must be greater than or equal to 1"]
+    }
+    """
+
+  Scenario: POST - Limit 1000
+
+    Given path '/dokument'
+    And request
+    """
+    {
+      "limit": 1001
+    }
+    """
+    When method post
+    Then status 422
+    And match response ==
+    """
+    {
+        "status": "UNPROCESSABLE_ENTITY",
+        "errors": ["limit: must be less than or equal to 1000"]
+    }
+    """
+
+  Scenario: GET - Offset -1
+
+    Given path '/dokument'
+    And param offset = -1
+    When method get
+    Then status 422
+    And match response ==
+    """
+    {
+      "status": "UNPROCESSABLE_ENTITY",
+      "errors": ["offset: must be greater than or equal to 0"]
+    }
+    """
+
+  Scenario: GET - Offset text
+
+    Given path '/dokument'
+    And param offset = 'test'
+    When method get
+    Then status 422
+    And match response ==
+    """
+    {
+        "status": "UNPROCESSABLE_ENTITY",
+        "errors": ["offset: Failed to convert value of type 'java.lang.String' to required type 'java.lang.Integer'; For input string: \"test\""]
+    }
+    """
+
+  Scenario: POST - Offset -1
+
+    Given path '/dokument'
+    And request
+    """
+    {
+      "offset": -1
+    }
+    """
+    When method post
+    Then status 422
+    And match response ==
+    """
+    {
+      "status": "UNPROCESSABLE_ENTITY",
+      "errors": ["offset: must be greater than or equal to 0"]
+    }
+    """
+
+  Scenario: POST - Offset text
+
+    Given path '/dokument'
+    And request
+    """
+    {
+      "offset": 'test'
+    }
+    """
+    When method post
+    Then status 422
+    And match response ==
+    """
+    {
+        "status": "UNPROCESSABLE_ENTITY",
+        "message": "JSON parse error: Cannot deserialize value of type `java.lang.Integer` from String \"test\": not a valid `java.lang.Integer` value",
+        "errors":["com.fasterxml.jackson.databind.exc.InvalidFormatException: Cannot deserialize value of type `java.lang.Integer` from String \"test\": not a valid `java.lang.Integer` value\n at [Source: (org.springframework.util.StreamUtils$NonClosingInputStream); line: 1, column: 11] (through reference chain: dk.dataforsyningen.arkivmeta.dokument.apimodel.DokumentParam[\"offset\"])"]
     }
     """
 
