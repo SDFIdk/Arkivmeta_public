@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import org.apache.catalina.connector.ClientAbortException;
+import org.postgresql.util.PSQLException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.NestedExceptionUtils;
@@ -153,6 +154,17 @@ public class ApiServiceAdvice extends ResponseEntityExceptionHandler {
     return new ResponseEntity<>(errorResponse, errorResponse.getStatus());
   }
 
+  @ExceptionHandler(PSQLException.class)
+  ResponseEntity<ErrorResponse> handlePSQLException(
+      PSQLException exception) {
+    String exceptionCause = getRootCause(exception).toString();
+    ErrorResponse errorResponse =
+        new ErrorResponse(HttpStatus.BAD_REQUEST, exceptionCause);
+    logger.info(ERROR_STRING, exception);
+    logger.info(ERROR_STRING, exceptionCause);
+    return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+  }
+
   @Override
   protected ResponseEntity<Object> handleMissingServletRequestParameter(
       MissingServletRequestParameterException exception,
@@ -208,7 +220,7 @@ public class ApiServiceAdvice extends ResponseEntityExceptionHandler {
   }
 
   /**
-   * HttpStatus.BAD_REQUEST = 400
+   * HttpStatus.UNPROCESSABLE_ENTITY = 422
    *
    * <p>HttpMessageNotReadableException: This exception is thrown when request body is invalid
    *
@@ -227,7 +239,7 @@ public class ApiServiceAdvice extends ResponseEntityExceptionHandler {
     String exceptionCause = getRootCause(exception).toString();
 
     ErrorResponse errorResponse =
-        new ErrorResponse(HttpStatus.BAD_REQUEST, exception.getLocalizedMessage(), exceptionCause);
+        new ErrorResponse(HttpStatus.UNPROCESSABLE_ENTITY, exception.getLocalizedMessage(), exceptionCause);
     logger.info(ERROR_STRING, exception);
     logger.info(ERROR_STRING, exceptionCause);
     return handleExceptionInternal(
