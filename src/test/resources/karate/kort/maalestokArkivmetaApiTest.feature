@@ -23,4 +23,4 @@ Feature: Arkivmeta API Integration Test
     # should be an array of strings with size 3
     # https://karatelabs.github.io/karate/#schema-validation
     And match response == '#[3] #string'
-    And match response == ["1:550000","1:5500","1:55000"]
+    And match response == ["1:5500","1:55000","1:550000"]
