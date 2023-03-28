@@ -68,31 +68,30 @@ public class DokumentService implements IDokumentService {
     }
 
     List<DokumentDto> dokumentDtoList = iDokumentDao.getAllDokumenter(
+            dokumentParam.getDokumentsamling(),
+            area,
             dokumentParam.getHerredsnavn(),
             dokumentParam.getHerredsnummer(),
-            dokumentParam.getSognenavn(),
             dokumentParam.getSogneid(),
-            area,
-            dokumentParam.getDokumentsamling(),
-            dokumentParam.getLimit(),
-            dokumentParam.getOffset(),
+            dokumentParam.getSognenavn(),
+            dokumentParam.getDirection(),
             dokumentParam.getSort(),
-            dokumentParam.getDirection());
+            dokumentParam.getLimit(),
+            dokumentParam.getOffset());
 
 
     long count;
 
     if (dokumentDtoList.size() >= dokumentParam.getLimit()) {
-      count = iDokumentDao.getCount( dokumentParam.getHerredsnavn(),
+      count = iDokumentDao.getCount(
+          dokumentParam.getDokumentsamling(),
+          area,
+          dokumentParam.getHerredsnavn(),
               dokumentParam.getHerredsnummer(),
-              dokumentParam.getSognenavn(),
               dokumentParam.getSogneid(),
-              area,
-              dokumentParam.getDokumentsamling(),
-              dokumentParam.getLimit(),
-              dokumentParam.getOffset(),
-              dokumentParam.getSort(),
-              dokumentParam.getDirection());
+              dokumentParam.getSognenavn(),
+          dokumentParam.getLimit(),
+          dokumentParam.getOffset());
     } else {
       count = dokumentDtoList.size();
     }

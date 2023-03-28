@@ -47,7 +47,13 @@ public interface IDokumentDao {
       FROM
           arkivmeta.protokoller.protokoller
       WHERE
-          (:herredsnavn IS NULL
+          ((<dokumentsamling>) IS NULL
+              OR dokumentsamling IN (<dokumentsamling>))
+          AND (:area IS NULL
+              OR ST_Intersects(geometri,
+              ST_SetSRID(CAST(:area AS geometry),
+              4326)))
+          AND (:herredsnavn IS NULL
               OR herredsnavn ILIKE '%' || :herredsnavn || '%')
           AND (:herredsnummer  IS NULL
               OR herredsnummer  = :herredsnummer)
@@ -55,12 +61,6 @@ public interface IDokumentDao {
               OR sognenavn ILIKE :sognenavn)
           AND (:sogneid IS NULL
               OR sogneid = :sogneid)
-          AND  (:area IS NULL
-              OR ST_Intersects(geometri,
-              ST_SetSRID(CAST(:area AS geometry),
-              4326)))
-          AND ((<dokumentsamling>) IS NULL
-              OR dokumentsamling IN (<dokumentsamling>))
       ORDER BY
           -- Sql statements can not take user values and use them as column name. So we need to make
           -- a match with a CASE to map the user value to the correct column name.
@@ -93,17 +93,17 @@ public interface IDokumentDao {
       """)
   @RegisterRowMapper(DokumentDtoMapper.class)
   List<DokumentDto> getAllDokumenter(
+          @BindList(value = "dokumentsamling", onEmpty = BindList.EmptyHandling.NULL_STRING)
+          List<String> dokumentsamling,
+          @Bind("area") Geometry area,
           @Bind("herredsnavn") String herredsnavn,
           @Bind("herredsnummer") Integer herredsnummer,
-          @Bind("sognenavn") String sognenavn,
           @Bind("sogneid") Integer sogneid,
-          @Bind("area") Geometry area,
-          @BindList(value = "dokumentsamling", onEmpty = BindList.EmptyHandling.NULL_STRING)
-              List<String> dokumentsamling,
-          @Bind("limit") int limit,
-          @Bind("offset") int offset,
+          @Bind("sognenavn") String sognenavn,
+          @Bind("direction") String direction,
           @Bind("sort") String sort,
-          @Bind("direction") String direction);
+          @Bind("limit") int limit,
+          @Bind("offset") int offset);
 
 
   @SqlQuery("""
@@ -112,7 +112,13 @@ public interface IDokumentDao {
       FROM
           arkivmeta.protokoller.protokoller
       WHERE
-           (:herredsnavn IS NULL
+          ((<dokumentsamling>) IS NULL
+              OR dokumentsamling IN (<dokumentsamling>))
+          AND (:area IS NULL
+              OR ST_Intersects(geometri,
+              ST_SetSRID(CAST(:area AS geometry),
+              4326)))
+          AND (:herredsnavn IS NULL
               OR herredsnavn ILIKE '%' || :herredsnavn || '%')
           AND (:herredsnummer  IS NULL
               OR herredsnummer  = :herredsnummer)
@@ -120,27 +126,19 @@ public interface IDokumentDao {
               OR sognenavn ILIKE :sognenavn)
           AND (:sogneid IS NULL
               OR sogneid = :sogneid)
-          AND (:area IS NULL
-              OR ST_Intersects(geometri,
-              ST_SetSRID(CAST(:area AS geometry),
-              4326)))
-          AND ((<dokumentsamling>) IS NULL
-              OR dokumentsamling IN (<dokumentsamling>))
       LIMIT :limit
       OFFSET :offset
       """)
   @RegisterRowMapper(DokumentDtoMapper.class)
   Long getCount(
+          @BindList(value = "dokumentsamling", onEmpty = BindList.EmptyHandling.NULL_STRING)
+          List<String> dokumentsamling,
+          @Bind("area") Geometry area,
           @Bind("herredsnavn") String herredsnavn,
           @Bind("herredsnummer") Integer herredsnummer,
-          @Bind("sognenavn") String sognenavn,
           @Bind("sogneid") Integer sogneid,
-          @Bind("area") Geometry area,
-          @BindList(value = "dokumentsamling", onEmpty = BindList.EmptyHandling.NULL_STRING)
-              List<String> dokumentsamling,
+          @Bind("sognenavn") String sognenavn,
           @Bind("limit") int limit,
-          @Bind("offset") int offset,
-          @Bind("sort") String sort,
-          @Bind("direction") String direction);
+          @Bind("offset") int offset);
 }
 
