@@ -69,7 +69,6 @@ public class KortApi {
    */
   @GetMapping(path = "/metadata/arketyper")
   @Operation(summary = "Hent arketyper", description = "Leverer en liste af tilgængelige arketyper")
-  @CrossOrigin
   public List<String> arketyper() {
     List<String> arketypeList = iKortService.getArketyper()
         .stream()
@@ -84,7 +83,6 @@ public class KortApi {
    */
   @GetMapping(path = "/metadata/arketyper/kortvaerker")
   @Operation(summary = "Hent arketyper med underliggende kortværker", description = "Leverer en liste af tilgængelige arketyper, med de kortværker som hører til")
-  @CrossOrigin
   public List<ArketypeDto> arketyperWithKortvaerker() {
     List<ArketypeDto> arketypeList = iKortService.getArketyper();
 
@@ -97,7 +95,6 @@ public class KortApi {
    */
   @GetMapping(path = "/metadata/daekningsomraader")
   @Operation(summary = "Hent dækningsområder", description = "Leverer en liste af dækningsområder")
-  @CrossOrigin
   public List<String> daekningsomraade(
       @Parameter(description = "Filtrer med søgestreng") @RequestParam(defaultValue = "")
           String daekningsomraade) {
@@ -114,7 +111,6 @@ public class KortApi {
    */
   @GetMapping(path = "/metadata/kortvaerker")
   @Operation(summary = "Hent kortværker", description = "Leverer en liste af kortværker")
-  @CrossOrigin
   public List<String> kortvaerk(
       @Parameter(description = "Kortværker der har følgende arketype")
       @RequestParam(defaultValue = "") String arketype,
@@ -133,7 +129,6 @@ public class KortApi {
    */
   @GetMapping(path = "/metadata/maalestok")
   @Operation(summary = "Hent målestoksforhold", description = "Leverer en liste af målestoksforhold")
-  @CrossOrigin
   List<String> maalestok(
       @Parameter(description = "Filtrer med søgestreng") @RequestParam(defaultValue = "")
           String maalestok) {
@@ -149,7 +144,6 @@ public class KortApi {
    */
   @GetMapping(path = "/kort")
   @Operation(summary = "Liste af kort der matcher søgekriterierne", description = "Hvis gaeldendefra og gaeldendetil bliver brugt samtidig, er det alle kort, der er indenfor gyldighedsperioden eller har været gældende fra eller gældende til, i perioden")
-  @CrossOrigin
   ResponseEntity<KortResult> getKort(@Valid @ParameterObject KortParam kortParam) {
     return postKort(kortParam);
   }
@@ -164,7 +158,6 @@ public class KortApi {
    */
   @PostMapping(path = "/kort")
   @Operation(summary = "Liste af kort der matcher søgekriterierne", description = "Hvis gaeldendefra og gaeldendetil bliver brugt samtidig, er det alle kort, der er indenfor gyldighedsperioden eller har været gældende fra eller gældende til, i perioden")
-  @CrossOrigin
   ResponseEntity<KortResult> postKort(
       @Valid @RequestBody @ParameterObject KortParam kortParam) {
     // For GET and POST direction, limit and offset need a default value, but it should only be set,
@@ -193,7 +186,6 @@ public class KortApi {
    */
   @GetMapping(path = "/kort/{arketype}/{id}")
   @Operation(summary = "Vis kort ud fra unik id")
-  @CrossOrigin
   ResponseEntity<KortDto> kortById(
       @Parameter(description = "arketype") @PathVariable String arketype,
       @Parameter(description = "id") @PathVariable String id) {
