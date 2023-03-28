@@ -54,7 +54,7 @@ public interface IKortDao {
               -- https://stackoverflow.com/questions/4928054/postgresql-wildcard-like-for-any-of-a-list-of-words
               OR lower(daekningsomraade) SIMILAR TO lower('%(' || :daekningsomraade || ')%'))
           AND (:fritekstsoegning IS NULL
-              OR fritekstsoegning @@ plainto_tsquery('danish', :fritekstsoegning))
+              OR fritekstsoegning @@ plainto_tsquery('simple', :fritekstsoegning))
           AND
               CASE
                   -- If 'fra' is defined and 'til' is defined assume user want everything in between, and what is overlapping with 'til's
@@ -114,7 +114,7 @@ public interface IKortDao {
               WHEN (:direction = 'desc' AND :sort = 'titel') THEN titel
           END DESC,
           CASE
-              WHEN :fritekstsoegning IS NOT NULL THEN ts_rank(fritekstsoegning, plainto_tsquery('danish', :fritekstsoegning))
+              WHEN :fritekstsoegning IS NOT NULL THEN ts_rank(fritekstsoegning, plainto_tsquery('simple', :fritekstsoegning))
           END ASC,
           -- There should always be an order by on id for consistent result because we have limit
           -- and offset
@@ -171,7 +171,7 @@ public interface IKortDao {
               -- https://stackoverflow.com/questions/4928054/postgresql-wildcard-like-for-any-of-a-list-of-words
               OR lower(daekningsomraade) SIMILAR TO lower('%(' || :daekningsomraade || ')%'))
           AND (:fritekstsoegning IS NULL
-              OR fritekstsoegning @@ plainto_tsquery('danish', :fritekstsoegning))
+              OR fritekstsoegning @@ plainto_tsquery('simple', :fritekstsoegning))
           AND
               CASE
                   -- If 'fra' is defined and 'til' is defined assume user want everything in between, and what is overlapping with 'til's
