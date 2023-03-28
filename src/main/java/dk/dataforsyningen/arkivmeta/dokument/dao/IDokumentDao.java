@@ -29,7 +29,7 @@ public interface IDokumentDao {
              arkivmeta.protokoller.protokoller p
       """)
   List<String> getHerredsnavn();
-  
+
   @SqlQuery("""
           SELECT
              DISTINCT sognenavn
