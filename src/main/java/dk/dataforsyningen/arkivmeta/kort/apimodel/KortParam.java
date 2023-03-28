@@ -26,7 +26,6 @@ public class KortParam {
   // How @Pattern works: https://stackoverflow.com/questions/4922655/javax-validation-to-validate-list-of-values
   private String direction;
 
-  @Parameter(description = "Fritekstsøgning")
   @Schema(description = "Fritekstsøgning")
   private String fritekstsoegning;
 
