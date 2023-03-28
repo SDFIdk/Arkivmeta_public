@@ -24,12 +24,19 @@ public interface IDokumentDao {
 
   @SqlQuery("""
           SELECT
+             DISTINCT herredsnavn
+          FROM
+             arkivmeta.protokoller.protokoller p
+      """)
+  List<String> getHerredsnavn();
+  
+  @SqlQuery("""
+          SELECT
              DISTINCT sognenavn
           FROM
              arkivmeta.protokoller.protokoller p
       """)
   List<String> getSognenavn();
-
 
   /**
    * @RegisterRowMapper use the registered mapper to map the select columns from the database to GetOrderDto

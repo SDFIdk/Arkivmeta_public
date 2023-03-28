@@ -47,6 +47,16 @@ public class DokumentApi {
   }
 
   /**
+   * @return list of string of all herredsnavne available
+   */
+  @GetMapping(path = "/metadata/herredsnavn")
+  @Operation(summary = "Hent herredsnavne", description = "Leverer en liste af herredsnavne")
+  public List<String> getHerredsnavn() {
+
+    return iDokumentService.getHerredsnavn();
+  }
+
+  /**
    * @return list of string of all sognenavne available
    */
   @GetMapping(path = "/metadata/sognenavn")

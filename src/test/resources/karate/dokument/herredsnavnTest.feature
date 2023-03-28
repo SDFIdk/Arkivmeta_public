@@ -3,9 +3,9 @@ Feature: Historiske Dokumenter API Integration Test
   Background:
     * url url
 
-  Scenario: Get all sognenavne
+  Scenario: Get all herredsnavn
 
-    Given path '/metadata/sognenavn'
+    Given path '/metadata/herredsnavn'
     When method get
     Then status 200
 

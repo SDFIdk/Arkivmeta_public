@@ -30,6 +30,12 @@ public class DokumentService implements IDokumentService {
     return iDokumentDao.getDokumentSamling();
   }
 
+  @Cacheable(cacheNames = "herredsnavn")
+  @Override
+  public List<String> getHerredsnavn() {
+    return iDokumentDao.getHerredsnavn();
+  }
+
   @Cacheable(cacheNames = "sognenavn")
   @Override
   public List<String> getSognenavn() {

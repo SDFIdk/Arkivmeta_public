@@ -56,7 +56,7 @@ public class CachingConfig implements WebMvcConfigurer {
     caffeineCacheManager.setCaffeine(caffeine);
     caffeineCacheManager.setCacheNames(
         List.of("arketyper", "daekningsomraader", "kortvaerker", "maalestokke", "kort",
-            "dokument", "dokumentsamling", "sognenavn"));
+            "dokument", "dokumentsamling", "sognenavn", "herredsnavn"));
     return caffeineCacheManager;
   }
 }
