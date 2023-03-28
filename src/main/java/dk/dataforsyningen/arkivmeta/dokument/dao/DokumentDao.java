@@ -20,6 +20,11 @@ public class DokumentDao implements IDokumentDao {
   }
 
   @Override
+  public List<String> getDokumentSamling() {
+    return arkivmetaJdbi.withExtension(IDokumentDao.class, dao -> dao.getDokumentSamling());
+  }
+
+  @Override
   public Optional<DokumentDto> getDokumentById(String id) {
     return arkivmetaJdbi.withExtension(IDokumentDao.class, dao -> dao.getDokumentById(id));
   }
@@ -27,34 +32,36 @@ public class DokumentDao implements IDokumentDao {
   @Override
   public List<DokumentDto> getAllDokumenter(
       List<String> dokumentsamling,
+      String fritekstsoegning,
       Geometry area,
       String herredsnavn,
       Integer herredsnummer,
       Integer sogneid,
       String sognenavn,
+      String titel,
       String direction,
       String sort,
       int limit,
-      int offset
-  ) {
+      int offset) {
     return arkivmetaJdbi.withExtension(IDokumentDao.class,
-        dao -> dao.getAllDokumenter(dokumentsamling, area, herredsnavn, herredsnummer, sogneid,
-            sognenavn, direction, sort, limit, offset));
+        dao -> dao.getAllDokumenter(dokumentsamling, fritekstsoegning, area, herredsnavn, herredsnummer, sogneid,
+            sognenavn, titel, direction, sort, limit, offset));
   }
 
   @Override
   public Long getCount(
       List<String> dokumentsamling,
+      String fritekstsoegning,
       Geometry area,
-      String herredsnavn, 
+      String herredsnavn,
       Integer herredsnummer,
       Integer sogneid,
       String sognenavn,
+      String titel,
       int limit,
       int offset) {
     return arkivmetaJdbi.withExtension(IDokumentDao.class,
-        dao -> dao.getCount(dokumentsamling, area, herredsnavn, herredsnummer, sogneid, sognenavn,
-            limit, offset));
+        dao -> dao.getCount(dokumentsamling, fritekstsoegning, area, herredsnavn, herredsnummer, sogneid, sognenavn,
+            titel, limit, offset));
   }
-
 }

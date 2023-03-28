@@ -22,6 +22,20 @@ public interface IDokumentDao {
    */
   @SqlQuery("""
           SELECT
+             DISTINCT dokumentsamling
+          FROM
+             arkivmeta.protokoller.protokoller p
+      """)
+  List<String> getDokumentSamling();
+
+  /**
+   * @RegisterRowMapper use the registered mapper to map the select columns from the database to GetOrderDto
+   * https://jdbi.org/#_registerrowmapper
+   * https://jdbi.org/#_getgeneratedkeys
+   * https://jdbi.org/#_timestamped
+   */
+  @SqlQuery("""
+          SELECT
               *
           FROM
               arkivmeta.protokoller.protokoller p
@@ -30,7 +44,6 @@ public interface IDokumentDao {
       """)
   @RegisterRowMapper(DokumentDtoMapper.class)
   Optional<DokumentDto> getDokumentById(@Bind("id") String id);
-
 
   /**
    * To @BindList we need to use < instead of :
@@ -49,6 +62,8 @@ public interface IDokumentDao {
       WHERE
           ((<dokumentsamling>) IS NULL
               OR dokumentsamling IN (<dokumentsamling>))
+          AND (:fritekstsoegning IS NULL
+              OR fritekstsoegning @@ plainto_tsquery('simple', :fritekstsoegning))
           AND (:area IS NULL
               OR ST_Intersects(geometri,
               ST_SetSRID(CAST(:area AS geometry),
@@ -61,6 +76,8 @@ public interface IDokumentDao {
               OR sognenavn ILIKE :sognenavn)
           AND (:sogneid IS NULL
               OR sogneid = :sogneid)
+          AND (:titel IS NULL
+              OR titel ILIKE :titel)
       ORDER BY
           -- Sql statements can not take user values and use them as column name. So we need to make
           -- a match with a CASE to map the user value to the correct column name.
@@ -80,7 +97,10 @@ public interface IDokumentDao {
               WHEN (:direction = 'desc' AND :sort = 'sogneid') THEN sogneid::varchar
               WHEN (:direction = 'desc' AND :sort = 'dokumentsamling') THEN dokumentsamling
           END DESC,
-               -- There should always be an order by on id for consistent result because we have limit
+          CASE
+              WHEN :fritekstsoegning IS NOT NULL THEN ts_rank(fritekstsoegning, plainto_tsquery('simple', :fritekstsoegning))
+          END ASC,
+          -- There should always be an order by on id for consistent result because we have limit
           -- and offset
           CASE
               WHEN :direction = 'asc' THEN id
@@ -95,11 +115,13 @@ public interface IDokumentDao {
   List<DokumentDto> getAllDokumenter(
       @BindList(value = "dokumentsamling", onEmpty = BindList.EmptyHandling.NULL_STRING)
           List<String> dokumentsamling,
+      @Bind("fritekstsoegning") String fritekstsoegning,
       @Bind("area") Geometry area,
       @Bind("herredsnavn") String herredsnavn,
       @Bind("herredsnummer") Integer herredsnummer,
       @Bind("sogneid") Integer sogneid,
       @Bind("sognenavn") String sognenavn,
+      @Bind("titel") String titel,
       @Bind("direction") String direction,
       @Bind("sort") String sort,
       @Bind("limit") int limit,
@@ -114,6 +136,8 @@ public interface IDokumentDao {
       WHERE
           ((<dokumentsamling>) IS NULL
               OR dokumentsamling IN (<dokumentsamling>))
+          AND (:fritekstsoegning IS NULL
+              OR fritekstsoegning @@ plainto_tsquery('simple', :fritekstsoegning))
           AND (:area IS NULL
               OR ST_Intersects(geometri,
               ST_SetSRID(CAST(:area AS geometry),
@@ -126,6 +150,8 @@ public interface IDokumentDao {
               OR sognenavn ILIKE :sognenavn)
           AND (:sogneid IS NULL
               OR sogneid = :sogneid)
+          AND (:titel IS NULL
+              OR titel ILIKE :titel)
       LIMIT :limit
       OFFSET :offset
       """)
@@ -133,11 +159,13 @@ public interface IDokumentDao {
   Long getCount(
       @BindList(value = "dokumentsamling", onEmpty = BindList.EmptyHandling.NULL_STRING)
           List<String> dokumentsamling,
+      @Bind("fritekstsoegning") String fritekstsoegning,
       @Bind("area") Geometry area,
       @Bind("herredsnavn") String herredsnavn,
       @Bind("herredsnummer") Integer herredsnummer,
       @Bind("sogneid") Integer sogneid,
       @Bind("sognenavn") String sognenavn,
+      @Bind("titel") String titel,
       @Bind("limit") int limit,
       @Bind("offset") int offset);
 }

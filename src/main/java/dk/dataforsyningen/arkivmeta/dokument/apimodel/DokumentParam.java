@@ -12,6 +12,9 @@ public class DokumentParam {
       "Eksempel: `Hartkornsekstrakter, Sogneprotokoller.`")
   private List<String> dokumentsamling;
 
+  @Schema(description = "Fritekstsøgning")
+  private String fritekstsoegning;
+
   @Schema(description = "Geometri angives som WKT med SRS = EPSG:4326. Det geografiske område, ofte en polygon, som kortet ligger indenfor.")
   private String geometri;
 
@@ -27,6 +30,9 @@ public class DokumentParam {
   @Schema(description = "Sognenavn.")
   private String sognenavn;
 
+  @Schema(description = "Titel på dokumentet.")
+  private String titel;
+
   @Schema(description = "Sorteringsretning, `asc` for stigende, `desc` for faldende", defaultValue = "asc")
   @Pattern(regexp = "asc|desc")
   // How @Pattern works: https://stackoverflow.com/questions/4922655/javax-validation-to-validate-list-of-values
@@ -40,18 +46,22 @@ public class DokumentParam {
   @Max(1000)
   private Integer limit;
 
+  @Min(0)
   @Schema(description = "Offset, dvs. fra hvilken post", defaultValue = "0")
   private Integer offset;
 
-  public DokumentParam(List<String> dokumentsamling, String geometri, String herredsnavn,
-                       Integer herredsnummer, Integer sogneid, String sognenavn,
-                       String direction, String sort, Integer limit, Integer offset) {
+  public DokumentParam(List<String> dokumentsamling, String fritekstsoegning,
+                       String geometri, String herredsnavn, Integer herredsnummer,
+                       Integer sogneid, String sognenavn, String titel, String direction,
+                       String sort, Integer limit, Integer offset) {
     this.dokumentsamling = dokumentsamling;
+    this.fritekstsoegning = fritekstsoegning;
     this.geometri = geometri;
     this.herredsnavn = herredsnavn;
     this.herredsnummer = herredsnummer;
     this.sogneid = sogneid;
     this.sognenavn = sognenavn;
+    this.titel = titel;
     this.direction = direction;
     this.sort = sort;
     this.limit = limit;
@@ -64,6 +74,14 @@ public class DokumentParam {
 
   public void setDokumentsamling(List<String> dokumentsamling) {
     this.dokumentsamling = dokumentsamling;
+  }
+
+  public String getFritekstsoegning() {
+    return fritekstsoegning;
+  }
+
+  public void setFritekstsoegning(String fritekstsoegning) {
+    this.fritekstsoegning = fritekstsoegning;
   }
 
   public String getGeometri() {
@@ -104,6 +122,14 @@ public class DokumentParam {
 
   public void setSognenavn(String sognenavn) {
     this.sognenavn = sognenavn;
+  }
+
+  public String getTitel() {
+    return titel;
+  }
+
+  public void setTitel(String titel) {
+    this.titel = titel;
   }
 
   public String getDirection() {

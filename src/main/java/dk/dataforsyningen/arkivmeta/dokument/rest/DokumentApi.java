@@ -4,10 +4,14 @@ import dk.dataforsyningen.arkivmeta.dokument.apimodel.DokumentDto;
 import dk.dataforsyningen.arkivmeta.dokument.apimodel.DokumentParam;
 import dk.dataforsyningen.arkivmeta.dokument.apimodel.DokumentResult;
 import dk.dataforsyningen.arkivmeta.dokument.service.IDokumentService;
+import dk.dataforsyningen.arkivmeta.kort.apimodel.ArketypeDto;
+import dk.dataforsyningen.arkivmeta.kort.apimodel.KortvaerkDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springdoc.core.annotations.ParameterObject;
@@ -19,6 +23,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @Tag(name = "ProtokolApi", description = "Protokol metadata API")
@@ -29,6 +34,17 @@ public class DokumentApi {
 
   public DokumentApi(IDokumentService iDokumentService) {
     this.iDokumentService = iDokumentService;
+  }
+
+  /**
+   * @return list of string of all dokumentsamling available
+   */
+  @GetMapping(path = "/metadata/dokumentsamling")
+  @Operation(summary = "Hent dokumentsamling", description = "Leverer en liste af dokumentsamlinger")
+  @CrossOrigin
+  public List<String> getDokumentSamling() {
+
+    return iDokumentService.getDokumentSamling();
   }
 
   /**

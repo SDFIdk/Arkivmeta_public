@@ -24,6 +24,12 @@ public class DokumentService implements IDokumentService {
     this.iDokumentDao = iDokumentDao;
   }
 
+  @Cacheable(cacheNames = "dokumentsamling")
+  @Override
+  public List<String> getDokumentSamling() {
+    return iDokumentDao.getDokumentSamling();
+  }
+
   /**
    * Protokol's id in the database consists of it's arketype and id. There can be given incorrect arketype and/or id, so
    * there is used Optional to take care if the result is null.
@@ -34,8 +40,6 @@ public class DokumentService implements IDokumentService {
    * @param id
    * @return DokumentDto with the matching datamodel of the dokument
    */
-
-
   @Override
   public DokumentDto getDokumentById(String arketype, String id) {
     String searchId = arketype + "/" + id;
@@ -53,6 +57,7 @@ public class DokumentService implements IDokumentService {
    * match result there was in total
    */
   @Cacheable(cacheNames = "dokument", key = "#dokumentParam")
+  @Override
   public DokumentResult getDokumentResult(DokumentParam dokumentParam) {
     Geometry area = new GeometryFactory().createGeometry(null);
     if (StringUtils.isNotBlank(dokumentParam.getGeometri())) {
@@ -66,27 +71,30 @@ public class DokumentService implements IDokumentService {
 
     List<DokumentDto> dokumentDtoList = iDokumentDao.getAllDokumenter(
         dokumentParam.getDokumentsamling(),
+        dokumentParam.getFritekstsoegning(),
         area,
         dokumentParam.getHerredsnavn(),
         dokumentParam.getHerredsnummer(),
         dokumentParam.getSogneid(),
         dokumentParam.getSognenavn(),
+        dokumentParam.getTitel(),
         dokumentParam.getDirection(),
         dokumentParam.getSort(),
         dokumentParam.getLimit(),
         dokumentParam.getOffset());
-
 
     long count;
 
     if (dokumentDtoList.size() >= dokumentParam.getLimit()) {
       count = iDokumentDao.getCount(
           dokumentParam.getDokumentsamling(),
+          dokumentParam.getFritekstsoegning(),
           area,
           dokumentParam.getHerredsnavn(),
           dokumentParam.getHerredsnummer(),
           dokumentParam.getSogneid(),
           dokumentParam.getSognenavn(),
+          dokumentParam.getTitel(),
           dokumentParam.getLimit(),
           dokumentParam.getOffset());
     } else {
@@ -96,5 +104,4 @@ public class DokumentService implements IDokumentService {
     DokumentResult dokumentResult = new DokumentResult(count, dokumentDtoList);
     return dokumentResult;
   }
-
 }
