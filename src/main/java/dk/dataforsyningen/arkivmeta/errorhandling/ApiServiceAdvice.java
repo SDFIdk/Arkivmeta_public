@@ -89,6 +89,7 @@ public class ApiServiceAdvice extends ResponseEntityExceptionHandler {
 
   /**
    * Gets triggered sometimes when values fail the validation check.
+   *
    * @param exception
    * @return ResponseEntity<ErrorResponse>
    */

@@ -3,13 +3,13 @@ package dk.dataforsyningen.arkivmeta.dokument.dao;
 import dk.dataforsyningen.arkivmeta.configuration.LogSqlFactory;
 import dk.dataforsyningen.arkivmeta.dokument.apimapper.DokumentDtoMapper;
 import dk.dataforsyningen.arkivmeta.dokument.apimodel.DokumentDto;
+import java.util.List;
+import java.util.Optional;
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper;
 import org.jdbi.v3.sqlobject.customizer.Bind;
 import org.jdbi.v3.sqlobject.customizer.BindList;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.locationtech.jts.geom.Geometry;
-import java.util.List;
-import java.util.Optional;
 
 @LogSqlFactory
 public interface IDokumentDao {
@@ -21,13 +21,13 @@ public interface IDokumentDao {
    * https://jdbi.org/#_timestamped
    */
   @SqlQuery("""
-      SELECT
-          *
-      FROM
-          arkivmeta.protokoller.protokoller p
-      WHERE
-          p.id = :id
-  """)
+          SELECT
+              *
+          FROM
+              arkivmeta.protokoller.protokoller p
+          WHERE
+              p.id = :id
+      """)
   @RegisterRowMapper(DokumentDtoMapper.class)
   Optional<DokumentDto> getDokumentById(@Bind("id") String id);
 
@@ -41,7 +41,7 @@ public interface IDokumentDao {
    * https://jdbi.org/#_getgeneratedkeys
    * https://jdbi.org/#_timestamped
    */
-  @SqlQuery( """
+  @SqlQuery("""
       SELECT
           *
       FROM
@@ -93,17 +93,17 @@ public interface IDokumentDao {
       """)
   @RegisterRowMapper(DokumentDtoMapper.class)
   List<DokumentDto> getAllDokumenter(
-          @BindList(value = "dokumentsamling", onEmpty = BindList.EmptyHandling.NULL_STRING)
+      @BindList(value = "dokumentsamling", onEmpty = BindList.EmptyHandling.NULL_STRING)
           List<String> dokumentsamling,
-          @Bind("area") Geometry area,
-          @Bind("herredsnavn") String herredsnavn,
-          @Bind("herredsnummer") Integer herredsnummer,
-          @Bind("sogneid") Integer sogneid,
-          @Bind("sognenavn") String sognenavn,
-          @Bind("direction") String direction,
-          @Bind("sort") String sort,
-          @Bind("limit") int limit,
-          @Bind("offset") int offset);
+      @Bind("area") Geometry area,
+      @Bind("herredsnavn") String herredsnavn,
+      @Bind("herredsnummer") Integer herredsnummer,
+      @Bind("sogneid") Integer sogneid,
+      @Bind("sognenavn") String sognenavn,
+      @Bind("direction") String direction,
+      @Bind("sort") String sort,
+      @Bind("limit") int limit,
+      @Bind("offset") int offset);
 
 
   @SqlQuery("""
@@ -131,14 +131,14 @@ public interface IDokumentDao {
       """)
   @RegisterRowMapper(DokumentDtoMapper.class)
   Long getCount(
-          @BindList(value = "dokumentsamling", onEmpty = BindList.EmptyHandling.NULL_STRING)
+      @BindList(value = "dokumentsamling", onEmpty = BindList.EmptyHandling.NULL_STRING)
           List<String> dokumentsamling,
-          @Bind("area") Geometry area,
-          @Bind("herredsnavn") String herredsnavn,
-          @Bind("herredsnummer") Integer herredsnummer,
-          @Bind("sogneid") Integer sogneid,
-          @Bind("sognenavn") String sognenavn,
-          @Bind("limit") int limit,
-          @Bind("offset") int offset);
+      @Bind("area") Geometry area,
+      @Bind("herredsnavn") String herredsnavn,
+      @Bind("herredsnummer") Integer herredsnummer,
+      @Bind("sogneid") Integer sogneid,
+      @Bind("sognenavn") String sognenavn,
+      @Bind("limit") int limit,
+      @Bind("offset") int offset);
 }
 

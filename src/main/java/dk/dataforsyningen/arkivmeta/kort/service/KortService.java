@@ -134,7 +134,6 @@ public class KortService implements IKortService {
   }
 
   /**
-   *
    * @param kortParam
    * @return the object with a list of kort that matched users requirements (up to 1000) and a total of how many
    * match result there was in total

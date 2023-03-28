@@ -4,11 +4,8 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import java.util.List;
-import java.util.Objects;
-import org.springframework.beans.factory.annotation.Value;
 
 public class KortParam {
 
@@ -77,7 +74,8 @@ public class KortParam {
   public KortParam(List<String> arketype, List<String> daekningsomraade, String direction,
                    String fritekstsoegning, Integer gaeldendefra, Integer gaeldendetil,
                    String geometri, String kortbladnummer, List<String> kortvaerk,
-                   List<String> maalestok, Integer limit, Integer offset, String sort, String tegner,
+                   List<String> maalestok, Integer limit, Integer offset, String sort,
+                   String tegner,
                    String titel) {
     this.arketype = arketype;
     this.daekningsomraade = daekningsomraade;

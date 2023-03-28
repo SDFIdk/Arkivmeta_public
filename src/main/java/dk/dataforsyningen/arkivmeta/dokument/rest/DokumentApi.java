@@ -1,8 +1,8 @@
 package dk.dataforsyningen.arkivmeta.dokument.rest;
 
+import dk.dataforsyningen.arkivmeta.dokument.apimodel.DokumentDto;
 import dk.dataforsyningen.arkivmeta.dokument.apimodel.DokumentParam;
 import dk.dataforsyningen.arkivmeta.dokument.apimodel.DokumentResult;
-import dk.dataforsyningen.arkivmeta.dokument.apimodel.DokumentDto;
 import dk.dataforsyningen.arkivmeta.dokument.service.IDokumentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -14,7 +14,12 @@ import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 @Tag(name = "ProtokolApi", description = "Protokol metadata API")
 @RestController
@@ -48,7 +53,7 @@ public class DokumentApi {
   @Operation(summary = "Liste af dokumenter der matcher søgekriterierne", description = "Disse er parametrerne i DokumentParam")
   @CrossOrigin
   ResponseEntity<DokumentResult> postDokument(
-          @Valid @RequestBody DokumentParam dokumentParam) {
+      @Valid @RequestBody DokumentParam dokumentParam) {
     // For GET and POST direction, limit and offset need a default value, but it should only be set,
     // if the client did not specify them.
     if (StringUtils.isBlank(dokumentParam.getDirection())) {

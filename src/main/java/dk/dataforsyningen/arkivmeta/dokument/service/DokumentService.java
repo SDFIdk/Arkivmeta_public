@@ -4,19 +4,17 @@ import dk.dataforsyningen.arkivmeta.dokument.apimodel.DokumentDto;
 import dk.dataforsyningen.arkivmeta.dokument.apimodel.DokumentParam;
 import dk.dataforsyningen.arkivmeta.dokument.apimodel.DokumentResult;
 import dk.dataforsyningen.arkivmeta.dokument.dao.IDokumentDao;
-
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
-
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.stereotype.Service;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.io.ParseException;
 import org.locationtech.jts.io.WKTReader;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.stereotype.Service;
 
 @Service
 public class DokumentService implements IDokumentService {
@@ -45,12 +43,11 @@ public class DokumentService implements IDokumentService {
     Optional<DokumentDto> returnedProtokol = iDokumentDao.getDokumentById(searchId);
 
     return returnedProtokol.orElseThrow(
-            () -> new NoSuchElementException("Ingen dokument matchede det givne id: " + searchId)
+        () -> new NoSuchElementException("Ingen dokument matchede det givne id: " + searchId)
     );
   }
 
   /**
-   *
    * @param dokumentParam
    * @return the object with a list of kort that matched users requirements (up to 1000) and a total of how many
    * match result there was in total
@@ -63,21 +60,21 @@ public class DokumentService implements IDokumentService {
         area = new WKTReader().read(dokumentParam.getGeometri());
       } catch (ParseException parseException) {
         throw new IllegalArgumentException(
-                "Could not read geometry. Should be a WKT with SRS = EPSG:4326", parseException);
+            "Could not read geometry. Should be a WKT with SRS = EPSG:4326", parseException);
       }
     }
 
     List<DokumentDto> dokumentDtoList = iDokumentDao.getAllDokumenter(
-            dokumentParam.getDokumentsamling(),
-            area,
-            dokumentParam.getHerredsnavn(),
-            dokumentParam.getHerredsnummer(),
-            dokumentParam.getSogneid(),
-            dokumentParam.getSognenavn(),
-            dokumentParam.getDirection(),
-            dokumentParam.getSort(),
-            dokumentParam.getLimit(),
-            dokumentParam.getOffset());
+        dokumentParam.getDokumentsamling(),
+        area,
+        dokumentParam.getHerredsnavn(),
+        dokumentParam.getHerredsnummer(),
+        dokumentParam.getSogneid(),
+        dokumentParam.getSognenavn(),
+        dokumentParam.getDirection(),
+        dokumentParam.getSort(),
+        dokumentParam.getLimit(),
+        dokumentParam.getOffset());
 
 
     long count;
@@ -87,9 +84,9 @@ public class DokumentService implements IDokumentService {
           dokumentParam.getDokumentsamling(),
           area,
           dokumentParam.getHerredsnavn(),
-              dokumentParam.getHerredsnummer(),
-              dokumentParam.getSogneid(),
-              dokumentParam.getSognenavn(),
+          dokumentParam.getHerredsnummer(),
+          dokumentParam.getSogneid(),
+          dokumentParam.getSognenavn(),
           dokumentParam.getLimit(),
           dokumentParam.getOffset());
     } else {

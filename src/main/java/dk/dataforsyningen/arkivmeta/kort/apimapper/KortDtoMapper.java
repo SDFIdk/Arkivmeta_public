@@ -1,5 +1,6 @@
 package dk.dataforsyningen.arkivmeta.kort.apimapper;
 
+import dk.dataforsyningen.arkivmeta.enums.Arketype;
 import dk.dataforsyningen.arkivmeta.kort.apimodel.AeldretopografiskekortDto;
 import dk.dataforsyningen.arkivmeta.kort.apimodel.CentimeterkortDto;
 import dk.dataforsyningen.arkivmeta.kort.apimodel.FaeroesketopokortDto;
@@ -11,7 +12,6 @@ import dk.dataforsyningen.arkivmeta.kort.apimodel.MaalebordsbladeDto;
 import dk.dataforsyningen.arkivmeta.kort.apimodel.MatrikelkortDto;
 import dk.dataforsyningen.arkivmeta.kort.apimodel.SoekortDto;
 import dk.dataforsyningen.arkivmeta.kort.apimodel.TematiskekortDto;
-import dk.dataforsyningen.arkivmeta.enums.Arketype;
 import dk.dataforsyningen.arkivmeta.mapperhelper.MapperFiler;
 import dk.dataforsyningen.arkivmeta.mapperhelper.MapperGeometri;
 import java.sql.ResultSet;
