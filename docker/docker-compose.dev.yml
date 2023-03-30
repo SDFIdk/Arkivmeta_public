@@ -10,7 +10,7 @@ services:
         env_file:
             - .env.dev
         ports:
-            - "41500:8080"
+            - "41501:8080"
         networks:
             - arkivmeta
         command: java -jar /arkivmeta.jar
