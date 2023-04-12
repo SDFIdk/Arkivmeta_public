@@ -22,11 +22,11 @@ public class OpenApiConfig {
     return new OpenAPI()
         .info(new Info()
             .title("Arkivmeta")
-            .version("1.0.11")
+            .version("2.0.0")
             .description("""
-                APIet __Arkivmeta__ giver adgang til at søge i metadata for en større samling historiske kort og benytte resultatet til at fremvise det skannede materiale.
+                APIet __Arkivmeta__ giver adgang til at søge i metadata for en større samling historiske kort, dokumenter og benytte resultatet til at fremvise det skannede materiale.
                                         
-                Til adgang benyttes Kortforsyningens brugeradgang som ved andre tjenester.
+                Til adgang benyttes Dataforsyningens brugeradgang som ved andre tjenester.
                                         
                 Stier til kortfiler følger [IIIF specifikationen](https://iiif.io/) og kan vises med en viser, der understøtter dette.
                 """))
