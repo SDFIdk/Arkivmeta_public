@@ -14,9 +14,9 @@ public class PostgresFullTextSearchJPAPlugin implements MetadataBuilderContribut
   public void contribute(MetadataBuilder metadataBuilder) {
     metadataBuilder.applySqlFunction("fts",
         new SQLFunctionTemplate(BooleanType.INSTANCE,
-            "fritekstsoegning @@ plainto_tsquery('danish', ?1)"));
+            "fritekstsoegning @@ plainto_tsquery('simple', ?1)"));
     metadataBuilder.applySqlFunction("rnk",
         new SQLFunctionTemplate(BigDecimalType.INSTANCE,
-            "ts_rank(fritekstsoegning, plainto_tsquery('danish', ?1))"));
+            "ts_rank(fritekstsoegning, plainto_tsquery('simple', ?1))"));
   }
 }
