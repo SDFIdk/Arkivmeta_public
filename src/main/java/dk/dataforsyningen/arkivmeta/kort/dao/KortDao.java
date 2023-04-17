@@ -43,10 +43,9 @@ public class KortDao implements IKortDao {
                        String fritekstsoegning, Integer gaeldendefra,
                        Integer gaeldendetil, Geometry area, String kortbladnummer,
                        String kortvaerk, List<String> maalestok, String tegner,
-                       String titel, int limit, int offset) {
+                       String titel) {
     return arkivmetaJdbi.withExtension(IKortDao.class,
         dao -> dao.getCount(arketype, daekningsomraade, fritekstsoegning, gaeldendefra,
-            gaeldendetil, area, kortbladnummer, kortvaerk, maalestok, tegner, titel, limit,
-            offset));
+            gaeldendetil, area, kortbladnummer, kortvaerk, maalestok, tegner, titel));
   }
 }

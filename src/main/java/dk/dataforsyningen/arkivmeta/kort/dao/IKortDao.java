@@ -201,8 +201,6 @@ public interface IKortDao {
               OR tegner ILIKE :tegner)
           AND (:titel IS NULL
               OR titel ILIKE :titel)
-      LIMIT :limit
-      OFFSET :offset
       """)
   Long getCount(
       // We need to be able to pass an empty list to the sql, but JDBI as default throws an exception
@@ -219,7 +217,5 @@ public interface IKortDao {
       @BindList(value = "maalestok", onEmpty = BindList.EmptyHandling.NULL_STRING)
           List<String> maalestok,
       @Bind("tegner") String tegner,
-      @Bind("titel") String titel,
-      @Bind("limit") int limit,
-      @Bind("offset") int offset);
+      @Bind("titel") String titel);
 }

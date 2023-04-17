@@ -168,7 +168,7 @@ public class KortService implements IKortService {
       count = iKortDao.getCount(kortParam.getArketype(), daekningsomraade,
           kortParam.getFritekstsoegning(), kortParam.getGaeldendefra(), kortParam.getGaeldendetil(),
           area, kortParam.getKortbladnummer(), kortvaerk, kortParam.getMaalestok(),
-          kortParam.getTegner(), kortParam.getTitel(), kortParam.getLimit(), kortParam.getOffset());
+          kortParam.getTegner(), kortParam.getTitel());
     } else {
       count = kortDtoList.size();
     }

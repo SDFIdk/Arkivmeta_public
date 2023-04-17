@@ -106,9 +106,7 @@ public class DokumentService implements IDokumentService {
           dokumentParam.getHerredsnummer(),
           dokumentParam.getSogneid(),
           dokumentParam.getSognenavn(),
-          dokumentParam.getTitel(),
-          dokumentParam.getLimit(),
-          dokumentParam.getOffset());
+          dokumentParam.getTitel());
     } else {
       count = dokumentDtoList.size();
     }

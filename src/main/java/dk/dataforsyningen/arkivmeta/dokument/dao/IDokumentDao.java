@@ -162,8 +162,6 @@ public interface IDokumentDao {
               OR sogneid = :sogneid)
           AND (:titel IS NULL
               OR titel ILIKE :titel)
-      LIMIT :limit
-      OFFSET :offset
       """)
   @RegisterRowMapper(DokumentDtoMapper.class)
   Long getCount(
@@ -175,8 +173,6 @@ public interface IDokumentDao {
       @Bind("herredsnummer") Integer herredsnummer,
       @Bind("sogneid") Integer sogneid,
       @Bind("sognenavn") String sognenavn,
-      @Bind("titel") String titel,
-      @Bind("limit") int limit,
-      @Bind("offset") int offset);
+      @Bind("titel") String titel);
 }
 

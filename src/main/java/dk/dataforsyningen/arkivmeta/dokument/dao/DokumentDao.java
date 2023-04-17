@@ -67,11 +67,9 @@ public class DokumentDao implements IDokumentDao {
       Integer herredsnummer,
       Integer sogneid,
       String sognenavn,
-      String titel,
-      int limit,
-      int offset) {
+      String titel) {
     return arkivmetaJdbi.withExtension(IDokumentDao.class,
         dao -> dao.getCount(dokumentsamling, fritekstsoegning, area, herredsnavn, herredsnummer, sogneid, sognenavn,
-            titel, limit, offset));
+            titel));
   }
 }
