@@ -105,7 +105,7 @@ Feature: Historiske Dokumenter API Integration Test
   Scenario: GET - Search fritekstsoegning
 
     Given path '/dokument'
-    And param fritekstsoegning = "vest"
+    And param fritekstsoegning = "vester"
     When method get
     Then status 200
     # match the response with the keys from the json objects
@@ -117,7 +117,7 @@ Feature: Historiske Dokumenter API Integration Test
     And request
     """
     {
-      "fritekstsoegning": "vest"
+      "fritekstsoegning": "vester"
     }
     """
     When method post
