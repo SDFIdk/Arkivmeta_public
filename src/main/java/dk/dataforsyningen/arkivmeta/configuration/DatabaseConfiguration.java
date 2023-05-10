@@ -17,17 +17,10 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
-/**
- * The project need to connect to multiple datasources. One to certificate user and file(s) and the
- * other to save the order Configuration to multiple datasources is inspired from here:
- * https://gist.github.com/dakoctba/1047ca084118ff46a1a917726f99a2b2
- * https://stackoverflow.com/questions/30362546/how-to-use-2-or-more-databases-with-spring
- */
 @Configuration
 public class DatabaseConfiguration {
   /**
-   * The SQL data source that Jdbi will connect to. In this example we use an H2 database, but it
-   * can be any JDBC-compatible database. https://jdbi.org/#_spring5
+   * The SQL data source that Jdbi will connect to. https://jdbi.org/#_spring_5
    *
    * @return
    */
@@ -39,9 +32,9 @@ public class DatabaseConfiguration {
   }
 
   /**
-   * Enable configuration of transactions via annotations. https://jdbi.org/#_spring5
+   * Enable configuration of transactions via annotations. https://jdbi.org/#_spring_5
    *
-   * @param dataSource
+   * @param dataSourceTransactionManager
    * @return
    */
   @Bean(name = "arkivmetaTransactionManager")
@@ -53,6 +46,12 @@ public class DatabaseConfiguration {
     return dataSourceTransactionManager;
   }
 
+  /**
+   * Enable plugins
+   *
+   * @param dataSource
+   * @return
+   */
   @Bean(name = "arkivmetaJdbi")
   public Jdbi jdbi(@Qualifier("arkivmeta") DataSource dataSource) {
     Jdbi jdbi = Jdbi.create(dataSource)
@@ -61,6 +60,7 @@ public class DatabaseConfiguration {
         .installPlugin(new PostgisPlugin())
         .installPlugin(new Jackson2Plugin());
 
+    // Enable to bind NUll values (for postgres it is Other)
     // https://stackoverflow.com/questions/48254280/why-does-jdbi-bind-fail-with-function-as-parameter
     jdbi.getConfig(Arguments.class)
         .setUntypedNullArgument(new NullArgument(Types.OTHER));
