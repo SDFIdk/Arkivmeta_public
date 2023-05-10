@@ -9,7 +9,7 @@ import org.jdbi.v3.sqlobject.statement.SqlQuery;
 public interface IDaekningsomraadeDao {
 
   /**
-   * @RegisterRowMapper use the registered mapper to map the select columns from the database to GetOrderDto
+   * @RegisterRowMapper use the registered mapper to map the select columns from the database to DaekningsomraadeDto
    * https://jdbi.org/#_registerrowmapper
    */
   @SqlQuery("""

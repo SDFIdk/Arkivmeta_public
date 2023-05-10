@@ -15,10 +15,8 @@ import org.locationtech.jts.geom.Geometry;
 public interface IKortDao {
 
   /**
-   * @RegisterRowMapper use the registered mapper to map the select columns from the database to GetOrderDto
+   * @RegisterRowMapper use the registered mapper to map the select columns from the database to KortDto
    * https://jdbi.org/#_registerrowmapper
-   * https://jdbi.org/#_getgeneratedkeys
-   * https://jdbi.org/#_timestamped
    */
   @SqlQuery("""
       SELECT
@@ -36,10 +34,8 @@ public interface IKortDao {
    * To @BindList we need to use < instead of :
    * https://jdbi.org/#_binding_arguments_2
    *
-   * @RegisterRowMapper use the registered mapper to map the select columns from the database to GetOrderDto
+   * @RegisterRowMapper use the registered mapper to map the select columns from the database to KortDto
    * https://jdbi.org/#_registerrowmapper
-   * https://jdbi.org/#_getgeneratedkeys
-   * https://jdbi.org/#_timestamped
    */
   @SqlQuery("""
       SELECT
@@ -152,11 +148,6 @@ public interface IKortDao {
   /**
    * To @BindList we need to use < instead of :
    * https://jdbi.org/#_binding_arguments_2
-   *
-   * @RegisterRowMapper use the registered mapper to map the select columns from the database to GetOrderDto
-   * https://jdbi.org/#_registerrowmapper
-   * https://jdbi.org/#_getgeneratedkeys
-   * https://jdbi.org/#_timestamped
    */
   @SqlQuery("""
       SELECT
