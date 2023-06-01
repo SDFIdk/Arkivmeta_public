@@ -38,7 +38,7 @@ public class DokumentParam {
   // How @Pattern works: https://stackoverflow.com/questions/4922655/javax-validation-to-validate-list-of-values
   private String direction;
 
-  @Schema(description = "Sorteringsfelt, kan sortere på følgende typer: arketype, daekningsomraade, gaeldendefra, gaeldendetil, id, kortvaerk, maalestok, titel")
+  @Schema(description = "Sorteringsfelt, kan sortere på følgende typer: herredsnavn, herredsnummer, sognenavn, sogneid, dokumentsamling, titel")
   private String sort;
 
   @Schema(description = "Sidestørrelse, dvs. hvor mange poster pr. side", defaultValue = "100")
