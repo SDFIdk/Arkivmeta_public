@@ -19,6 +19,8 @@ public interface IDokumentDao {
              DISTINCT dokumentsamling
           FROM
              arkivmeta.protokoller.protokoller p
+          ORDER BY 
+            dokumentsamling ASC
       """)
   List<String> getDokumentSamling();
 
@@ -27,6 +29,10 @@ public interface IDokumentDao {
              DISTINCT herredsnavn
           FROM
              arkivmeta.protokoller.protokoller p
+          WHERE
+            dokumentsamling = 'sogneprotokoller'
+          ORDER BY
+            herredsnavn ASC 
       """)
   List<String> getHerredsnavn();
 
@@ -35,6 +41,10 @@ public interface IDokumentDao {
              DISTINCT sognenavn
           FROM
              arkivmeta.protokoller.protokoller p
+          WHERE
+            dokumentsamling = 'sogneprotokoller'
+          ORDER BY
+            sognenavn ASC
       """)
   List<String> getSognenavn();
 
