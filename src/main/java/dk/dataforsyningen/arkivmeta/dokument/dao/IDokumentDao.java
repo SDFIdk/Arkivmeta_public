@@ -99,6 +99,7 @@ public interface IDokumentDao {
               WHEN (:direction = 'asc' AND :sort = 'sognenavn') THEN sognenavn
               WHEN (:direction = 'asc' AND :sort = 'sogneid') THEN sogneid::varchar
               WHEN (:direction = 'asc' AND :sort = 'dokumentsamling') THEN dokumentsamling
+              WHEN (:direction = 'asc' AND :sort = 'titel') THEN titel 
           END ASC,
           CASE
               WHEN (:direction = 'desc' AND :sort = 'herredsnavn') THEN herredsnavn
@@ -106,6 +107,7 @@ public interface IDokumentDao {
               WHEN (:direction = 'desc' AND :sort = 'sognenavn') THEN sognenavn
               WHEN (:direction = 'desc' AND :sort = 'sogneid') THEN sogneid::varchar
               WHEN (:direction = 'desc' AND :sort = 'dokumentsamling') THEN dokumentsamling
+              WHEN (:direction = 'desc' AND :sort = 'titel') THEN titel 
           END DESC,
           CASE
               WHEN :fritekstsoegning IS NOT NULL THEN ts_rank(fritekstsoegning, plainto_tsquery('simple', :fritekstsoegning))
