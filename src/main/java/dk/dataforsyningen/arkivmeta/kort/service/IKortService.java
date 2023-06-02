@@ -1,5 +1,6 @@
 package dk.dataforsyningen.arkivmeta.kort.service;
 
+import dk.dataforsyningen.arkivmeta.Kortvaerk;
 import dk.dataforsyningen.arkivmeta.kort.apimodel.ArketypeDto;
 import dk.dataforsyningen.arkivmeta.kort.apimodel.DaekningsomraadeDto;
 import dk.dataforsyningen.arkivmeta.kort.apimodel.KortDto;
@@ -14,7 +15,7 @@ public interface IKortService {
 
   KortDto getKortById(String arketype, String id);
 
-  KortResult getKortResult(KortParam kortParam);
+  KortResult getKortResult(KortParam kortParam, Kortvaerk kortvaerk);
 
   List<DaekningsomraadeDto> getDaekningsomraader(String daekningsomraade);
 

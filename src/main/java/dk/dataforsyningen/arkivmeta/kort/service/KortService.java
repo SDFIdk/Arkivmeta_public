@@ -1,5 +1,6 @@
 package dk.dataforsyningen.arkivmeta.kort.service;
 
+import dk.dataforsyningen.arkivmeta.Kortvaerk;
 import dk.dataforsyningen.arkivmeta.kort.apimodel.ArketypeDto;
 import dk.dataforsyningen.arkivmeta.kort.apimodel.DaekningsomraadeDto;
 import dk.dataforsyningen.arkivmeta.kort.apimodel.KortDto;
@@ -134,12 +135,14 @@ public class KortService implements IKortService {
   }
 
   /**
+   *
    * @param kortParam
+   * @param kortvaerk
    * @return the object with a list of kort that matched users requirements (up to 1000) and a total of how many
    * match result there was in total
    */
   @Cacheable(cacheNames = "kort", key = "#kortParam")
-  public KortResult getKortResult(KortParam kortParam) {
+  public KortResult getKortResult(KortParam kortParam, Kortvaerk kortvaerk) {
 
     Geometry area = new GeometryFactory().createGeometry(null);
     if (StringUtils.isNotBlank(kortParam.getGeometri())) {
@@ -153,12 +156,12 @@ public class KortService implements IKortService {
 
     // For using SIMILAR TO in sql
     String daekningsomraade = StringUtils.join(kortParam.getDaekningsomraade(), "|");
-    String kortvaerk = StringUtils.join(kortParam.getKortvaerk(), "|");
+    System.out.println(kortvaerk);
 
     List<KortDto> kortDtoList = iKortDao.getAllKort(
         kortParam.getArketype(), daekningsomraade, kortParam.getFritekstsoegning(),
         kortParam.getGaeldendefra(), kortParam.getGaeldendetil(), area,
-        kortParam.getKortbladnummer(), kortvaerk, kortParam.getMaalestok(), kortParam.getTegner(),
+        kortParam.getKortbladnummer(), kortvaerk.toList(), kortParam.getMaalestok(), kortParam.getTegner(),
         kortParam.getTitel(), kortParam.getLimit(), kortParam.getOffset(), kortParam.getSort(),
         kortParam.getDirection());
 
@@ -167,7 +170,7 @@ public class KortService implements IKortService {
     if (kortDtoList.size() >= kortParam.getLimit()) {
       count = iKortDao.getCount(kortParam.getArketype(), daekningsomraade,
           kortParam.getFritekstsoegning(), kortParam.getGaeldendefra(), kortParam.getGaeldendetil(),
-          area, kortParam.getKortbladnummer(), kortvaerk, kortParam.getMaalestok(),
+          area, kortParam.getKortbladnummer(), kortvaerk.toList(), kortParam.getMaalestok(),
           kortParam.getTegner(), kortParam.getTitel());
     } else {
       count = kortDtoList.size();

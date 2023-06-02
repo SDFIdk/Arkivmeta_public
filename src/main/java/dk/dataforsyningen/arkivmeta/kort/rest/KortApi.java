@@ -1,5 +1,6 @@
 package dk.dataforsyningen.arkivmeta.kort.rest;
 
+import dk.dataforsyningen.arkivmeta.Kortvaerk;
 import dk.dataforsyningen.arkivmeta.kort.apimodel.ArketypeDto;
 import dk.dataforsyningen.arkivmeta.kort.apimodel.DaekningsomraadeDto;
 import dk.dataforsyningen.arkivmeta.kort.apimodel.KortDto;
@@ -21,15 +22,11 @@ import java.util.stream.Collectors;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springdoc.core.annotations.ParameterObject;
+import org.springframework.beans.propertyeditors.StringArrayPropertyEditor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "KortApi", description = "Kort metadata API")
 @RestController
@@ -38,6 +35,11 @@ public class KortApi {
 
   public KortApi(IKortService iKortService) {
     this.iKortService = iKortService;
+  }
+
+  @InitBinder
+  public void initBinder(WebDataBinder binder) {
+    binder.registerCustomEditor(String[].class, new StringArrayPropertyEditor(null));
   }
 
   /**
@@ -144,8 +146,10 @@ public class KortApi {
    */
   @GetMapping(path = "/kort")
   @Operation(summary = "Liste af kort der matcher søgekriterierne", description = "Hvis gaeldendefra og gaeldendetil bliver brugt samtidig, er det alle kort, der er indenfor gyldighedsperioden eller har været gældende fra eller gældende til, i perioden")
-  ResponseEntity<KortResult> getKort(@Valid @ParameterObject KortParam kortParam) {
-    return postKort(kortParam);
+  ResponseEntity<KortResult> getKort(@Valid @ParameterObject KortParam kortParam, @Valid @ParameterObject Kortvaerk kortvaerk) {
+    System.out.println(kortvaerk.toList().size());
+    kortvaerk.toList().forEach(System.out::println);
+    return postKort(kortParam, kortvaerk);
   }
 
   /**
@@ -159,7 +163,7 @@ public class KortApi {
   @PostMapping(path = "/kort")
   @Operation(summary = "Liste af kort der matcher søgekriterierne", description = "Hvis gaeldendefra og gaeldendetil bliver brugt samtidig, er det alle kort, der er indenfor gyldighedsperioden eller har været gældende fra eller gældende til, i perioden")
   ResponseEntity<KortResult> postKort(
-      @Valid @RequestBody @ParameterObject KortParam kortParam) {
+      @Valid @RequestBody @ParameterObject KortParam kortParam, @Valid @ParameterObject Kortvaerk kortvaerk) {
     // For GET and POST direction, limit and offset need a default value, but it should only be set,
     // if the client did not specify them.
     if (StringUtils.isBlank(kortParam.getDirection())) {
@@ -171,7 +175,10 @@ public class KortApi {
     if (ObjectUtils.isEmpty(kortParam.getOffset())) {
       kortParam.setOffset(0);
     }
-    KortResult kortresult = iKortService.getKortResult(kortParam);
+    System.out.println(kortvaerk.toList().size());
+    kortvaerk.toList().forEach(System.out::println);
+
+    KortResult kortresult = iKortService.getKortResult(kortParam, kortvaerk);
 
     return new ResponseEntity<>(kortresult, HttpStatus.OK);
   }

@@ -72,8 +72,8 @@ public interface IKortDao {
               4326)))
           AND (:kortbladnummer IS NULL
               OR kortbladnummer ILIKE '%' || :kortbladnummer || '%')
-          AND (:kortvaerk IS NULL
-              OR lower(kortvaerk) SIMILAR TO lower('%(' || :kortvaerk || ')%'))
+          AND ((<kortvaerk>)IS NULL
+              OR kortvaerk IN (<kortvaerk>))
           AND ((<maalestok>) IS NULL
               OR maalestok IN (<maalestok>))
           AND (:tegner IS NULL
@@ -135,7 +135,8 @@ public interface IKortDao {
       @Bind("fritekstsoegning") String fritekstsoegning,
       @Bind("gaeldendefra") Integer gaeldendefra, @Bind("gaeldendetil") Integer gaeldendetil,
       @Bind("area") Geometry area, @Bind("kortbladnummer") String kortbladnummer,
-      @Bind("kortvaerk") String kortvaerk,
+      @BindList(value = "kortvaerk", onEmpty = BindList.EmptyHandling.NULL_STRING)
+      List<String> kortvaerk,
       @BindList(value = "maalestok", onEmpty = BindList.EmptyHandling.NULL_STRING)
           List<String> maalestok,
       @Bind("tegner") String tegner,
@@ -184,8 +185,8 @@ public interface IKortDao {
               4326)))
           AND (:kortbladnummer IS NULL
               OR kortbladnummer ILIKE '%' || :kortbladnummer || '%')
-          AND (:kortvaerk IS NULL
-              OR lower(kortvaerk) SIMILAR TO lower('%(' || :kortvaerk || ')%'))
+          AND ((<kortvaerk>) IS NULL
+              OR kortvaerk IN (<kortvaerk>))
           AND ((<maalestok>) IS NULL
               OR maalestok IN (<maalestok>))
           AND (:tegner IS NULL
@@ -204,7 +205,8 @@ public interface IKortDao {
       @Bind("fritekstsoegning") String fritekstsoegning,
       @Bind("gaeldendefra") Integer gaeldendefra, @Bind("gaeldendetil") Integer gaeldendetil,
       @Bind("area") Geometry area, @Bind("kortbladnummer") String kortbladnummer,
-      @Bind("kortvaerk") String kortvaerk,
+      @BindList(value = "kortvaerk", onEmpty = BindList.EmptyHandling.NULL_STRING)
+      List<String> kortvaerk,
       @BindList(value = "maalestok", onEmpty = BindList.EmptyHandling.NULL_STRING)
           List<String> maalestok,
       @Bind("tegner") String tegner,

@@ -1,6 +1,11 @@
 package dk.dataforsyningen.arkivmeta.kort.apimodel;
 
+import dk.dataforsyningen.arkivmeta.Kortvaerk;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -42,12 +47,6 @@ public class KortParam {
   private String kortbladnummer;
 
   @Parameter(description =
-      "Kortværk. Hvis der ønskes at søge på flere kortværker på en gang, skal man angive `kortvaerk` query parameteren for hvert eneste en kortværk man vil søge efter." +
-          "Eksempel: `kortvaerk=Trap, tegnede kort`&`kortvaerk=Mejer`")
-  @Schema(description = "Navnet på en logisk samling af skannede kort som kortet hører til, f.eks. atlasblade.")
-  private List<String> kortvaerk;
-
-  @Parameter(description =
       "Målestoksforhold. Hvis der ønskes at søge på flere målestoksforhold på en gang, skal man adskille hvert søgekriterie ved at bruge `,`. " +
           "Eksempel: `maalestok=1:40000,1:180000`")
   @Schema(description = "Størrelsesforholdet mellem landskabet og kortets repræsentation heraf.")
@@ -72,7 +71,7 @@ public class KortParam {
 
   public KortParam(List<String> arketype, List<String> daekningsomraade, String direction,
                    String fritekstsoegning, Integer gaeldendefra, Integer gaeldendetil,
-                   String geometri, String kortbladnummer, List<String> kortvaerk,
+                   String geometri, String kortbladnummer,
                    List<String> maalestok, Integer limit, Integer offset, String sort,
                    String tegner,
                    String titel) {
@@ -84,7 +83,6 @@ public class KortParam {
     this.gaeldendetil = gaeldendetil;
     this.geometri = geometri;
     this.kortbladnummer = kortbladnummer;
-    this.kortvaerk = kortvaerk;
     this.maalestok = maalestok;
     this.limit = limit;
     this.offset = offset;
@@ -155,14 +153,6 @@ public class KortParam {
 
   public void setKortbladnummer(String kortbladnummer) {
     this.kortbladnummer = kortbladnummer;
-  }
-
-  public List<String> getKortvaerk() {
-    return kortvaerk;
-  }
-
-  public void setKortvaerk(List<String> kortvaerk) {
-    this.kortvaerk = kortvaerk;
   }
 
   public List<String> getMaalestok() {

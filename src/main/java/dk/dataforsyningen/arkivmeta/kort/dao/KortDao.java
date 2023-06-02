@@ -29,7 +29,7 @@ public class KortDao implements IKortDao {
   public List<KortDto> getAllKort(List<String> arketype, String daekningsomraade,
                                   String fritekstsoegning, Integer gaeldendefra,
                                   Integer gaeldendetil, Geometry area, String kortbladnummer,
-                                  String kortvaerk, List<String> maalestok, String tegner,
+                                  List<String> kortvaerk, List<String> maalestok, String tegner,
                                   String titel, int limit, int offset, String sort,
                                   String direction) {
     return arkivmetaJdbi.withExtension(IKortDao.class,
@@ -42,7 +42,7 @@ public class KortDao implements IKortDao {
   public Long getCount(List<String> arketype, String daekningsomraade,
                        String fritekstsoegning, Integer gaeldendefra,
                        Integer gaeldendetil, Geometry area, String kortbladnummer,
-                       String kortvaerk, List<String> maalestok, String tegner,
+                       List<String> kortvaerk, List<String> maalestok, String tegner,
                        String titel) {
     return arkivmetaJdbi.withExtension(IKortDao.class,
         dao -> dao.getCount(arketype, daekningsomraade, fritekstsoegning, gaeldendefra,
