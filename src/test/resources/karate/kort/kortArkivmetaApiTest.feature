@@ -98,8 +98,7 @@ Feature: Arkivmeta API Integration Test
     Then status 200
     # match the response with the keys from the json objects
     And match response == { total: '#present', kort: '#present' }
-    Then match response.total == firstKortvaerkTotal
-    Then match response.total == secondKortvaerkTotal
+    Then match response.total == firstKortvaerkTotal + secondKortvaerkTotal
 
   
   Scenario: Arkiv API /kort - search maalestok
