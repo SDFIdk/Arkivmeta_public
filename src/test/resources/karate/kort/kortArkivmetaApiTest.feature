@@ -80,7 +80,7 @@ Feature: Arkivmeta API Integration Test
     And match response == { total: '#present', kort: '#present' }
     # assigning response.total to firstKortvaerkTotal
     Then def firstKortvaerkTotal = response.total
-
+    
     Given path '/kort'
     And param kortvaerk = 'Videnskabernes Selskab, koncept'
     When method get
@@ -92,8 +92,7 @@ Feature: Arkivmeta API Integration Test
 
     Given path '/kort'
     # Use the delimiter way right now, because switchboards does not understand string arrays
-    And param kortvaerk = 'Videnskabernes Selskab'
-    And param kortvaerk = 'Videnskabernes Selskab, koncept'
+    And param kortvaerk = ['Videnskabernes Selskab','Videnskabernes Selskab, koncept']
     When method get
     Then status 200
     # match the response with the keys from the json objects
