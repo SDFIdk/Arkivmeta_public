@@ -94,7 +94,7 @@ token: {{token}}
 
 ###
 # arketype=soekort&arketype=centimeterkort&direction=desc&gaeldendefra=-1&gaeldendetil=-1&offset=0&limit=100&sort=arketype
-https://api.dataforsyningen.dk/arkivmeta_deleteme/kort?arketype=soekort&arketype=centimeterkort&direction=desc&gaeldendefra=-1&gaeldendetil=-1&offset=0&limit=100&sort=arketype
+GET {{api_baseurl}}/arkivmeta_deleteme/kort?arketype=soekort&arketype=centimeterkort&direction=desc&gaeldendefra=-1&gaeldendetil=-1&offset=0&limit=100&sort=arketype
 token: {{token}}
 
 ###
