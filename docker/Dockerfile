@@ -1,4 +1,4 @@
-FROM maven:3.8.6-eclipse-temurin-17-alpine AS builder
+FROM maven:3.9.3-eclipse-temurin-17-alpine as builder
 
 WORKDIR /arkivmeta
 
@@ -10,7 +10,7 @@ COPY src ./src
 
 RUN mvn -e -B package
 
-FROM eclipse-temurin:17.0.5_8-jdk-jammy
+FROM eclipse-temurin:17.0.7_7-jdk-jammy
 
 RUN apt update -y && apt upgrade -y
 
