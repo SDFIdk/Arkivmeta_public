@@ -15,6 +15,7 @@ Feature: Historiske Dokumenter API Integration Test
     And match response ==
     """
     [
+        "Navnebloksedler",
         "arbejdsjournaler",
         "hartkornsekstrakter",
         "inge Lehman og kollegaer fra Geodaetisk Institut",
