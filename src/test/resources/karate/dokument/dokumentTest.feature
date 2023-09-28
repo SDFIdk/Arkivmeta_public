@@ -149,18 +149,10 @@ Feature: Historiske Dokumenter API Integration Test
   Scenario: Search with geometry
 
     Given path '/dokument'
-    And param geometri = 'POINT(667450 6163387)'
-    When method get
-    Then status 200
-    And match response.dokumenter == '#[3]'
-
-  Scenario: Search with geometry not found
-
-    Given path '/dokument'
     And param geometri = 'POINT(12.226727129244841 55.86164621853605)'
     When method get
     Then status 200
-    And match response.total == 0
+    And match response.dokumenter == '#[4]'
 
   Scenario: GET - Limit -1
 
