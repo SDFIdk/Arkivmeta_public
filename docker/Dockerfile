@@ -1,4 +1,6 @@
-FROM maven:3.9.3-eclipse-temurin-17-alpine as builder
+FROM maven:3.9.5-eclipse-temurin-21-alpine as builder
+
+RUN apk upgrade --available --no-cache
 
 WORKDIR /arkivmeta
 
@@ -10,9 +12,9 @@ COPY src ./src
 
 RUN mvn -e -B package
 
-FROM eclipse-temurin:17.0.7_7-jdk-jammy
+FROM eclipse-temurin:21.0.1_12-jdk-alpine
 
-RUN apt update -y && apt upgrade -y
+RUN apk upgrade --available --no-cache
 
 RUN mkdir -p src/main/resources
 
