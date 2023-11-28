@@ -15,12 +15,12 @@ Feature: Historiske Dokumenter API Integration Test
     And match response contains only
     """
     [
-        "Navnebloksedler",
-        "arbejdsjournaler",
-        "hartkornsekstrakter",
-        "inge Lehman og kollegaer fra Geodaetisk Institut",
-        "kortfortegnelser",
-        "oversigt over Generalstabens opmaalinger (1809-1899)",
-        "sogneprotokoller"
+      "arbejdsjournaler",
+      "hartkornsekstrakter",
+      "inge Lehman og kollegaer fra Geodaetisk Institut",
+      "kortfortegnelser",
+      "navnebloksedler",
+      "oversigt over Generalstabens opmaalinger (1809-1899)",
+      "sogneprotokoller"
     ]
     """
