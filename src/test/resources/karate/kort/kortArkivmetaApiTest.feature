@@ -181,6 +181,7 @@ Feature: Arkivmeta API Integration Test
     """
     {
       "status": "UNPROCESSABLE_ENTITY",
+      "message":null,
       "errors": ["limit: must be greater than or equal to 1"]
     }
     """
@@ -196,6 +197,7 @@ Feature: Arkivmeta API Integration Test
     """
     {
       "status": "UNPROCESSABLE_ENTITY",
+      "message":null,
       "errors": ["limit: must be greater than or equal to 1"]
     }
     """
@@ -210,6 +212,7 @@ Feature: Arkivmeta API Integration Test
     """
     {
       "status": "UNPROCESSABLE_ENTITY",
+      "message":null,
       "errors": ["limit: must be less than or equal to 1000"]
     }
     """
@@ -225,6 +228,7 @@ Feature: Arkivmeta API Integration Test
     """
     {
       "status": "UNPROCESSABLE_ENTITY",
+      "message":null,
       "errors": ["limit: must be less than or equal to 1000"]
     }
     """
@@ -239,6 +243,7 @@ Feature: Arkivmeta API Integration Test
     """
     {
       "status": "UNPROCESSABLE_ENTITY",
+      "message":null,
       "errors": ["direction: must match \"asc|desc\""]
     }
     """
@@ -254,6 +259,7 @@ Feature: Arkivmeta API Integration Test
     """
     {
       "status": "UNPROCESSABLE_ENTITY",
+      "message":null,
       "errors": ["direction: must match \"asc|desc\""]
     }
     """
