@@ -95,7 +95,7 @@ public class ApiServiceAdvice extends ResponseEntityExceptionHandler {
    * @return ResponseEntity<ErrorResponse>
    */
   @ExceptionHandler(ConstraintViolationException.class)
-  ResponseEntity<ErrorResponse> handleConstraintViolationException(Exception exception) {
+  public ResponseEntity<ErrorResponse> handleConstraintViolationException(Exception exception) {
     String exceptionCause = getRootCause(exception).toString();
 
     ErrorResponse errorResponse =
@@ -106,7 +106,7 @@ public class ApiServiceAdvice extends ResponseEntityExceptionHandler {
   }
 
   @ExceptionHandler(EmptyResultDataAccessException.class)
-  ResponseEntity<ErrorResponse> handleEmptyResultDataAccessException(
+  public ResponseEntity<ErrorResponse> handleEmptyResultDataAccessException(
       EmptyResultDataAccessException exception) {
     String exceptionCause = getRootCause(exception).toString();
     ErrorResponse errorResponse = new ErrorResponse(exceptionCause);
@@ -116,7 +116,7 @@ public class ApiServiceAdvice extends ResponseEntityExceptionHandler {
   }
 
   @ExceptionHandler(FileNotFoundException.class)
-  ResponseEntity<ErrorResponse> handleFileNotFoundException(FileNotFoundException exception) {
+  public ResponseEntity<ErrorResponse> handleFileNotFoundException(FileNotFoundException exception) {
     String exceptionCause = getRootCause(exception).toString();
 
     ErrorResponse errorResponse =
@@ -127,7 +127,7 @@ public class ApiServiceAdvice extends ResponseEntityExceptionHandler {
   }
 
   @ExceptionHandler(IllegalArgumentException.class)
-  ResponseEntity<ErrorResponse> handleIllegalArgumentException(Exception exception) {
+  public ResponseEntity<ErrorResponse> handleIllegalArgumentException(Exception exception) {
     String exceptionCause = getRootCause(exception).toString();
 
     ErrorResponse errorResponse =
@@ -155,7 +155,7 @@ public class ApiServiceAdvice extends ResponseEntityExceptionHandler {
   }
 
   @ExceptionHandler(PSQLException.class)
-  ResponseEntity<ErrorResponse> handlePSQLException(
+  public ResponseEntity<ErrorResponse> handlePSQLException(
       PSQLException exception) {
     String exceptionCause = getRootCause(exception).toString();
     ErrorResponse errorResponse =
