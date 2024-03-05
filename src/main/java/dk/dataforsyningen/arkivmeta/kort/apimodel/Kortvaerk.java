@@ -1,4 +1,4 @@
-package dk.dataforsyningen.arkivmeta;
+package dk.dataforsyningen.arkivmeta.kort.apimodel;
 
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;

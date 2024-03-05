@@ -1,11 +1,7 @@
 package dk.dataforsyningen.arkivmeta.kort.apimodel;
 
-import dk.dataforsyningen.arkivmeta.Kortvaerk;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.Parameters;
-import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
-import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -15,15 +11,15 @@ import java.util.List;
 public class KortParam {
 
   @Parameter(description =
-      "Arketype, se /metadata/arketyper. Hvis der ønskes at søge på flere arketyper på en gang, skal man adskille hvert søgekriterie ved at bruge komma `,`. " +
-          "Eksempel: `arketype=matrikelkort,centimeterkort.`")
-  @Schema(description = "Kortets arketype.")
+          "Arketype, se /metadata/arketyper. Hvis der ønskes at søge på flere arketyper på en gang, skal man adskille hvert søgekriterie ved at bruge komma `,`. " +
+                  "Eksempel: `arketype=matrikelkort,centimeterkort.`")
+  @ArraySchema(arraySchema = @Schema(description = "Kortets arketype."))
   private List<String> arketype;
 
   @Parameter(description =
-      "Dækningsområde, se /metadata/daekningsomraader. Hvis der ønskes at søge på flere dækningsområde på en gang, skal man adskille hvert søgekriterie ved at bruge `,`. " +
-          "Eksempel: `daekningsomraade=Slesvig,Danmark`")
-  @Schema(description = "Geografisk område, som kortet dækker helt eller delvist. For eksempel Danmark, Grønland. Et kort kan have flere dækningsområder.For prøvekort og lignende vil dækningsområdet kunne angives som intet.")
+          "Dækningsområde, se /metadata/daekningsomraader. Hvis der ønskes at søge på flere dækningsområde på en gang, skal man adskille hvert søgekriterie ved at bruge `,`. " +
+                  "Eksempel: `daekningsomraade=Slesvig,Danmark`")
+  @ArraySchema(arraySchema = @Schema(description = "Geografisk område, som kortet dækker helt eller delvist. For eksempel Danmark, Grønland. Et kort kan have flere dækningsområder.For prøvekort og lignende vil dækningsområdet kunne angives som intet."))
   private List<String> daekningsomraade;
 
   @Schema(description = "Sorteringsretning, `asc` for stigende, `desc` for faldende", defaultValue = "asc")
@@ -47,9 +43,9 @@ public class KortParam {
   private String kortbladnummer;
 
   @Parameter(description =
-      "Målestoksforhold. Hvis der ønskes at søge på flere målestoksforhold på en gang, skal man adskille hvert søgekriterie ved at bruge `,`. " +
-          "Eksempel: `maalestok=1:40000,1:180000`")
-  @Schema(description = "Størrelsesforholdet mellem landskabet og kortets repræsentation heraf.")
+          "Målestoksforhold. Hvis der ønskes at søge på flere målestoksforhold på en gang, skal man adskille hvert søgekriterie ved at bruge `,`. " +
+                  "Eksempel: `maalestok=1:40000,1:180000`")
+  @ArraySchema(arraySchema = @Schema(description = "Størrelsesforholdet mellem landskabet og kortets repræsentation heraf."))
   private List<String> maalestok;
 
   @Schema(description = "Sidestørrelse, dvs. hvor mange poster pr. side", defaultValue = "100")

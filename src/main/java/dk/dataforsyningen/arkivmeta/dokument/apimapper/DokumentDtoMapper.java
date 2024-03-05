@@ -20,6 +20,14 @@ public class DokumentDtoMapper implements RowMapper<DokumentDto> {
   public DokumentDtoMapper() {
   }
 
+  /**
+   * To support null values from the database, getObject is used as getLong uses primitive double data type that can not be null
+   * https://stackoverflow.com/questions/9090077/how-to-check-if-a-double-is-null
+   * @param rs
+   * @param ctx
+   * @return
+   * @throws SQLException
+   */
   @Override
   public DokumentDto map(ResultSet rs, StatementContext ctx) throws SQLException {
     DokumentDto dto = new DokumentDto();
@@ -82,9 +90,8 @@ public class DokumentDtoMapper implements RowMapper<DokumentDto> {
     byte[] data = new byte[len / 2];
     for (int i = 0; i < len; i += 2) {
       data[i / 2] =
-          (byte) ((Character.digit(s.charAt(i), 16) << 4) + Character.digit(s.charAt(i + 1), 16));
+              (byte) ((Character.digit(s.charAt(i), 16) << 4) + Character.digit(s.charAt(i + 1), 16));
     }
     return data;
   }
-
 }

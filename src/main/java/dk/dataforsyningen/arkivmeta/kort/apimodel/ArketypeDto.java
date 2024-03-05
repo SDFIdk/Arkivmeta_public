@@ -1,5 +1,6 @@
 package dk.dataforsyningen.arkivmeta.kort.apimodel;
 
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +12,7 @@ public class ArketypeDto {
   @Schema(description = "Kortgruppe.")
   private String arkenavn;
 
-  @Schema(description = "Liste af logiske samlinger af skannede kort som tilhører arketypen.")
+  @ArraySchema(arraySchema = @Schema(description = "Liste af logiske samlinger af skannede kort som tilhører arketypen."))
   private List<String> kortvaerker = new ArrayList<>();
 
   public ArketypeDto() {
@@ -55,9 +56,9 @@ public class ArketypeDto {
   @Override
   public String toString() {
     return "ArketypeDto{" +
-        ", arketype='" + arketype + '\'' +
-        ", arkenavn='" + arkenavn + '\'' +
-        ", kortvaerk='" + kortvaerker + '\'' +
-        '}';
+            ", arketype='" + arketype + '\'' +
+            ", arkenavn='" + arkenavn + '\'' +
+            ", kortvaerk='" + kortvaerker + '\'' +
+            '}';
   }
 }

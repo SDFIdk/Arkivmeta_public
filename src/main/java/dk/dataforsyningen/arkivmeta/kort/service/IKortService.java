@@ -1,6 +1,6 @@
 package dk.dataforsyningen.arkivmeta.kort.service;
 
-import dk.dataforsyningen.arkivmeta.Kortvaerk;
+import dk.dataforsyningen.arkivmeta.kort.apimodel.Kortvaerk;
 import dk.dataforsyningen.arkivmeta.kort.apimodel.ArketypeDto;
 import dk.dataforsyningen.arkivmeta.kort.apimodel.DaekningsomraadeDto;
 import dk.dataforsyningen.arkivmeta.kort.apimodel.KortDto;

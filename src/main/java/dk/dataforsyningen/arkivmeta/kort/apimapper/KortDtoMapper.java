@@ -74,7 +74,7 @@ public class KortDtoMapper implements RowMapper<KortDto> {
   }
 
   public <T extends KortDto> T mapKortDto(ResultSet rs, StatementContext ctx, T dto)
-      throws SQLException {
+          throws SQLException {
     MapperDaekningsomraade mapperDaekningsomraade = new MapperDaekningsomraade();
     MapperFiler mapperFiler = new MapperFiler();
     MapperGeometri mapperGeometri = new MapperGeometri();
@@ -85,7 +85,7 @@ public class KortDtoMapper implements RowMapper<KortDto> {
     dto.setBemaerkning(rs.getString("bemaerkning"));
 
     dto.setDaekningsomraade(
-        mapperDaekningsomraade.mapDaekningsomraade(rs.getString("daekningsomraade")));
+            mapperDaekningsomraade.mapDaekningsomraade(rs.getString("daekningsomraade")));
     dto.setFiler(mapperFiler.mapFiler(rs.getString("filer")));
     dto.setGaeldendefra(rs.getBigDecimal("gaeldendeperiode_gaeldendefra"));
     dto.setGaeldendetil(rs.getBigDecimal("gaeldendeperiode_gaeldendetil"));
@@ -126,7 +126,7 @@ public class KortDtoMapper implements RowMapper<KortDto> {
    * @return
    */
   public AeldretopografiskekortDto mapAeldretopografiskekortDto(ResultSet rs, StatementContext ctx)
-      throws SQLException {
+          throws SQLException {
     // Mapper db og giver en ny instans med af AeldretopografiskekortDto
     AeldretopografiskekortDto dto = mapKortDto(rs, ctx, new AeldretopografiskekortDto());
 
@@ -141,7 +141,7 @@ public class KortDtoMapper implements RowMapper<KortDto> {
   }
 
   private CentimeterkortDto mapCentimeterkortDto(ResultSet rs, StatementContext ctx)
-      throws SQLException {
+          throws SQLException {
     // Mapper db og giver en ny instans med af CentimeterkortDto
     CentimeterkortDto dto = mapKortDto(rs, ctx, new CentimeterkortDto());
 
@@ -161,7 +161,7 @@ public class KortDtoMapper implements RowMapper<KortDto> {
   }
 
   private FaeroesketopokortDto mapFaeroesketopokortDto(ResultSet rs, StatementContext ctx)
-      throws SQLException {
+          throws SQLException {
     // Mapper db og giver en ny instans med af FaeroesketopokortDto
     FaeroesketopokortDto dto = mapKortDto(rs, ctx, new FaeroesketopokortDto());
 
@@ -173,7 +173,7 @@ public class KortDtoMapper implements RowMapper<KortDto> {
   }
 
   private GroenlandtopokortDto mapGroenlandtopokortDto(ResultSet rs, StatementContext ctx)
-      throws SQLException {
+          throws SQLException {
     // Mapper db og giver en ny instans med af GroenlandtopokortDto
     GroenlandtopokortDto dto = mapKortDto(rs, ctx, new GroenlandtopokortDto());
 
@@ -190,8 +190,16 @@ public class KortDtoMapper implements RowMapper<KortDto> {
     return dto;
   }
 
+  /**
+   * To support null values from the database, getObject is used as getDouble uses primitive double data type that can not be null
+   * https://stackoverflow.com/questions/9090077/how-to-check-if-a-double-is-null
+   * @param rs
+   * @param ctx
+   * @return
+   * @throws SQLException
+   */
   private HistoriskeflyfotoDto mapHistoriskeflyfotoDto(ResultSet rs, StatementContext ctx)
-      throws SQLException {
+          throws SQLException {
     // Mapper db og giver en ny instans med af HistoriskeflyfotoDto
     HistoriskeflyfotoDto dto = mapKortDto(rs, ctx, new HistoriskeflyfotoDto());
 
@@ -217,7 +225,7 @@ public class KortDtoMapper implements RowMapper<KortDto> {
   }
 
   private LandoekonomiskekortDto mapLandoekonomiskekortDto(ResultSet rs, StatementContext ctx)
-      throws SQLException {
+          throws SQLException {
     // Mapper db og giver en ny instans med af LandoekonomiskekortDto
     LandoekonomiskekortDto dto = mapKortDto(rs, ctx, new LandoekonomiskekortDto());
 
@@ -228,7 +236,7 @@ public class KortDtoMapper implements RowMapper<KortDto> {
   }
 
   private MaalebordsbladeDto mapMaalebordsbladeDto(ResultSet rs, StatementContext ctx)
-      throws SQLException {
+          throws SQLException {
     // Mapper db og giver en ny instans med af MaalebordsbladeDto
     MaalebordsbladeDto dto = mapKortDto(rs, ctx, new MaalebordsbladeDto());
 
@@ -247,7 +255,7 @@ public class KortDtoMapper implements RowMapper<KortDto> {
   }
 
   private MatrikelkortDto mapMatrikelkortDto(ResultSet rs, StatementContext ctx)
-      throws SQLException {
+          throws SQLException {
     // Mapper db og giver en ny instans med af MatrikelkortDto
     MatrikelkortDto dto = mapKortDto(rs, ctx, new MatrikelkortDto());
 
@@ -280,7 +288,7 @@ public class KortDtoMapper implements RowMapper<KortDto> {
   }
 
   private TematiskekortDto mapTematiskekortDto(ResultSet rs, StatementContext ctx)
-      throws SQLException {
+          throws SQLException {
     // Mapper db og giver en ny instans med af TematiskekortDto
     TematiskekortDto dto = mapKortDto(rs, ctx, new TematiskekortDto());
 
@@ -313,7 +321,7 @@ public class KortDtoMapper implements RowMapper<KortDto> {
     byte[] data = new byte[len / 2];
     for (int i = 0; i < len; i += 2) {
       data[i / 2] =
-          (byte) ((Character.digit(s.charAt(i), 16) << 4) + Character.digit(s.charAt(i + 1), 16));
+              (byte) ((Character.digit(s.charAt(i), 16) << 4) + Character.digit(s.charAt(i + 1), 16));
     }
     return data;
   }

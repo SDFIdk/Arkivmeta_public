@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import org.apache.catalina.connector.ClientAbortException;
+import org.jdbi.v3.core.statement.UnableToExecuteStatementException;
 import org.postgresql.util.PSQLException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,39 +41,23 @@ public class ApiServiceAdvice extends ResponseEntityExceptionHandler {
   private static final String ERROR_STRING = "FEJL!";
 
   /**
-   * HttpStatus.UNPROCESSABLE_ENTITY = 422
+   * Uses NestedExceptionUtils to get too the Root Causes of a thrown Exception
+   * https://stackoverflow.com/questions/1791610/java-find-the-first-cause-of-an-exception/65442410#65442410
+   * https://stackoverflow.com/questions/17747175/how-can-i-loop-through-exception-getcause-to-find-root-cause-with-detail-messa
+   * https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/core/NestedExceptionUtils.html
    *
-   * <p>BindException: This exception is thrown when argument annotated
-   * with @Valid failed validation
-   *
-   * @param exception BindException
-   * @param headers   HttpHeaders
-   * @param status    HttpStatus
-   * @param request   WebRequest
-   * @return ResponseEntity<Object>
+   * @param t Throwable
+   * @return Throwable
    */
-  @Override
-  protected ResponseEntity<Object> handleBindException(
-      BindException exception,
-      HttpHeaders headers,
-      HttpStatusCode status,
-      WebRequest request) {
-    List<String> errors = new ArrayList<>();
+  @NonNull
+  public static Throwable getRootCause(@NonNull Throwable t) {
+    Throwable rootCause = NestedExceptionUtils.getRootCause(t);
+    // Old way: return rootCause != null ? rootCause : t
 
-    for (FieldError error : exception.getBindingResult().getFieldErrors()) {
-      errors.add(error.getField() + ": " + error.getDefaultMessage());
+    if (rootCause == null) {
+      return t;
     }
-
-    for (ObjectError error : exception.getBindingResult().getGlobalErrors()) {
-      errors.add(error.getObjectName() + ": " + error.getDefaultMessage());
-    }
-
-    ErrorResponse errorResponse =
-        new ErrorResponse(HttpStatus.UNPROCESSABLE_ENTITY, errors);
-    logger.info(ERROR_STRING, exception);
-    logger.info(ERROR_STRING, errors);
-    return handleExceptionInternal(
-        exception, errorResponse, headers, errorResponse.getStatus(), request);
+    return rootCause;
   }
 
   /**
@@ -95,7 +80,7 @@ public class ApiServiceAdvice extends ResponseEntityExceptionHandler {
    * @return ResponseEntity<ErrorResponse>
    */
   @ExceptionHandler(ConstraintViolationException.class)
-  ResponseEntity<ErrorResponse> handleConstraintViolationException(Exception exception) {
+  public ResponseEntity<ErrorResponse> handleConstraintViolationException(Exception exception) {
     String exceptionCause = getRootCause(exception).toString();
 
     ErrorResponse errorResponse =
@@ -106,7 +91,7 @@ public class ApiServiceAdvice extends ResponseEntityExceptionHandler {
   }
 
   @ExceptionHandler(EmptyResultDataAccessException.class)
-  ResponseEntity<ErrorResponse> handleEmptyResultDataAccessException(
+  public ResponseEntity<ErrorResponse> handleEmptyResultDataAccessException(
       EmptyResultDataAccessException exception) {
     String exceptionCause = getRootCause(exception).toString();
     ErrorResponse errorResponse = new ErrorResponse(exceptionCause);
@@ -116,7 +101,7 @@ public class ApiServiceAdvice extends ResponseEntityExceptionHandler {
   }
 
   @ExceptionHandler(FileNotFoundException.class)
-  ResponseEntity<ErrorResponse> handleFileNotFoundException(FileNotFoundException exception) {
+  public ResponseEntity<ErrorResponse> handleFileNotFoundException(FileNotFoundException exception) {
     String exceptionCause = getRootCause(exception).toString();
 
     ErrorResponse errorResponse =
@@ -127,7 +112,7 @@ public class ApiServiceAdvice extends ResponseEntityExceptionHandler {
   }
 
   @ExceptionHandler(IllegalArgumentException.class)
-  ResponseEntity<ErrorResponse> handleIllegalArgumentException(Exception exception) {
+  public ResponseEntity<ErrorResponse> handleIllegalArgumentException(Exception exception) {
     String exceptionCause = getRootCause(exception).toString();
 
     ErrorResponse errorResponse =
@@ -135,6 +120,16 @@ public class ApiServiceAdvice extends ResponseEntityExceptionHandler {
     logger.info(ERROR_STRING, exception);
     logger.info(ERROR_STRING, exceptionCause);
     return new ResponseEntity<>(errorResponse, errorResponse.getStatus());
+  }
+
+  @ExceptionHandler(UnableToExecuteStatementException.class)
+  public ResponseEntity<ErrorResponse> handleUnableToExecuteStatementException(
+          UnableToExecuteStatementException exception) {
+    String exceptionCause = getRootCause(exception).toString();
+    ErrorResponse errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST, exception.getMessage(), exceptionCause);
+    logger.info(ERROR_STRING, exception);
+    logger.info(ERROR_STRING + exceptionCause);
+    return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
   }
 
   /**
@@ -155,7 +150,7 @@ public class ApiServiceAdvice extends ResponseEntityExceptionHandler {
   }
 
   @ExceptionHandler(PSQLException.class)
-  ResponseEntity<ErrorResponse> handlePSQLException(
+  public ResponseEntity<ErrorResponse> handlePSQLException(
       PSQLException exception) {
     String exceptionCause = getRootCause(exception).toString();
     ErrorResponse errorResponse =
@@ -350,25 +345,5 @@ public class ApiServiceAdvice extends ResponseEntityExceptionHandler {
     logger.info(ERROR_STRING, exception);
     logger.info(ERROR_STRING + exception.getLocalizedMessage());
     return new ResponseEntity<>(errorResponse, errorResponse.getStatus());
-  }
-
-  /**
-   * Uses NestedExceptionUtils to get too the Root Causes of a thrown Exception
-   * https://stackoverflow.com/questions/1791610/java-find-the-first-cause-of-an-exception/65442410#65442410
-   * https://stackoverflow.com/questions/17747175/how-can-i-loop-through-exception-getcause-to-find-root-cause-with-detail-messa
-   * https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/core/NestedExceptionUtils.html
-   *
-   * @param t Throwable
-   * @return Throwable
-   */
-  @NonNull
-  public static Throwable getRootCause(@NonNull Throwable t) {
-    Throwable rootCause = NestedExceptionUtils.getRootCause(t);
-    // Old way: return rootCause != null ? rootCause : t
-
-    if (rootCause == null) {
-      return t;
-    }
-    return rootCause;
   }
 }
