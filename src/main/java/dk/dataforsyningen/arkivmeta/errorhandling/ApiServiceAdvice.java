@@ -40,42 +40,6 @@ public class ApiServiceAdvice extends ResponseEntityExceptionHandler {
   private static final String ERROR_STRING = "FEJL!";
 
   /**
-   * HttpStatus.UNPROCESSABLE_ENTITY = 422
-   *
-   * <p>BindException: This exception is thrown when argument annotated
-   * with @Valid failed validation
-   *
-   * @param exception BindException
-   * @param headers   HttpHeaders
-   * @param status    HttpStatus
-   * @param request   WebRequest
-   * @return ResponseEntity<Object>
-   */
-  @Override
-  protected ResponseEntity<Object> handleBindException(
-      BindException exception,
-      HttpHeaders headers,
-      HttpStatusCode status,
-      WebRequest request) {
-    List<String> errors = new ArrayList<>();
-
-    for (FieldError error : exception.getBindingResult().getFieldErrors()) {
-      errors.add(error.getField() + ": " + error.getDefaultMessage());
-    }
-
-    for (ObjectError error : exception.getBindingResult().getGlobalErrors()) {
-      errors.add(error.getObjectName() + ": " + error.getDefaultMessage());
-    }
-
-    ErrorResponse errorResponse =
-        new ErrorResponse(HttpStatus.UNPROCESSABLE_ENTITY, errors);
-    logger.info(ERROR_STRING, exception);
-    logger.info(ERROR_STRING, errors);
-    return handleExceptionInternal(
-        exception, errorResponse, headers, errorResponse.getStatus(), request);
-  }
-
-  /**
    * Indicates that the client closed the connection, so it does not make sense to return af response
    * to the client
    *
