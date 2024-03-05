@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import org.apache.catalina.connector.ClientAbortException;
+import org.jdbi.v3.core.statement.UnableToExecuteStatementException;
 import org.postgresql.util.PSQLException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,6 +39,26 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class ApiServiceAdvice extends ResponseEntityExceptionHandler {
   private static final Logger logger = LoggerFactory.getLogger(ApiServiceAdvice.class);
   private static final String ERROR_STRING = "FEJL!";
+
+  /**
+   * Uses NestedExceptionUtils to get too the Root Causes of a thrown Exception
+   * https://stackoverflow.com/questions/1791610/java-find-the-first-cause-of-an-exception/65442410#65442410
+   * https://stackoverflow.com/questions/17747175/how-can-i-loop-through-exception-getcause-to-find-root-cause-with-detail-messa
+   * https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/core/NestedExceptionUtils.html
+   *
+   * @param t Throwable
+   * @return Throwable
+   */
+  @NonNull
+  public static Throwable getRootCause(@NonNull Throwable t) {
+    Throwable rootCause = NestedExceptionUtils.getRootCause(t);
+    // Old way: return rootCause != null ? rootCause : t
+
+    if (rootCause == null) {
+      return t;
+    }
+    return rootCause;
+  }
 
   /**
    * Indicates that the client closed the connection, so it does not make sense to return af response
@@ -99,6 +120,16 @@ public class ApiServiceAdvice extends ResponseEntityExceptionHandler {
     logger.info(ERROR_STRING, exception);
     logger.info(ERROR_STRING, exceptionCause);
     return new ResponseEntity<>(errorResponse, errorResponse.getStatus());
+  }
+
+  @ExceptionHandler(UnableToExecuteStatementException.class)
+  public ResponseEntity<ErrorResponse> handleUnableToExecuteStatementException(
+          UnableToExecuteStatementException exception) {
+    String exceptionCause = getRootCause(exception).toString();
+    ErrorResponse errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST, exception.getMessage(), exceptionCause);
+    logger.info(ERROR_STRING, exception);
+    logger.info(ERROR_STRING + exceptionCause);
+    return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
   }
 
   /**
@@ -314,25 +345,5 @@ public class ApiServiceAdvice extends ResponseEntityExceptionHandler {
     logger.info(ERROR_STRING, exception);
     logger.info(ERROR_STRING + exception.getLocalizedMessage());
     return new ResponseEntity<>(errorResponse, errorResponse.getStatus());
-  }
-
-  /**
-   * Uses NestedExceptionUtils to get too the Root Causes of a thrown Exception
-   * https://stackoverflow.com/questions/1791610/java-find-the-first-cause-of-an-exception/65442410#65442410
-   * https://stackoverflow.com/questions/17747175/how-can-i-loop-through-exception-getcause-to-find-root-cause-with-detail-messa
-   * https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/core/NestedExceptionUtils.html
-   *
-   * @param t Throwable
-   * @return Throwable
-   */
-  @NonNull
-  public static Throwable getRootCause(@NonNull Throwable t) {
-    Throwable rootCause = NestedExceptionUtils.getRootCause(t);
-    // Old way: return rootCause != null ? rootCause : t
-
-    if (rootCause == null) {
-      return t;
-    }
-    return rootCause;
   }
 }
