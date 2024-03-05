@@ -1,5 +1,6 @@
 package dk.dataforsyningen.arkivmeta.dokument.apimodel;
 
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -38,7 +39,7 @@ public class DokumentDto {
   @Schema(description = "Hvilket område dokumentet dækker over")
   private String omraade;
 
-  @Schema(description = "En liste af URL-stier til kortfiler efter IIIF-specifikationen.")
+  @ArraySchema(arraySchema = @Schema(description = "En liste af URL-stier til kortfiler efter IIIF-specifikationen."))
   private List<String> filer;
 
   @Schema(description = "Hvilket data format dokumentet er i")

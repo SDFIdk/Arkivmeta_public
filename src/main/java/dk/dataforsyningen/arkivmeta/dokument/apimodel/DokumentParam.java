@@ -1,5 +1,6 @@
 package dk.dataforsyningen.arkivmeta.dokument.apimodel;
 
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -8,8 +9,8 @@ import java.util.List;
 
 public class DokumentParam {
 
-  @Schema(description = "De dokumenttyper, der skal vises. En kommasepareret liste af typer. " +
-      "Eksempel: `Hartkornsekstrakter, Sogneprotokoller.`")
+  @ArraySchema(arraySchema = @Schema(description = "De dokumenttyper, der skal vises. En kommasepareret liste af typer. " +
+          "Eksempel: `Hartkornsekstrakter, Sogneprotokoller.`"))
   private List<String> dokumentsamling;
 
   @Schema(description = "Fritekstsøgning")
