@@ -1,5 +1,6 @@
 package dk.dataforsyningen.arkivmeta.kort.apimodel;
 
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
@@ -43,16 +44,16 @@ public class KortDto {
   @Schema(description = "Navnet på en logisk samling af skannede kort som kortet hører til, f.eks. atlasblade.")
   private String kortvaerk;
 
-  @Schema(description = "Geografisk område, som kortet dækker helt eller delvist. For eksempel Danmark, Grønland. Et kort kan have flere dækningsområder.For prøvekort og lignende vil dækningsområdet kunne angives som intet.")
+  @ArraySchema(arraySchema = @Schema(description = "Geografisk område, som kortet dækker helt eller delvist. For eksempel Danmark, Grønland. Et kort kan have flere dækningsområder.For prøvekort og lignende vil dækningsområdet kunne angives som intet."))
   private List<String> daekningsomraade;
 
-  @Schema(description = "En liste af URL-stier til kortfiler efter IIIF-specifikationen.")
+  @ArraySchema(arraySchema = @Schema(description = "En liste af URL-stier til kortfiler efter IIIF-specifikationen."))
   private List<String> filer;
 
   @Schema(description = "Kort udarbejdet på grundlag af data fra dette år eller data sammenstillet i dette år.")
   private BigDecimal aarfordata;
 
-  @Schema(description = "År for opdatering af kortet med enkelte rettelser, f.eks. en ny bro.")
+  @ArraySchema(arraySchema = @Schema(description = "År for opdatering af kortet med enkelte rettelser, f.eks. en ny bro."))
   private List<BigDecimal> aarforenkeltrettelser;
 
   @Schema(description = "År for optagelse af flyfoto til brug for produktion af kortet.")
@@ -82,7 +83,7 @@ public class KortDto {
   @Schema(description = "År hvor kortets punktgrundlag er skabt eller opdateret.")
   private BigDecimal aarforpunktgrundlag;
 
-  @Schema(description = "År for opdatering af kortet med rettelser, typisk efter at kontrolmålinger er udført.")
+  @ArraySchema(arraySchema = @Schema(description = "År for opdatering af kortet med rettelser, typisk efter at kontrolmålinger er udført."))
   private List<BigDecimal> aarforrettelse;
 
   @Schema(description = "År hvor kortets topografiske elementer er kortlagt eller opdateret.")
