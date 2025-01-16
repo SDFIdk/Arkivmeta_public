@@ -37,7 +37,7 @@ public class KortParam {
   private String kortbladnummer;
 
   @Parameter(description =
-      "Kortgruppe, se /metadata/arketyper. Hvis der ønskes at søge på flere arketyper på en gang, skal man adskille hvert søgekriterie ved at bruge komma `,`. " +
+      "Kortgruppe. Hvis der ønskes at søge på flere kortgrupper på en gang, skal man adskille hvert søgekriterie ved at bruge komma `,`. " +
           "Eksempel: `kortgruppe=matrikelkort,centimeterkort.`")
   @ArraySchema(arraySchema = @Schema(description = "Kortets kortgruppe."))
   private List<String> kortgruppe;
