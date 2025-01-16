@@ -188,7 +188,6 @@ public interface IKortDao {
               -- gaeldendeperiode_gaeldendetil to varchar when it is the column name we are interested in
               WHEN (:direction = 'asc' AND :sort = 'gaeldendeperiode_gaeldendefra') THEN gaeldendeperiode_gaeldendefra::varchar
               WHEN (:direction = 'asc' AND :sort = 'gaeldendeperiode_gaeldendetil') THEN gaeldendeperiode_gaeldendetil::varchar
-              WHEN (:direction = 'asc' AND :sort = 'gaeldendeperiode_gaeldendefra') THEN gaeldendeperiode_gaeldendefra::varchar
               WHEN (:direction = 'asc' AND :sort = 'kortvaerk') THEN kortvaerk
               WHEN (:direction = 'asc' AND :sort = 'maalestok') THEN maalestok
               WHEN (:direction = 'asc' AND :sort = 'titel') THEN titel
@@ -199,7 +198,6 @@ public interface IKortDao {
               -- gaeldendeperiode_gaeldendetil to varchar when it is the column name we are interested in
               WHEN (:direction = 'desc' AND :sort = 'gaeldendeperiode_gaeldendefra') THEN gaeldendeperiode_gaeldendefra::varchar
               WHEN (:direction = 'desc' AND :sort = 'gaeldendeperiode_gaeldendetil') THEN gaeldendeperiode_gaeldendetil::varchar
-              WHEN (:direction = 'desc' AND :sort = 'gaeldendeperiode_gaeldendefra') THEN gaeldendeperiode_gaeldendefra::varchar
               WHEN (:direction = 'desc' AND :sort = 'kortvaerk') THEN kortvaerk
               WHEN (:direction = 'desc' AND :sort = 'maalestok') THEN maalestok
               WHEN (:direction = 'desc' AND :sort = 'titel') THEN titel

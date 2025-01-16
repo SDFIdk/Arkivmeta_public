@@ -56,7 +56,7 @@ public class KortParam {
   @Schema(description = "Offset, dvs. fra hvilken post", defaultValue = "0")
   private Integer offset;
 
-  @Schema(description = "Sorteringsfelt, kan sortere på følgende typer: kortgruppe, daekningsomraade, gaeldendeperiode_gaeldendefra, gaeldendeperiode_gaeldendetil, id, kortvaerk, maalestok, titel")
+  @Schema(description = "Sorteringsfelt, kan sortere på følgende typer: kortgruppe, gaeldendeperiode_gaeldendefra, gaeldendeperiode_gaeldendetil, kortvaerk, maalestok, titel")
   private String sort;
 
   @Schema(description = "Tegner på kortet.")
