@@ -30,7 +30,7 @@ Feature: Arkivmeta API Integration Test
             "Danmark"
         ],
         "filer": [
-            "/87 - flyfoto ruteoversigt Danmark/87-05 ruteoversigtskort 1961-1970/508/ro_3618_4.jpeg"
+            "https://api.dataforsyningen.dk/rest/arkivkort/iiif/3/Lzg3IC0gZmx5Zm90byBydXRlb3ZlcnNpZ3QgRGFubWFyay84Ny0wNSBydXRlb3ZlcnNpZ3Rza29ydCAxOTYxLTE5NzAvNTA4L3JvXzM2MThfNC5qcGVn"
         ],
         "aarfordata": null,
         "aarforenkeltrettelser": [],

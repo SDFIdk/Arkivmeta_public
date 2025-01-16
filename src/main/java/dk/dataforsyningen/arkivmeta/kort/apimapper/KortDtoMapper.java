@@ -1,6 +1,7 @@
 package dk.dataforsyningen.arkivmeta.kort.apimapper;
 
 import dk.dataforsyningen.arkivmeta.kort.apimodel.KortDto;
+import dk.dataforsyningen.arkivmeta.mapperhelper.MapperFiler;
 import java.math.BigDecimal;
 import java.sql.Array;
 import java.sql.ResultSet;
@@ -24,6 +25,8 @@ public class KortDtoMapper implements RowMapper<KortDto> {
   @Override
   public KortDto map(ResultSet rs, StatementContext ctx) throws SQLException {
     KortDto kortDto = new KortDto();
+    MapperFiler mapperFiler = new MapperFiler();
+
     kortDto.setId(rs.getObject("id", UUID.class));
     kortDto.setKortgruppe(rs.getString("kortgruppe"));
     kortDto.setTitel(rs.getString("titel"));
@@ -45,7 +48,7 @@ public class KortDtoMapper implements RowMapper<KortDto> {
     Array sqlArrayFiler = rs.getArray("filer");
     String[] arrayFiler = (String[]) sqlArrayFiler.getArray();
 
-    kortDto.setFiler(Arrays.asList(arrayFiler));
+    kortDto.setFiler(mapperFiler.mapFiler(arrayFiler));
 
     kortDto.setAarfordata(rs.getBigDecimal("aarfordata"));
 
