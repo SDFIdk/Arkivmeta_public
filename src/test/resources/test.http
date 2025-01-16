@@ -145,12 +145,12 @@ GET {{api_baseurl}}/kort?daekningsomraade=Slesvig|Danmark&sort=daekningsomraade&
 token: {{token}}
 
 ###
-# Multiple arketyper kortgruppe=soekort&kortgruppe=centimeterkort
+# Multiple kortgrupper kortgruppe=soekort&kortgruppe=centimeterkort
 GET {{api_baseurl}}/kort?kortgruppe=soekort&kortgruppe=centimeterkort
 token: {{token}}
 
 ###
-# Multiple arketyper kortgruppe=soekort|centimeterkort
+# Multiple kortgrupper kortgruppe=soekort|centimeterkort
 GET {{api_baseurl}}/kort?kortgruppe=soekort|centimeterkort
 token: {{token}}
 
