@@ -145,7 +145,7 @@ public interface IKortDao {
           AND (:daekningsomraade IS NULL
               -- How to use SIMILAR TO instead of like, when the parameter value can be a list
               -- https://stackoverflow.com/questions/4928054/postgresql-wildcard-like-for-any-of-a-list-of-words
-              OR lower(daekningsomraade::TEXT) SIMILAR TO lower('%(' || :daekningsomraade || ')%'))
+              OR lower(daekningsomraade::VARCHAR) SIMILAR TO lower('%(' || :daekningsomraade || ')%'))
           AND (:fritekstsoegning IS NULL
               OR fritekstsoegning @@ plainto_tsquery('simple', :fritekstsoegning))
           AND
@@ -185,9 +185,9 @@ public interface IKortDao {
           CASE
               WHEN (:direction = 'asc' AND :sort = 'kortgruppe') THEN kortgruppe
               -- We don't know why we need to cast gaeldendeperiode_gaeldendefra and
-              -- gaeldendeperiode_gaeldendetil to varchar when it is the column name we are interested in
-              WHEN (:direction = 'asc' AND :sort = 'gaeldendeperiode_gaeldendefra') THEN gaeldendeperiode_gaeldendefra::varchar
-              WHEN (:direction = 'asc' AND :sort = 'gaeldendeperiode_gaeldendetil') THEN gaeldendeperiode_gaeldendetil::varchar
+              -- gaeldendeperiode_gaeldendetil to VARCHAR when it is the column name we are interested in
+              WHEN (:direction = 'asc' AND :sort = 'gaeldendeperiode_gaeldendefra') THEN gaeldendeperiode_gaeldendefra::VARCHAR
+              WHEN (:direction = 'asc' AND :sort = 'gaeldendeperiode_gaeldendetil') THEN gaeldendeperiode_gaeldendetil::VARCHAR
               WHEN (:direction = 'asc' AND :sort = 'kortvaerk') THEN kortvaerk
               WHEN (:direction = 'asc' AND :sort = 'maalestok') THEN maalestok
               WHEN (:direction = 'asc' AND :sort = 'titel') THEN titel
@@ -195,9 +195,9 @@ public interface IKortDao {
           CASE
               WHEN (:direction = 'desc' AND :sort = 'kortgruppe') THEN kortgruppe
               -- We don't know why we need to cast gaeldendeperiode_gaeldendefra and
-              -- gaeldendeperiode_gaeldendetil to varchar when it is the column name we are interested in
-              WHEN (:direction = 'desc' AND :sort = 'gaeldendeperiode_gaeldendefra') THEN gaeldendeperiode_gaeldendefra::varchar
-              WHEN (:direction = 'desc' AND :sort = 'gaeldendeperiode_gaeldendetil') THEN gaeldendeperiode_gaeldendetil::varchar
+              -- gaeldendeperiode_gaeldendetil to VARCHAR when it is the column name we are interested in
+              WHEN (:direction = 'desc' AND :sort = 'gaeldendeperiode_gaeldendefra') THEN gaeldendeperiode_gaeldendefra::VARCHAR
+              WHEN (:direction = 'desc' AND :sort = 'gaeldendeperiode_gaeldendetil') THEN gaeldendeperiode_gaeldendetil::VARCHAR
               WHEN (:direction = 'desc' AND :sort = 'kortvaerk') THEN kortvaerk
               WHEN (:direction = 'desc' AND :sort = 'maalestok') THEN maalestok
               WHEN (:direction = 'desc' AND :sort = 'titel') THEN titel
