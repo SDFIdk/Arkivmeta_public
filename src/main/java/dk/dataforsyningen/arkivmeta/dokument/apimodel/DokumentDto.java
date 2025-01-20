@@ -9,26 +9,14 @@ public class DokumentDto {
   @Schema(description = "Unik id for dokumentet.")
   private String id;
 
-  @Schema(description = "Dokumentes arketype.")
-  private String arketype;
+  @Schema(description = "Dokumenters kortgruppe.")
+  private String kortgruppe;
 
-  @Schema(description = "Dokumentes titel.")
+  @Schema(description = "Dokumenters titel.")
   private String titel;
 
   @Schema(description = "Typisk på formen sp+nummer")
   private String alternativtitel;
-
-  @Schema(description = "Gældende fra dette tidspunkt")
-  private LocalDateTime registreringfra;
-
-  @Schema(description = "Ikke mere gældende")
-  private LocalDateTime registreringtil;
-
-  @Schema(description = "Det navn, som entydigt definerer dokumentet.")
-  private String uniktdokumentnavn;
-
-  @Schema(description = "Sti til dokumentet i filsystem")
-  private String stinavn;
 
   @Schema(description = "Bemærkning til dokumentet")
   private String bemaerkning;
@@ -36,8 +24,8 @@ public class DokumentDto {
   @Schema(description = "Det geografiske område, ofte en polygon, som kortet ligger indenfor. WKT med SRS = EPSG:4326")
   private String geometri;
 
-  @Schema(description = "Hvilket område dokumentet dækker over")
-  private String omraade;
+  @ArraySchema(arraySchema = @Schema(description = "En liste af geografisk områder, som dokumentet dækker helt eller delvist. For eksempel Danmark, Slesvig. "))
+  private List<String> daekningsomraade;
 
   @ArraySchema(arraySchema = @Schema(description = "En liste af URL-stier til kortfiler efter IIIF-specifikationen."))
   private List<String> filer;
@@ -60,33 +48,28 @@ public class DokumentDto {
   @Schema(description = "Gældende eller fra før udskiftning")
   private String protokoltype;
 
-  @Schema(description = "Nummer på sognet")
-  private Long sogneid;
+  @ArraySchema(arraySchema = @Schema(description = "En liste af numre på sogne dokumentet tilhører"))
+  private List<Long> sogneid;
 
-  @Schema(description = "Navn på sognet")
-  private String sognenavn;
+  @ArraySchema(arraySchema = @Schema(description = "En liste af navne på sogne dokumentet tilhører"))
+  private List<String> sognenavn;
 
   public DokumentDto() {
   }
 
-  public DokumentDto(String id, String arketype, String titel, String alternativtitel,
-                     LocalDateTime registreringfra, LocalDateTime registreringtil,
-                     String uniktdokumentnavn, String stinavn, String bemaerkning,
-                     String geometri, String omraade, List<String> filer, String datatype,
-                     String filtype, String dokumentsamling, String herredsnavn,
-                     Long herredsnummer, String protokoltype, Long sogneid,
-                     String sognenavn) {
+  public DokumentDto(String id, String kortgruppe, String titel, String alternativtitel,
+                     String bemaerkning, String geometri, List<String> daekningsomraade,
+                     List<String> filer, String datatype, String filtype, String dokumentsamling,
+                     String herredsnavn, Long herredsnummer, String protokoltype,
+                     List<Long> sogneid,
+                     List<String> sognenavn) {
     this.id = id;
-    this.arketype = arketype;
+    this.kortgruppe = kortgruppe;
     this.titel = titel;
     this.alternativtitel = alternativtitel;
-    this.registreringfra = registreringfra;
-    this.registreringtil = registreringtil;
-    this.uniktdokumentnavn = uniktdokumentnavn;
-    this.stinavn = stinavn;
     this.bemaerkning = bemaerkning;
     this.geometri = geometri;
-    this.omraade = omraade;
+    this.daekningsomraade = daekningsomraade;
     this.filer = filer;
     this.datatype = datatype;
     this.filtype = filtype;
@@ -106,12 +89,12 @@ public class DokumentDto {
     this.id = id;
   }
 
-  public String getArketype() {
-    return arketype;
+  public String getKortgruppe() {
+    return kortgruppe;
   }
 
-  public void setArketype(String arketype) {
-    this.arketype = arketype;
+  public void setKortgruppe(String kortgruppe) {
+    this.kortgruppe = kortgruppe;
   }
 
   public String getTitel() {
@@ -130,38 +113,6 @@ public class DokumentDto {
     this.alternativtitel = alternativtitel;
   }
 
-  public LocalDateTime getRegistreringfra() {
-    return registreringfra;
-  }
-
-  public void setRegistreringfra(LocalDateTime registreringfra) {
-    this.registreringfra = registreringfra;
-  }
-
-  public LocalDateTime getRegistreringtil() {
-    return registreringtil;
-  }
-
-  public void setRegistreringtil(LocalDateTime registreringtil) {
-    this.registreringtil = registreringtil;
-  }
-
-  public String getUniktdokumentnavn() {
-    return uniktdokumentnavn;
-  }
-
-  public void setUniktdokumentnavn(String uniktdokumentnavn) {
-    this.uniktdokumentnavn = uniktdokumentnavn;
-  }
-
-  public String getStinavn() {
-    return stinavn;
-  }
-
-  public void setStinavn(String stinavn) {
-    this.stinavn = stinavn;
-  }
-
   public String getBemaerkning() {
     return bemaerkning;
   }
@@ -178,12 +129,12 @@ public class DokumentDto {
     this.geometri = geometri;
   }
 
-  public String getOmraade() {
-    return omraade;
+  public List<String> getDaekningsomraade() {
+    return daekningsomraade;
   }
 
-  public void setOmraade(String omraade) {
-    this.omraade = omraade;
+  public void setDaekningsomraade(List<String> daekningsomraade) {
+    this.daekningsomraade = daekningsomraade;
   }
 
   public List<String> getFiler() {
@@ -242,19 +193,19 @@ public class DokumentDto {
     this.protokoltype = protokoltype;
   }
 
-  public Long getSogneid() {
+  public List<Long> getSogneid() {
     return sogneid;
   }
 
-  public void setSogneid(Long sogneid) {
+  public void setSogneid(List<Long> sogneid) {
     this.sogneid = sogneid;
   }
 
-  public String getSognenavn() {
+  public List<String> getSognenavn() {
     return sognenavn;
   }
 
-  public void setSognenavn(String sognenavn) {
+  public void setSognenavn(List<String> sognenavn) {
     this.sognenavn = sognenavn;
   }
 }

@@ -8,10 +8,10 @@ import jakarta.validation.constraints.Pattern;
 import java.util.List;
 
 public class DokumentParam {
-
-  @ArraySchema(arraySchema = @Schema(description = "De dokumenttyper, der skal vises. En kommasepareret liste af typer. " +
-          "Eksempel: `Hartkornsekstrakter, Sogneprotokoller.`"))
-  private List<String> dokumentsamling;
+  @Schema(description = "Sorteringsretning, `asc` for stigende, `desc` for faldende", defaultValue = "asc")
+  @Pattern(regexp = "asc|desc")
+  // How @Pattern works: https://stackoverflow.com/questions/4922655/javax-validation-to-validate-list-of-values
+  private String direction;
 
   @Schema(description = "Fritekstsøgning")
   private String fritekstsoegning;
@@ -25,22 +25,9 @@ public class DokumentParam {
   @Schema(description = "Herredets nummer.")
   private Integer herredsnummer;
 
-  @Schema(description = "Sogneid.")
-  private Integer sogneid;
-
-  @Schema(description = "Sognenavn.")
-  private String sognenavn;
-
-  @Schema(description = "Titel på dokumentet.")
-  private String titel;
-
-  @Schema(description = "Sorteringsretning, `asc` for stigende, `desc` for faldende", defaultValue = "asc")
-  @Pattern(regexp = "asc|desc")
-  // How @Pattern works: https://stackoverflow.com/questions/4922655/javax-validation-to-validate-list-of-values
-  private String direction;
-
-  @Schema(description = "Sorteringsfelt, kan sortere på følgende typer: herredsnavn, herredsnummer, sognenavn, sogneid, dokumentsamling, titel")
-  private String sort;
+  @ArraySchema(arraySchema = @Schema(description = "De dokumenttyper, der skal vises. En kommasepareret liste af typer. " +
+      "Eksempel: `Hartkornsekstrakt, Sogneprotokol.`"))
+  private List<String> kortgruppe;
 
   @Schema(description = "Sidestørrelse, dvs. hvor mange poster pr. side", defaultValue = "100")
   @Min(1)
@@ -51,30 +38,43 @@ public class DokumentParam {
   @Schema(description = "Offset, dvs. fra hvilken post", defaultValue = "0")
   private Integer offset;
 
-  public DokumentParam(List<String> dokumentsamling, String fritekstsoegning,
-                       String geometri, String herredsnavn, Integer herredsnummer,
-                       Integer sogneid, String sognenavn, String titel, String direction,
-                       String sort, Integer limit, Integer offset) {
-    this.dokumentsamling = dokumentsamling;
+  @Schema(description = "Sogneid.")
+  private Integer sogneid;
+
+  @Schema(description = "Sognenavn.")
+  private String sognenavn;
+
+  @Schema(description = "Sorteringsfelt, kan sortere på følgende typer: herredsnavn, herredsnummer, dokumentsamling, titel")
+  private String sort;
+
+  @Schema(description = "Titel på dokumentet.")
+  private String titel;
+
+  public DokumentParam(String direction, String fritekstsoegning, String geometri,
+                       String herredsnavn,
+                       Integer herredsnummer, List<String> kortgruppe, Integer limit,
+                       Integer offset,
+                       Integer sogneid, String sognenavn, String sort, String titel) {
+    this.direction = direction;
     this.fritekstsoegning = fritekstsoegning;
     this.geometri = geometri;
     this.herredsnavn = herredsnavn;
     this.herredsnummer = herredsnummer;
-    this.sogneid = sogneid;
-    this.sognenavn = sognenavn;
-    this.titel = titel;
-    this.direction = direction;
-    this.sort = sort;
+    this.kortgruppe = kortgruppe;
     this.limit = limit;
     this.offset = offset;
+    this.sogneid = sogneid;
+    this.sognenavn = sognenavn;
+    this.sort = sort;
+    this.titel = titel;
   }
 
-  public List<String> getDokumentsamling() {
-    return dokumentsamling;
+  public String getDirection() {
+    return direction;
   }
 
-  public void setDokumentsamling(List<String> dokumentsamling) {
-    this.dokumentsamling = dokumentsamling;
+  public void setDirection(String direction) {
+    this.direction = direction;
   }
 
   public String getFritekstsoegning() {
@@ -109,44 +109,12 @@ public class DokumentParam {
     this.herredsnummer = herredsnummer;
   }
 
-  public Integer getSogneid() {
-    return sogneid;
+  public List<String> getKortgruppe() {
+    return kortgruppe;
   }
 
-  public void setSogneid(Integer sogneid) {
-    this.sogneid = sogneid;
-  }
-
-  public String getSognenavn() {
-    return sognenavn;
-  }
-
-  public void setSognenavn(String sognenavn) {
-    this.sognenavn = sognenavn;
-  }
-
-  public String getTitel() {
-    return titel;
-  }
-
-  public void setTitel(String titel) {
-    this.titel = titel;
-  }
-
-  public String getDirection() {
-    return direction;
-  }
-
-  public void setDirection(String direction) {
-    this.direction = direction;
-  }
-
-  public String getSort() {
-    return sort;
-  }
-
-  public void setSort(String sort) {
-    this.sort = sort;
+  public void setKortgruppe(List<String> kortgruppe) {
+    this.kortgruppe = kortgruppe;
   }
 
   public Integer getLimit() {
@@ -163,5 +131,37 @@ public class DokumentParam {
 
   public void setOffset(Integer offset) {
     this.offset = offset;
+  }
+
+  public Integer getSogneid() {
+    return sogneid;
+  }
+
+  public void setSogneid(Integer sogneid) {
+    this.sogneid = sogneid;
+  }
+
+  public String getSognenavn() {
+    return sognenavn;
+  }
+
+  public void setSognenavn(String sognenavn) {
+    this.sognenavn = sognenavn;
+  }
+
+  public String getSort() {
+    return sort;
+  }
+
+  public void setSort(String sort) {
+    this.sort = sort;
+  }
+
+  public String getTitel() {
+    return titel;
+  }
+
+  public void setTitel(String titel) {
+    this.titel = titel;
   }
 }

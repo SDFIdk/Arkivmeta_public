@@ -7,6 +7,7 @@ import dk.dataforsyningen.arkivmeta.dokument.dao.IDokumentDao;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.UUID;
 import org.apache.commons.lang3.StringUtils;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.GeometryFactory;
@@ -43,23 +44,21 @@ public class DokumentService implements IDokumentService {
   }
 
   /**
-   * Protokol's id in the database consists of it's arketype and id. There can be given incorrect arketype and/or id, so
-   * there is used Optional to take care if the result is null.
+   * Dokument's UUID.
+   * There can be given incorrect id, so there is used Optional to take care if the result is null.
    * Because Gravitee does not set X-Forwarded-* headers it's needed to manually set them.
    * Need to replace the url return from concatXFHeaders and add /iiif/3 to the url because of Cantaloupe
    *
-   * @param arketype
    * @param id
    * @return DokumentDto with the matching datamodel of the dokument
    */
   @Override
-  public DokumentDto getDokumentById(String arketype, String id) {
-    String searchId = arketype + "/" + id;
+  public DokumentDto getDokumentById(UUID id) {
 
-    Optional<DokumentDto> returnedProtokol = iDokumentDao.getDokumentById(searchId);
+    Optional<DokumentDto> returnedDokument = iDokumentDao.getDokumentById(id);
 
-    return returnedProtokol.orElseThrow(
-        () -> new NoSuchElementException("Ingen dokument matchede det givne id: " + searchId)
+    return returnedDokument.orElseThrow(
+        () -> new NoSuchElementException("Ingen dokument matchede det givne id: " + id)
     );
   }
 
@@ -82,28 +81,28 @@ public class DokumentService implements IDokumentService {
     }
 
     List<DokumentDto> dokumentDtoList = iDokumentDao.getAllDokumenter(
-        dokumentParam.getDokumentsamling(),
-        dokumentParam.getFritekstsoegning(),
         area,
+        dokumentParam.getDirection(),
+        dokumentParam.getFritekstsoegning(),
         dokumentParam.getHerredsnavn(),
         dokumentParam.getHerredsnummer(),
+        dokumentParam.getKortgruppe(),
+        dokumentParam.getLimit(),
+        dokumentParam.getOffset(),
         dokumentParam.getSogneid(),
         dokumentParam.getSognenavn(),
-        dokumentParam.getTitel(),
-        dokumentParam.getDirection(),
         dokumentParam.getSort(),
-        dokumentParam.getLimit(),
-        dokumentParam.getOffset());
+        dokumentParam.getTitel());
 
     long count;
 
     if (dokumentDtoList.size() >= dokumentParam.getLimit()) {
       count = iDokumentDao.getCount(
-          dokumentParam.getDokumentsamling(),
-          dokumentParam.getFritekstsoegning(),
           area,
+          dokumentParam.getFritekstsoegning(),
           dokumentParam.getHerredsnavn(),
           dokumentParam.getHerredsnummer(),
+          dokumentParam.getKortgruppe(),
           dokumentParam.getSogneid(),
           dokumentParam.getSognenavn(),
           dokumentParam.getTitel());

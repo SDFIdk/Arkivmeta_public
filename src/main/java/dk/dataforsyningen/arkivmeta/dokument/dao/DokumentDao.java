@@ -3,6 +3,7 @@ package dk.dataforsyningen.arkivmeta.dokument.dao;
 import dk.dataforsyningen.arkivmeta.dokument.apimodel.DokumentDto;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import org.jdbi.v3.core.Jdbi;
 import org.locationtech.jts.geom.Geometry;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,41 +36,41 @@ public class DokumentDao implements IDokumentDao {
   }
 
   @Override
-  public Optional<DokumentDto> getDokumentById(String id) {
+  public Optional<DokumentDto> getDokumentById(UUID id) {
     return arkivmetaJdbi.withExtension(IDokumentDao.class, dao -> dao.getDokumentById(id));
   }
 
   @Override
   public List<DokumentDto> getAllDokumenter(
-      List<String> dokumentsamling,
-      String fritekstsoegning,
       Geometry area,
+      String direction,
+      String fritekstsoegning,
       String herredsnavn,
       Integer herredsnummer,
+      List<String> kortgruppe,
+      int limit,
+      int offset,
       Integer sogneid,
       String sognenavn,
       String titel,
-      String direction,
-      String sort,
-      int limit,
-      int offset) {
+      String sort) {
     return arkivmetaJdbi.withExtension(IDokumentDao.class,
-        dao -> dao.getAllDokumenter(dokumentsamling, fritekstsoegning, area, herredsnavn, herredsnummer, sogneid,
-            sognenavn, titel, direction, sort, limit, offset));
+        dao -> dao.getAllDokumenter(area, direction, fritekstsoegning, herredsnavn, herredsnummer, kortgruppe, limit, offset, sogneid,
+            sognenavn, sort, titel));
   }
 
   @Override
   public Long getCount(
-      List<String> dokumentsamling,
-      String fritekstsoegning,
       Geometry area,
+      String fritekstsoegning,
       String herredsnavn,
       Integer herredsnummer,
+      List<String> kortgruppe,
       Integer sogneid,
       String sognenavn,
       String titel) {
     return arkivmetaJdbi.withExtension(IDokumentDao.class,
-        dao -> dao.getCount(dokumentsamling, fritekstsoegning, area, herredsnavn, herredsnummer, sogneid, sognenavn,
+        dao -> dao.getCount(area, fritekstsoegning, herredsnavn, herredsnummer, kortgruppe, sogneid, sognenavn,
             titel));
   }
 }

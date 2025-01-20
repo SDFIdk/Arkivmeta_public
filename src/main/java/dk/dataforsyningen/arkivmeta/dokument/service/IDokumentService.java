@@ -4,6 +4,7 @@ import dk.dataforsyningen.arkivmeta.dokument.apimodel.DokumentDto;
 import dk.dataforsyningen.arkivmeta.dokument.apimodel.DokumentParam;
 import dk.dataforsyningen.arkivmeta.dokument.apimodel.DokumentResult;
 import java.util.List;
+import java.util.UUID;
 
 public interface IDokumentService {
   List<String> getDokumentSamling();
@@ -12,7 +13,7 @@ public interface IDokumentService {
 
   List<String> getSognenavn();
 
-  DokumentDto getDokumentById(String arketype, String id);
+  DokumentDto getDokumentById(UUID id);
 
   DokumentResult getDokumentResult(DokumentParam dokumentParam);
 
