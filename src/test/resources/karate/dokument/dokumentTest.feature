@@ -12,6 +12,17 @@ Feature: Historiske Dokumenter API Integration Test
     And match response.dokumenter == '#[100]'
 
 
+  Scenario: POST - postmethod that returns the 10 first json objects of all documents
+
+    Given path '/dokument'
+    And header Accept = 'application/json'
+    And request { kortgruppe: ['SogneProtokol'], herredsnavn: 'Dronninglund', limit: 15, sort: 'herredsnavn', direction: 'desc' }
+    When method post
+    Then status 200
+    And match response.dokumenter == '#[15]'
+    And match response.dokumenter[*].herredsnavn contains deep 'Dronninglund'
+
+
   Scenario: GET - Search not existing sognenavn
 
     Given path '/dokument'

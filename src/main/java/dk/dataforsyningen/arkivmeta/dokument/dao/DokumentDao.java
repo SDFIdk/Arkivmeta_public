@@ -52,8 +52,9 @@ public class DokumentDao implements IDokumentDao {
       int offset,
       Integer sogneid,
       String sognenavn,
-      String titel,
-      String sort) {
+      String sort,
+      String titel
+      ) {
     return arkivmetaJdbi.withExtension(IDokumentDao.class,
         dao -> dao.getAllDokumenter(area, direction, fritekstsoegning, herredsnavn, herredsnummer, kortgruppe, limit, offset, sogneid,
             sognenavn, sort, titel));

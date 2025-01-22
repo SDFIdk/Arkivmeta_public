@@ -137,13 +137,17 @@ public interface IDokumentDao {
           CASE
               WHEN (:direction = 'asc' AND :sort = 'kortgruppe') THEN kortgruppe
               WHEN (:direction = 'asc' AND :sort = 'herredsnavn') THEN herredsnavn
-              WHEN (:direction = 'asc' AND :sort = 'herredsnummer') THEN herredsnummer::varchar
+              WHEN (:direction = 'asc' AND :sort = 'herredsnummer') THEN herredsnummer::VARCHAR
+              WHEN (:direction = 'asc' AND :sort = 'sogneid') THEN sognenavn::VARCHAR
+              WHEN (:direction = 'asc' AND :sort = 'sognenavn') THEN sognenavn::VARCHAR
               WHEN (:direction = 'asc' AND :sort = 'titel') THEN titel
           END ASC,
           CASE
               WHEN (:direction = 'desc' AND :sort = 'kortgruppe') THEN kortgruppe
               WHEN (:direction = 'desc' AND :sort = 'herredsnavn') THEN herredsnavn
-              WHEN (:direction = 'desc' AND :sort = 'herredsnummer') THEN herredsnummer::varchar
+              WHEN (:direction = 'desc' AND :sort = 'herredsnummer') THEN herredsnummer::VARCHAR
+              WHEN (:direction = 'asc' AND :sort = 'sogneid') THEN sognenavn::VARCHAR
+              WHEN (:direction = 'desc' AND :sort = 'sognenavn') THEN sognenavn::VARCHAR
               WHEN (:direction = 'desc' AND :sort = 'titel') THEN titel
           END DESC,
           CASE
