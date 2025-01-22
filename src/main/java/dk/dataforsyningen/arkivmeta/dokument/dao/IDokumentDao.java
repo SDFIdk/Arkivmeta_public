@@ -29,11 +29,11 @@ public interface IDokumentDao {
           SELECT
              DISTINCT herredsnavn
           FROM
-             arkivmeta.protokoller.protokoller p
+             historiskedokumenter.historiskedokumenter
           WHERE
             dokumentsamling = 'sogneprotokoller'
           ORDER BY
-            herredsnavn ASC 
+            herredsnavn ASC
       """)
   List<String> getHerredsnavn();
 
