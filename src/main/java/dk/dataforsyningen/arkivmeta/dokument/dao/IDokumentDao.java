@@ -17,11 +17,11 @@ public interface IDokumentDao {
 
   @SqlQuery("""
           SELECT
-             DISTINCT dokumentsamling
+              DISTINCT dokumentsamling
           FROM
-             arkivmeta.protokoller.protokoller p
-          ORDER BY 
-            dokumentsamling ASC
+              historiskedokumenter.historiskedokumenter
+          ORDER BY
+              dokumentsamling ASC
       """)
   List<String> getDokumentSamling();
 
