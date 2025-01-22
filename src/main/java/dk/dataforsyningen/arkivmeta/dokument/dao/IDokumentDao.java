@@ -5,6 +5,7 @@ import dk.dataforsyningen.arkivmeta.dokument.apimapper.DokumentDtoMapper;
 import dk.dataforsyningen.arkivmeta.dokument.apimodel.DokumentDto;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper;
 import org.jdbi.v3.sqlobject.customizer.Bind;
 import org.jdbi.v3.sqlobject.customizer.BindList;
@@ -56,14 +57,29 @@ public interface IDokumentDao {
    */
   @SqlQuery("""
           SELECT
-              *
+              id,
+              kortgruppe,
+              titel,
+              alternativtitel,
+              bemaerkning,
+              ST_AsEWKT(geometri) AS geometri,
+              daekningsomraade,
+              filer,
+              "datatype",
+              filtype,
+              dokumentsamling,
+              herredsnavn,
+              herredsnummer,
+              protokoltype,
+              sogneid,
+              sognenavn
           FROM
-              arkivmeta.protokoller.protokoller p
+              historiskedokumenter.historiskedokumenter
           WHERE
-              p.id = :id
+              id = :id
       """)
   @RegisterRowMapper(DokumentDtoMapper.class)
-  Optional<DokumentDto> getDokumentById(@Bind("id") String id);
+  Optional<DokumentDto> getDokumentById(@Bind("id") UUID id);
 
   /**
    * To @BindList we need to use < instead of :
@@ -76,12 +92,27 @@ public interface IDokumentDao {
    */
   @SqlQuery("""
       SELECT
-          *
+          id,
+          kortgruppe,
+          titel,
+          alternativtitel,
+          bemaerkning,
+          ST_AsEWKT(geometri) AS geometri,
+          daekningsomraade,
+          filer,
+          "datatype",
+          filtype,
+          dokumentsamling,
+          herredsnavn,
+          herredsnummer,
+          protokoltype,
+          sogneid,
+          sognenavn
       FROM
-          arkivmeta.protokoller.protokoller
+          historiskedokumenter.historiskedokumenter
       WHERE
-          ((<dokumentsamling>) IS NULL
-              OR dokumentsamling IN (<dokumentsamling>))
+          ((<kortgruppe>) IS NULL
+              OR kortgruppe IN (<kortgruppe>))
           AND (:fritekstsoegning IS NULL
               OR fritekstsoegning @@ plainto_tsquery('simple', :fritekstsoegning))
           AND (:area IS NULL
@@ -93,9 +124,9 @@ public interface IDokumentDao {
           AND (:herredsnummer  IS NULL
               OR herredsnummer  = :herredsnummer)
           AND (:sognenavn IS NULL
-              OR sognenavn ILIKE :sognenavn)
+              OR lower(sognenavn::VARCHAR) SIMILAR TO lower('%(' || :sognenavn || ')%'))
           AND (:sogneid IS NULL
-              OR sogneid = :sogneid)
+              OR lower(sogneid::VARCHAR) SIMILAR TO lower('%(' || :sogneid || ')%'))
           AND (:titel IS NULL
               OR titel ILIKE :titel)
       ORDER BY
@@ -104,20 +135,16 @@ public interface IDokumentDao {
           -- We also need to split ASC and DESC because it is SQL feature and can not be a given
           -- user value
           CASE
+              WHEN (:direction = 'asc' AND :sort = 'kortgruppe') THEN kortgruppe
               WHEN (:direction = 'asc' AND :sort = 'herredsnavn') THEN herredsnavn
               WHEN (:direction = 'asc' AND :sort = 'herredsnummer') THEN herredsnummer::varchar
-              WHEN (:direction = 'asc' AND :sort = 'sognenavn') THEN sognenavn
-              WHEN (:direction = 'asc' AND :sort = 'sogneid') THEN sogneid::varchar
-              WHEN (:direction = 'asc' AND :sort = 'dokumentsamling') THEN dokumentsamling
-              WHEN (:direction = 'asc' AND :sort = 'titel') THEN titel 
+              WHEN (:direction = 'asc' AND :sort = 'titel') THEN titel
           END ASC,
           CASE
+              WHEN (:direction = 'desc' AND :sort = 'kortgruppe') THEN kortgruppe
               WHEN (:direction = 'desc' AND :sort = 'herredsnavn') THEN herredsnavn
               WHEN (:direction = 'desc' AND :sort = 'herredsnummer') THEN herredsnummer::varchar
-              WHEN (:direction = 'desc' AND :sort = 'sognenavn') THEN sognenavn
-              WHEN (:direction = 'desc' AND :sort = 'sogneid') THEN sogneid::varchar
-              WHEN (:direction = 'desc' AND :sort = 'dokumentsamling') THEN dokumentsamling
-              WHEN (:direction = 'desc' AND :sort = 'titel') THEN titel 
+              WHEN (:direction = 'desc' AND :sort = 'titel') THEN titel
           END DESC,
           CASE
               WHEN :fritekstsoegning IS NOT NULL THEN ts_rank(fritekstsoegning, plainto_tsquery('simple', :fritekstsoegning))
@@ -135,29 +162,29 @@ public interface IDokumentDao {
       """)
   @RegisterRowMapper(DokumentDtoMapper.class)
   List<DokumentDto> getAllDokumenter(
-      @BindList(value = "dokumentsamling", onEmpty = BindList.EmptyHandling.NULL_STRING)
-          List<String> dokumentsamling,
-      @Bind("fritekstsoegning") String fritekstsoegning,
       @Bind("area") Geometry area,
+      @Bind("direction") String direction,
+      @Bind("fritekstsoegning") String fritekstsoegning,
       @Bind("herredsnavn") String herredsnavn,
       @Bind("herredsnummer") Integer herredsnummer,
+      @BindList(value = "kortgruppe", onEmpty = BindList.EmptyHandling.NULL_STRING)
+      List<String> kortgruppe,
+      @Bind("limit") int limit,
+      @Bind("offset") int offset,
       @Bind("sogneid") Integer sogneid,
       @Bind("sognenavn") String sognenavn,
-      @Bind("titel") String titel,
-      @Bind("direction") String direction,
       @Bind("sort") String sort,
-      @Bind("limit") int limit,
-      @Bind("offset") int offset);
+      @Bind("titel") String titel);
 
 
   @SqlQuery("""
       SELECT
           COUNT(*)
       FROM
-          arkivmeta.protokoller.protokoller
+          historiskedokumenter.historiskedokumenter
       WHERE
-          ((<dokumentsamling>) IS NULL
-              OR dokumentsamling IN (<dokumentsamling>))
+          ((<kortgruppe>) IS NULL
+              OR kortgruppe IN (<kortgruppe>))
           AND (:fritekstsoegning IS NULL
               OR fritekstsoegning @@ plainto_tsquery('simple', :fritekstsoegning))
           AND (:area IS NULL
@@ -169,20 +196,20 @@ public interface IDokumentDao {
           AND (:herredsnummer  IS NULL
               OR herredsnummer  = :herredsnummer)
           AND (:sognenavn IS NULL
-              OR sognenavn ILIKE :sognenavn)
+              OR lower(sognenavn::VARCHAR) SIMILAR TO lower('%(' || :sognenavn || ')%'))
           AND (:sogneid IS NULL
-              OR sogneid = :sogneid)
+              OR lower(sogneid::VARCHAR) SIMILAR TO lower('%(' || :sogneid || ')%'))
           AND (:titel IS NULL
               OR titel ILIKE :titel)
       """)
   @RegisterRowMapper(DokumentDtoMapper.class)
   Long getCount(
-      @BindList(value = "dokumentsamling", onEmpty = BindList.EmptyHandling.NULL_STRING)
-          List<String> dokumentsamling,
-      @Bind("fritekstsoegning") String fritekstsoegning,
       @Bind("area") Geometry area,
+      @Bind("fritekstsoegning") String fritekstsoegning,
       @Bind("herredsnavn") String herredsnavn,
       @Bind("herredsnummer") Integer herredsnummer,
+      @BindList(value = "kortgruppe", onEmpty = BindList.EmptyHandling.NULL_STRING)
+      List<String> kortgruppe,
       @Bind("sogneid") Integer sogneid,
       @Bind("sognenavn") String sognenavn,
       @Bind("titel") String titel);

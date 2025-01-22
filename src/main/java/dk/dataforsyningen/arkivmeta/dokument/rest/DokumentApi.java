@@ -13,6 +13,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import java.util.List;
+import java.util.UUID;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springdoc.core.annotations.ParameterObject;
@@ -25,7 +26,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-@Tag(name = "ProtokolApi", description = "Protokol metadata API")
+@Tag(name = "DokumentApi", description = "Dokument metadata API")
 @RestController
 @Validated
 public class DokumentApi {
@@ -119,15 +120,20 @@ public class DokumentApi {
     return new ResponseEntity<>(dokumentresult, HttpStatus.OK);
   }
 
-  @GetMapping(path = "/dokument/{arketype}/{id}")
+  /**
+   * Returns the dokument matching with specified {id} as JSON.
+   * <p>
+   *
+   * @param id       the dokument's id
+   * @return the dokument with id specified
+   */
+  @GetMapping(path = "/dokument/{id}")
   @Operation(summary = "Find dokument ud fra unik id", responses = {
-          @ApiResponse(description = "Successful Operation", responseCode = "200", content = @Content(mediaType = "application/json", schema = @Schema(implementation = DokumentDto.class))),
-          @ApiResponse(responseCode = "404", description = "Not found", content = @Content),
-          @ApiResponse(responseCode = "401", description = "Authentication Failure", content = @Content(schema = @Schema(hidden = true))) })
-  public ResponseEntity<DokumentDto> dokumentById(
-          @Parameter(description = "arketype") @PathVariable String arketype,
-          @Parameter(description = "id") @PathVariable String id) {
-    DokumentDto result = iDokumentService.getDokumentById(arketype, id);
+      @ApiResponse(description = "Successful Operation", responseCode = "200", content = @Content(mediaType = "application/json", schema = @Schema(implementation = DokumentDto.class))),
+      @ApiResponse(responseCode = "404", description = "Not found", content = @Content),
+      @ApiResponse(responseCode = "401", description = "Authentication Failure", content = @Content(schema = @Schema(hidden = true))) })
+  public ResponseEntity<DokumentDto> dokumentById(@Parameter(description = "id") @PathVariable UUID id) {
+    DokumentDto result = iDokumentService.getDokumentById(id);
 
     return new ResponseEntity<>(result, HttpStatus.OK);
   }
