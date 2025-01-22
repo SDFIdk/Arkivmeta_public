@@ -19,8 +19,8 @@ public interface IDokumentDao {
           SELECT
              DISTINCT dokumentsamling
           FROM
-             arkivmeta.protokoller.protokoller p
-          ORDER BY 
+             historiskedokumenter.historiskedokumenter
+          ORDER BY
             dokumentsamling ASC
       """)
   List<String> getDokumentSamling();
