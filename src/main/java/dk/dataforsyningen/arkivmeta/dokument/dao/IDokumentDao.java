@@ -27,13 +27,13 @@ public interface IDokumentDao {
 
   @SqlQuery("""
           SELECT
-             DISTINCT herredsnavn
+              DISTINCT herredsnavn
           FROM
-             historiskedokumenter.historiskedokumenter
+              historiskedokumenter.historiskedokumenter
           WHERE
-            dokumentsamling = 'sogneprotokoller'
+              dokumentsamling = 'sogneprotokoller'
           ORDER BY
-            herredsnavn ASC
+              herredsnavn ASC
       """)
   List<String> getHerredsnavn();
 
