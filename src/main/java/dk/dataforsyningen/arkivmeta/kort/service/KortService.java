@@ -102,7 +102,7 @@ public class KortService implements IKortService {
    * @return list of MaalestokDto of all maalestok available
    */
   @Override
-  @Cacheable("maalestokke")
+  @Cacheable("maalestok")
   public List<MaalestokDto> getMaalestokke(String maalestok) {
     List<MaalestokDto> maalestokDtoList =
         iMaalestokDao.getMaalestok(maalestok);

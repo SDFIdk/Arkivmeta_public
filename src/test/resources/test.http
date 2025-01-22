@@ -204,13 +204,13 @@ Accept: application/json
 token: {{token}}
 
 ###
-# Ønskes returneret alle maalestokke
+# Ønskes returneret alle maalestok
 GET {{api_baseurl}}/metadata/maalestok
 Accept: application/json
 token: {{token}}
 
 ###
-# Ønskes returneret alle de maalestokke der har den specificeret søgning i sig
+# Ønskes returneret alle de maalestok der har den specificeret søgning i sig
 GET {{api_baseurl}}/metadata/maalestok?maalestok=200
 Accept: application/json
 token: {{token}}
