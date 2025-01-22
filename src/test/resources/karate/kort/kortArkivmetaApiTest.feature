@@ -31,7 +31,6 @@ Feature: Arkivmeta API Integration Test
     And header Accept = 'application/json'
     # https://intuit.github.io/karate/#header
     # Note that Content-Type had to be enclosed in quotes in the JSON above because the “-” (hyphen character) would cause problems otherwise.
-    And configure headers = { 'token': 'b82bfa76a9e21f3f7a6adebad1d40702', 'Content-Type': 'application/json' }
     And request { daekningsomraade: ['Sønderjylland', 'Slesvig'], limit: 15, sort: 'daekningsomraade', direction: 'asc' }
     When method post
     Then status 200
@@ -49,7 +48,6 @@ Feature: Arkivmeta API Integration Test
 
   
   Scenario: Arkiv API /kort - search titel insensitive
-    # This test does not match but why??
 
     Given path '/kort'
     And param titel = 'øster'
