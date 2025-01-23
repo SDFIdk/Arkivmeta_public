@@ -39,13 +39,13 @@ public interface IDokumentDao {
 
   @SqlQuery("""
           SELECT
-             DISTINCT sognenavn
+              DISTINCT array_to_string(sognenavn, ',') as sognenavn
           FROM
-             arkivmeta.protokoller.protokoller p
+              historiskedokumenter.historiskedokumenter
           WHERE
-            dokumentsamling = 'sogneprotokoller'
+              dokumentsamling = 'sogneprotokoller'
           ORDER BY
-            sognenavn ASC
+              sognenavn ASC
       """)
   List<String> getSognenavn();
 
