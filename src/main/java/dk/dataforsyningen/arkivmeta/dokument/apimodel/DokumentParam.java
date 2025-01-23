@@ -25,8 +25,8 @@ public class DokumentParam {
   @Schema(description = "Herredets nummer.")
   private Integer herredsnummer;
 
-  @ArraySchema(arraySchema = @Schema(description = "De dokumenttyper, der skal vises. En kommasepareret liste af typer. " +
-      "Eksempel: `Hartkornsekstrakt, Sogneprotokol.`"))
+  @ArraySchema(arraySchema = @Schema(description =
+      "De dokumenttyper, der skal vises. En kommasepareret liste af typer. Eksempel: `Hartkornsekstrakt, Sogneprotokol.`"))
   private List<String> kortgruppe;
 
   @Schema(description = "Sidestørrelse, dvs. hvor mange poster pr. side", defaultValue = "100")

@@ -2,10 +2,10 @@ package dk.dataforsyningen.arkivmeta.kort.rest;
 
 import dk.dataforsyningen.arkivmeta.kort.apimodel.DaekningsomraadeDto;
 import dk.dataforsyningen.arkivmeta.kort.apimodel.KortDto;
-import dk.dataforsyningen.arkivmeta.kort.apimodel.Kortvaerk;
-import dk.dataforsyningen.arkivmeta.kort.apimodel.KortgruppeWithKortvaerkerDto;
 import dk.dataforsyningen.arkivmeta.kort.apimodel.KortParam;
 import dk.dataforsyningen.arkivmeta.kort.apimodel.KortResult;
+import dk.dataforsyningen.arkivmeta.kort.apimodel.KortgruppeWithKortvaerkerDto;
+import dk.dataforsyningen.arkivmeta.kort.apimodel.Kortvaerk;
 import dk.dataforsyningen.arkivmeta.kort.apimodel.MaalestokDto;
 import dk.dataforsyningen.arkivmeta.kort.service.IKortService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,7 +27,13 @@ import org.springframework.beans.propertyeditors.StringArrayPropertyEditor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @Tag(name = "KortApi", description = "Kort metadata API")
 @RestController
@@ -50,16 +56,16 @@ public class KortApi {
    */
   @GetMapping(path = "/ping", produces = "application/json")
   @Operation(
-          summary = "ping",
-          description = "Liveliness/readiness probe.",
-          tags = {"Liveliness/Readiness"})
+      summary = "ping",
+      description = "Liveliness/readiness probe.",
+      tags = {"Liveliness/Readiness"})
   @ApiResponses(
-          value = {
-                  @ApiResponse(
-                          responseCode = "200",
-                          description = "Success",
-                          content = @Content(schema = @Schema(implementation = String.class)))
-          })
+      value = {
+          @ApiResponse(
+              responseCode = "200",
+              description = "Success",
+              content = @Content(schema = @Schema(implementation = String.class)))
+      })
   public ResponseEntity<String> ping() {
     return new ResponseEntity<>("{\"message\": \"PONG\"}", HttpStatus.OK);
   }
@@ -69,11 +75,12 @@ public class KortApi {
    */
   @GetMapping(path = "/metadata/kortgrupper/kortvaerker")
   @Operation(summary = "Hent kortgrupper med underliggende kortværker", description = "Leverer en liste af tilgængelige kortgrupper, med de kortværker som hører til", responses = {
-          @ApiResponse(description = "Successful Operation", responseCode = "200", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = KortgruppeWithKortvaerkerDto.class)))),
-          @ApiResponse(responseCode = "404", description = "Not found", content = @Content),
-          @ApiResponse(responseCode = "401", description = "Authentication Failure", content = @Content(schema = @Schema(hidden = true))) })
+      @ApiResponse(description = "Successful Operation", responseCode = "200", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = KortgruppeWithKortvaerkerDto.class)))),
+      @ApiResponse(responseCode = "404", description = "Not found", content = @Content),
+      @ApiResponse(responseCode = "401", description = "Authentication Failure", content = @Content(schema = @Schema(hidden = true)))})
   public ResponseEntity<List<KortgruppeWithKortvaerkerDto>> kortgrupperWithKortvaerker() {
-    List<KortgruppeWithKortvaerkerDto> kortgrupperWithKortvaerkerList = iKortService.getKortgrupperWithKortvaerker();
+    List<KortgruppeWithKortvaerkerDto> kortgrupperWithKortvaerkerList =
+        iKortService.getKortgrupperWithKortvaerker();
 
     return new ResponseEntity<>(kortgrupperWithKortvaerkerList, HttpStatus.OK);
   }
@@ -84,16 +91,16 @@ public class KortApi {
    */
   @GetMapping(path = "/metadata/daekningsomraader")
   @Operation(summary = "Hent dækningsområder", description = "Leverer en liste af dækningsområder", responses = {
-          @ApiResponse(description = "Successful Operation", responseCode = "200", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = String.class)))),
-          @ApiResponse(responseCode = "404", description = "Not found", content = @Content),
-          @ApiResponse(responseCode = "401", description = "Authentication Failure", content = @Content(schema = @Schema(hidden = true))) })
+      @ApiResponse(description = "Successful Operation", responseCode = "200", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = String.class)))),
+      @ApiResponse(responseCode = "404", description = "Not found", content = @Content),
+      @ApiResponse(responseCode = "401", description = "Authentication Failure", content = @Content(schema = @Schema(hidden = true)))})
   public ResponseEntity<List<String>> daekningsomraade(
-          @Parameter(description = "Filtrer med søgestreng") @RequestParam(defaultValue = "")
-          String daekningsomraade) {
+      @Parameter(description = "Filtrer med søgestreng") @RequestParam(defaultValue = "")
+      String daekningsomraade) {
     List<String> daekningsomraadeList = iKortService.getDaekningsomraader(daekningsomraade)
-            .stream()
-            .map(DaekningsomraadeDto::getDaekningsomraade)
-            .collect(Collectors.toList());
+        .stream()
+        .map(DaekningsomraadeDto::getDaekningsomraade)
+        .collect(Collectors.toList());
     return new ResponseEntity<>(daekningsomraadeList, HttpStatus.OK);
   }
 
@@ -103,16 +110,16 @@ public class KortApi {
    */
   @GetMapping(path = "/metadata/maalestok")
   @Operation(summary = "Hent målestoksforhold", description = "Leverer en liste af målestoksforhold", responses = {
-          @ApiResponse(description = "Successful Operation", responseCode = "200", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = String.class)))),
-          @ApiResponse(responseCode = "404", description = "Not found", content = @Content),
-          @ApiResponse(responseCode = "401", description = "Authentication Failure", content = @Content(schema = @Schema(hidden = true))) })
+      @ApiResponse(description = "Successful Operation", responseCode = "200", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = String.class)))),
+      @ApiResponse(responseCode = "404", description = "Not found", content = @Content),
+      @ApiResponse(responseCode = "401", description = "Authentication Failure", content = @Content(schema = @Schema(hidden = true)))})
   public ResponseEntity<List<String>> maalestok(
-          @Parameter(description = "Filtrer med søgestreng") @RequestParam(defaultValue = "")
-          String maalestok) {
+      @Parameter(description = "Filtrer med søgestreng") @RequestParam(defaultValue = "")
+      String maalestok) {
     List<String> maalestokList = iKortService.getMaalestokke(maalestok)
-            .stream()
-            .map(MaalestokDto::getMaalestok)
-            .collect(Collectors.toList());
+        .stream()
+        .map(MaalestokDto::getMaalestok)
+        .collect(Collectors.toList());
     return new ResponseEntity<>(maalestokList, HttpStatus.OK);
   }
 
@@ -121,10 +128,11 @@ public class KortApi {
    */
   @GetMapping(path = "/kort")
   @Operation(summary = "Liste af kort der matcher søgekriterierne", description = "Hvis gaeldendeperiode_gaeldendefra og gaeldendeperiode_gaeldendetil bliver brugt samtidig, er det alle kort, der er indenfor gyldighedsperioden eller har været gældende fra eller gældende til, i perioden", responses = {
-          @ApiResponse(description = "Successful Operation", responseCode = "200", content = @Content(mediaType = "application/json", schema = @Schema(implementation = KortResult.class))),
-          @ApiResponse(responseCode = "404", description = "Not found", content = @Content),
-          @ApiResponse(responseCode = "401", description = "Authentication Failure", content = @Content(schema = @Schema(hidden = true))) })
-  public ResponseEntity<KortResult> getKort(@Valid @ParameterObject KortParam kortParam, @Valid @ParameterObject Kortvaerk kortvaerk) {
+      @ApiResponse(description = "Successful Operation", responseCode = "200", content = @Content(mediaType = "application/json", schema = @Schema(implementation = KortResult.class))),
+      @ApiResponse(responseCode = "404", description = "Not found", content = @Content),
+      @ApiResponse(responseCode = "401", description = "Authentication Failure", content = @Content(schema = @Schema(hidden = true)))})
+  public ResponseEntity<KortResult> getKort(@Valid @ParameterObject KortParam kortParam,
+                                            @Valid @ParameterObject Kortvaerk kortvaerk) {
     System.out.println(kortvaerk.toList().size());
     kortvaerk.toList().forEach(System.out::println);
     return postKort(kortParam, kortvaerk);
@@ -140,11 +148,12 @@ public class KortApi {
    */
   @PostMapping(path = "/kort")
   @Operation(summary = "Liste af kort der matcher søgekriterierne", description = "Hvis gaeldendeperiode_gaeldendefra og gaeldendeperiode_gaeldendetil bliver brugt samtidig, er det alle kort, der er indenfor gyldighedsperioden eller har været gældende fra eller gældende til, i perioden", responses = {
-          @ApiResponse(description = "Successful Operation", responseCode = "200", content = @Content(mediaType = "application/json", schema = @Schema(implementation = KortResult.class))),
-          @ApiResponse(responseCode = "404", description = "Not found", content = @Content),
-          @ApiResponse(responseCode = "401", description = "Authentication Failure", content = @Content(schema = @Schema(hidden = true))) })
+      @ApiResponse(description = "Successful Operation", responseCode = "200", content = @Content(mediaType = "application/json", schema = @Schema(implementation = KortResult.class))),
+      @ApiResponse(responseCode = "404", description = "Not found", content = @Content),
+      @ApiResponse(responseCode = "401", description = "Authentication Failure", content = @Content(schema = @Schema(hidden = true)))})
   public ResponseEntity<KortResult> postKort(
-          @Valid @RequestBody @ParameterObject KortParam kortParam, @Valid @ParameterObject Kortvaerk kortvaerk) {
+      @Valid @RequestBody @ParameterObject KortParam kortParam,
+      @Valid @ParameterObject Kortvaerk kortvaerk) {
     // For GET and POST direction, limit and offset need a default value, but it should only be set,
     // if the client did not specify them.
     if (StringUtils.isBlank(kortParam.getDirection())) {
@@ -168,14 +177,14 @@ public class KortApi {
    * Returns the kort matching with specified {id} as JSON.
    * <p>
    *
-   * @param id       the kort's id
+   * @param id the kort's id
    * @return the kort with the kortgruppe and id specified
    */
   @GetMapping(path = "/kort/{id}")
   @Operation(summary = "Vis kort ud fra unik id", responses = {
-          @ApiResponse(description = "Successful Operation", responseCode = "200", content = @Content(mediaType = "application/json", schema = @Schema(implementation = KortDto.class))),
-          @ApiResponse(responseCode = "404", description = "Not found", content = @Content),
-          @ApiResponse(responseCode = "401", description = "Authentication Failure", content = @Content(schema = @Schema(hidden = true))) })
+      @ApiResponse(description = "Successful Operation", responseCode = "200", content = @Content(mediaType = "application/json", schema = @Schema(implementation = KortDto.class))),
+      @ApiResponse(responseCode = "404", description = "Not found", content = @Content),
+      @ApiResponse(responseCode = "401", description = "Authentication Failure", content = @Content(schema = @Schema(hidden = true)))})
   public ResponseEntity<KortDto> kortById(@Parameter(description = "id") @PathVariable UUID id) {
     KortDto result = iKortService.getKortById(id);
 

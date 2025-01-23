@@ -25,9 +25,9 @@ public class OpenApiConfig {
             .version("2.0.0")
             .description("""
                 APIet __Arkivmeta__ giver adgang til at søge i metadata for en større samling historiske kort, dokumenter og benytte resultatet til at fremvise det skannede materiale.
-                                        
+                
                 Til adgang benyttes Dataforsyningens brugeradgang som ved andre tjenester.
-                                        
+                
                 Stier til kortfiler følger [IIIF specifikationen](https://iiif.io/) og kan vises med en viser, der understøtter dette.
                 """))
         // AddSecurityItem section applies created scheme/paths globally

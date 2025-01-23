@@ -41,11 +41,10 @@ public class DokumentApi {
    */
   @GetMapping(path = "/metadata/dokumentsamling")
   @Operation(summary = "Hent dokumentsamlinger", description = "Leverer en liste af dokumentsamlinger", responses = {
-          @ApiResponse(description = "Successful Operation", responseCode = "200", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = String.class)))),
-          @ApiResponse(responseCode = "404", description = "Not found", content = @Content),
-          @ApiResponse(responseCode = "401", description = "Authentication Failure", content = @Content(schema = @Schema(hidden = true))) })
+      @ApiResponse(description = "Successful Operation", responseCode = "200", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = String.class)))),
+      @ApiResponse(responseCode = "404", description = "Not found", content = @Content),
+      @ApiResponse(responseCode = "401", description = "Authentication Failure", content = @Content(schema = @Schema(hidden = true)))})
   public ResponseEntity<List<String>> getDokumentSamling() {
-
     List<String> result = iDokumentService.getDokumentSamling();
     return new ResponseEntity<>(result, HttpStatus.OK);
   }
@@ -55,11 +54,10 @@ public class DokumentApi {
    */
   @GetMapping(path = "/metadata/herredsnavn")
   @Operation(summary = "Hent herredsnavne", description = "Leverer en liste af herredsnavne", responses = {
-          @ApiResponse(description = "Successful Operation", responseCode = "200", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = String.class)))),
-          @ApiResponse(responseCode = "404", description = "Not found", content = @Content),
-          @ApiResponse(responseCode = "401", description = "Authentication Failure", content = @Content(schema = @Schema(hidden = true))) })
+      @ApiResponse(description = "Successful Operation", responseCode = "200", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = String.class)))),
+      @ApiResponse(responseCode = "404", description = "Not found", content = @Content),
+      @ApiResponse(responseCode = "401", description = "Authentication Failure", content = @Content(schema = @Schema(hidden = true)))})
   public ResponseEntity<List<String>> getHerredsnavn() {
-
     List<String> result = iDokumentService.getHerredsnavn();
     return new ResponseEntity<>(result, HttpStatus.OK);
   }
@@ -69,9 +67,9 @@ public class DokumentApi {
    */
   @GetMapping(path = "/metadata/sognenavn")
   @Operation(summary = "Hent sognenavne", description = "Leverer en liste af sognenavne", responses = {
-          @ApiResponse(description = "Successful Operation", responseCode = "200", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = String.class)))),
-          @ApiResponse(responseCode = "404", description = "Not found", content = @Content),
-          @ApiResponse(responseCode = "401", description = "Authentication Failure", content = @Content(schema = @Schema(hidden = true))) })
+      @ApiResponse(description = "Successful Operation", responseCode = "200", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = String.class)))),
+      @ApiResponse(responseCode = "404", description = "Not found", content = @Content),
+      @ApiResponse(responseCode = "401", description = "Authentication Failure", content = @Content(schema = @Schema(hidden = true)))})
   public ResponseEntity<List<String>> getSognenavn() {
     List<String> result = iDokumentService.getSognenavn();
     return new ResponseEntity<>(result, HttpStatus.OK);
@@ -82,10 +80,11 @@ public class DokumentApi {
    */
   @GetMapping(path = "/dokument")
   @Operation(summary = "Liste af dokumenter der matcher søgekriterierne", description = "Disse er parametrerne i DokumentParam", responses = {
-          @ApiResponse(description = "Successful Operation", responseCode = "200", content = @Content(mediaType = "application/json", schema = @Schema(implementation = DokumentResult.class))),
-          @ApiResponse(responseCode = "404", description = "Not found", content = @Content),
-          @ApiResponse(responseCode = "401", description = "Authentication Failure", content = @Content(schema = @Schema(hidden = true))) })
-  public ResponseEntity<DokumentResult> getDokument(@Valid @ParameterObject DokumentParam dokumentParam) {
+      @ApiResponse(description = "Successful Operation", responseCode = "200", content = @Content(mediaType = "application/json", schema = @Schema(implementation = DokumentResult.class))),
+      @ApiResponse(responseCode = "404", description = "Not found", content = @Content),
+      @ApiResponse(responseCode = "401", description = "Authentication Failure", content = @Content(schema = @Schema(hidden = true)))})
+  public ResponseEntity<DokumentResult> getDokument(
+      @Valid @ParameterObject DokumentParam dokumentParam) {
     return postDokument(dokumentParam);
   }
 
@@ -99,11 +98,11 @@ public class DokumentApi {
    */
   @PostMapping(path = "/dokument")
   @Operation(summary = "Liste af dokumenter der matcher søgekriterierne", description = "Disse er parametrerne i DokumentParam", responses = {
-          @ApiResponse(description = "Successful Operation", responseCode = "200", content = @Content(mediaType = "application/json", schema = @Schema(implementation = DokumentResult.class))),
-          @ApiResponse(responseCode = "404", description = "Not found", content = @Content),
-          @ApiResponse(responseCode = "401", description = "Authentication Failure", content = @Content(schema = @Schema(hidden = true))) })
+      @ApiResponse(description = "Successful Operation", responseCode = "200", content = @Content(mediaType = "application/json", schema = @Schema(implementation = DokumentResult.class))),
+      @ApiResponse(responseCode = "404", description = "Not found", content = @Content),
+      @ApiResponse(responseCode = "401", description = "Authentication Failure", content = @Content(schema = @Schema(hidden = true)))})
   public ResponseEntity<DokumentResult> postDokument(
-          @Valid @RequestBody DokumentParam dokumentParam) {
+      @Valid @RequestBody DokumentParam dokumentParam) {
     // For GET and POST direction, limit and offset need a default value, but it should only be set,
     // if the client did not specify them.
     if (StringUtils.isBlank(dokumentParam.getDirection())) {
@@ -124,15 +123,16 @@ public class DokumentApi {
    * Returns the dokument matching with specified {id} as JSON.
    * <p>
    *
-   * @param id       the dokument's id
+   * @param id the dokument's id
    * @return the dokument with id specified
    */
   @GetMapping(path = "/dokument/{id}")
   @Operation(summary = "Find dokument ud fra unik id", responses = {
       @ApiResponse(description = "Successful Operation", responseCode = "200", content = @Content(mediaType = "application/json", schema = @Schema(implementation = DokumentDto.class))),
       @ApiResponse(responseCode = "404", description = "Not found", content = @Content),
-      @ApiResponse(responseCode = "401", description = "Authentication Failure", content = @Content(schema = @Schema(hidden = true))) })
-  public ResponseEntity<DokumentDto> dokumentById(@Parameter(description = "id") @PathVariable UUID id) {
+      @ApiResponse(responseCode = "401", description = "Authentication Failure", content = @Content(schema = @Schema(hidden = true)))})
+  public ResponseEntity<DokumentDto> dokumentById(
+      @Parameter(description = "id") @PathVariable UUID id) {
     DokumentDto result = iDokumentService.getDokumentById(id);
 
     return new ResponseEntity<>(result, HttpStatus.OK);

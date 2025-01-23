@@ -40,7 +40,7 @@ public class DatabaseConfiguration {
   @Bean(name = "arkivmetaTransactionManager")
   @Primary
   public DataSourceTransactionManager dataSourceTransactionManager(
-          @Qualifier("arkivmeta") DataSource dataSource) {
+      @Qualifier("arkivmeta") DataSource dataSource) {
     DataSourceTransactionManager dataSourceTransactionManager = new DataSourceTransactionManager();
     dataSourceTransactionManager.setDataSource(dataSource);
     return dataSourceTransactionManager;
@@ -55,15 +55,15 @@ public class DatabaseConfiguration {
   @Bean(name = "arkivmetaJdbi")
   public Jdbi jdbi(@Qualifier("arkivmeta") DataSource dataSource) {
     Jdbi jdbi = Jdbi.create(dataSource)
-            .installPlugin(new SqlObjectPlugin())
-            .installPlugin(new PostgresPlugin())
-            .installPlugin(new PostgisPlugin())
-            .installPlugin(new Jackson2Plugin());
+        .installPlugin(new SqlObjectPlugin())
+        .installPlugin(new PostgresPlugin())
+        .installPlugin(new PostgisPlugin())
+        .installPlugin(new Jackson2Plugin());
 
     // Enable to bind NUll values when inserting (for postgres it is Other)
     // https://stackoverflow.com/questions/48254280/why-does-jdbi-bind-fail-with-function-as-parameter
     jdbi.getConfig(Arguments.class)
-            .setUntypedNullArgument(new NullArgument(Types.OTHER));
+        .setUntypedNullArgument(new NullArgument(Types.OTHER));
 
     return jdbi;
   }

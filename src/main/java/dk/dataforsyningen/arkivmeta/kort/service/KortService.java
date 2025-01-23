@@ -2,14 +2,14 @@ package dk.dataforsyningen.arkivmeta.kort.service;
 
 import dk.dataforsyningen.arkivmeta.kort.apimodel.DaekningsomraadeDto;
 import dk.dataforsyningen.arkivmeta.kort.apimodel.KortDto;
-import dk.dataforsyningen.arkivmeta.kort.apimodel.Kortvaerk;
-import dk.dataforsyningen.arkivmeta.kort.apimodel.KortgruppeWithKortvaerkerDto;
 import dk.dataforsyningen.arkivmeta.kort.apimodel.KortParam;
 import dk.dataforsyningen.arkivmeta.kort.apimodel.KortResult;
+import dk.dataforsyningen.arkivmeta.kort.apimodel.KortgruppeWithKortvaerkerDto;
+import dk.dataforsyningen.arkivmeta.kort.apimodel.Kortvaerk;
 import dk.dataforsyningen.arkivmeta.kort.apimodel.MaalestokDto;
-import dk.dataforsyningen.arkivmeta.kort.dao.IKortgruppeWithKortvaerkerDao;
 import dk.dataforsyningen.arkivmeta.kort.dao.IDaekningsomraadeDao;
 import dk.dataforsyningen.arkivmeta.kort.dao.IKortDao;
+import dk.dataforsyningen.arkivmeta.kort.dao.IKortgruppeWithKortvaerkerDao;
 import dk.dataforsyningen.arkivmeta.kort.dao.IMaalestokDao;
 import dk.dataforsyningen.arkivmeta.kort.rest.KortApi;
 import java.util.List;
@@ -110,7 +110,6 @@ public class KortService implements IKortService {
   }
 
   /**
-   *
    * @param kortParam
    * @param kortvaerk
    * @return the object with a list of kort that matched users requirements (up to 1000) and a total of how many
@@ -135,18 +134,19 @@ public class KortService implements IKortService {
 
     List<KortDto> kortDtoList = iKortDao.getAllKort(
         kortParam.getKortgruppe(), daekningsomraade, kortParam.getFritekstsoegning(),
-        kortParam.getGaeldendeperiode_gaeldendefra(), kortParam.getGaeldendeperiode_gaeldendetil(), area,
-        kortParam.getKortbladnummer(), kortvaerk.toList(), kortParam.getMaalestok(), kortParam.getTegner(),
-        kortParam.getTitel(), kortParam.getLimit(), kortParam.getOffset(), kortParam.getSort(),
-        kortParam.getDirection());
+        kortParam.getGaeldendeperiode_gaeldendefra(), kortParam.getGaeldendeperiode_gaeldendetil(),
+        area, kortParam.getKortbladnummer(), kortvaerk.toList(), kortParam.getMaalestok(),
+        kortParam.getTegner(), kortParam.getTitel(), kortParam.getLimit(), kortParam.getOffset(),
+        kortParam.getSort(), kortParam.getDirection());
 
     long count;
 
     if (kortDtoList.size() >= kortParam.getLimit()) {
       count = iKortDao.getCount(kortParam.getKortgruppe(), daekningsomraade,
-          kortParam.getFritekstsoegning(), kortParam.getGaeldendeperiode_gaeldendefra(), kortParam.getGaeldendeperiode_gaeldendetil(),
-          area, kortParam.getKortbladnummer(), kortvaerk.toList(), kortParam.getMaalestok(),
-          kortParam.getTegner(), kortParam.getTitel());
+          kortParam.getFritekstsoegning(), kortParam.getGaeldendeperiode_gaeldendefra(),
+          kortParam.getGaeldendeperiode_gaeldendetil(), area, kortParam.getKortbladnummer(),
+          kortvaerk.toList(), kortParam.getMaalestok(), kortParam.getTegner(),
+          kortParam.getTitel());
     } else {
       count = kortDtoList.size();
     }

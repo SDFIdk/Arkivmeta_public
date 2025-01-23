@@ -11,8 +11,8 @@ import java.util.List;
 public class KortParam {
 
   @Parameter(description =
-          "Dækningsområde, se /metadata/daekningsomraader. Hvis der ønskes at søge på flere dækningsområde på en gang, skal man adskille hvert søgekriterie ved at bruge `,`. " +
-                  "Eksempel: `daekningsomraade=Slesvig,Danmark`")
+      "Dækningsområde, se /metadata/daekningsomraader. Hvis der ønskes at søge på flere dækningsområde på en gang, skal man adskille hvert søgekriterie ved at bruge `,`. " +
+          "Eksempel: `daekningsomraade=Slesvig,Danmark`")
   @ArraySchema(arraySchema = @Schema(description = "Geografisk område, som kortet dækker helt eller delvist. For eksempel Danmark, Grønland. Et kort kan have flere dækningsområder.For prøvekort og lignende vil dækningsområdet kunne angives som intet."))
   private List<String> daekningsomraade;
 
@@ -48,8 +48,8 @@ public class KortParam {
   private Integer limit;
 
   @Parameter(description =
-          "Målestoksforhold. Hvis der ønskes at søge på flere målestoksforhold på en gang, skal man adskille hvert søgekriterie ved at bruge `,`. " +
-                  "Eksempel: `maalestok=1:40000,1:180000`")
+      "Målestoksforhold. Hvis der ønskes at søge på flere målestoksforhold på en gang, skal man adskille hvert søgekriterie ved at bruge `,`. " +
+          "Eksempel: `maalestok=1:40000,1:180000`")
   @ArraySchema(arraySchema = @Schema(description = "Størrelsesforholdet mellem landskabet og kortets repræsentation heraf."))
   private List<String> maalestok;
 
@@ -68,8 +68,7 @@ public class KortParam {
   public KortParam(List<String> daekningsomraade, String direction, String fritekstsoegning,
                    Integer gaeldendeperiode_gaeldendefra, Integer gaeldendeperiode_gaeldendetil,
                    String geometri, String kortbladnummer, List<String> kortgruppe, Integer limit,
-                   List<String> maalestok, Integer offset, String sort,
-                   String tegner,
+                   List<String> maalestok, Integer offset, String sort, String tegner,
                    String titel) {
 
     this.daekningsomraade = daekningsomraade;

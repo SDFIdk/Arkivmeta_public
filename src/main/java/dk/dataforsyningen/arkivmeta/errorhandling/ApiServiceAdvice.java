@@ -19,7 +19,6 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.lang.NonNull;
-import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
@@ -77,12 +76,12 @@ public class ApiServiceAdvice extends ResponseEntityExceptionHandler {
   @ExceptionHandler(ConnectionException.class)
   public ResponseEntity<ErrorResponse> handleConnectionException(
       ConnectionException exception) {
-      String exceptionCause = getRootCause(exception).toString();
+    String exceptionCause = getRootCause(exception).toString();
 
-      ErrorResponse errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST, "Connection issues");
-      logger.info(ERROR_STRING, exception);
-      logger.info(ERROR_STRING + exceptionCause);
-      return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    ErrorResponse errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST, "Connection issues");
+    logger.info(ERROR_STRING, exception);
+    logger.info(ERROR_STRING + exceptionCause);
+    return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
   }
 
   /**
@@ -113,7 +112,8 @@ public class ApiServiceAdvice extends ResponseEntityExceptionHandler {
   }
 
   @ExceptionHandler(FileNotFoundException.class)
-  public ResponseEntity<ErrorResponse> handleFileNotFoundException(FileNotFoundException exception) {
+  public ResponseEntity<ErrorResponse> handleFileNotFoundException(
+      FileNotFoundException exception) {
     String exceptionCause = getRootCause(exception).toString();
 
     ErrorResponse errorResponse =
@@ -136,9 +136,10 @@ public class ApiServiceAdvice extends ResponseEntityExceptionHandler {
 
   @ExceptionHandler(UnableToExecuteStatementException.class)
   public ResponseEntity<ErrorResponse> handleUnableToExecuteStatementException(
-          UnableToExecuteStatementException exception) {
+      UnableToExecuteStatementException exception) {
     String exceptionCause = getRootCause(exception).toString();
-    ErrorResponse errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST, exception.getMessage(), exceptionCause);
+    ErrorResponse errorResponse =
+        new ErrorResponse(HttpStatus.BAD_REQUEST, exception.getMessage(), exceptionCause);
     logger.info(ERROR_STRING, exception);
     logger.info(ERROR_STRING + exceptionCause);
     return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
@@ -246,7 +247,8 @@ public class ApiServiceAdvice extends ResponseEntityExceptionHandler {
     String exceptionCause = getRootCause(exception).toString();
 
     ErrorResponse errorResponse =
-        new ErrorResponse(HttpStatus.UNPROCESSABLE_ENTITY, exception.getLocalizedMessage(), exceptionCause);
+        new ErrorResponse(HttpStatus.UNPROCESSABLE_ENTITY, exception.getLocalizedMessage(),
+            exceptionCause);
     logger.info(ERROR_STRING, exception);
     logger.info(ERROR_STRING, exceptionCause);
     return handleExceptionInternal(

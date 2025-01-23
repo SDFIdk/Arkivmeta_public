@@ -223,15 +223,16 @@ public interface IKortDao {
       // https://github.com/jdbi/jdbi/issues/1131
       // https://jdbi.org/apidocs/org/jdbi/v3/sqlobject/customizer/BindList.EmptyHandling.html#NULL_STRING
       @BindList(value = "kortgruppe", onEmpty = BindList.EmptyHandling.NULL_STRING)
-          List<String> kortgruppe,
+      List<String> kortgruppe,
       @Bind("daekningsomraade") String daekningsomraade,
       @Bind("fritekstsoegning") String fritekstsoegning,
-      @Bind("gaeldendeperiode_gaeldendefra") Integer gaeldendeperiode_gaeldendefra, @Bind("gaeldendeperiode_gaeldendetil") Integer gaeldendeperiode_gaeldendetil,
+      @Bind("gaeldendeperiode_gaeldendefra") Integer gaeldendeperiode_gaeldendefra,
+      @Bind("gaeldendeperiode_gaeldendetil") Integer gaeldendeperiode_gaeldendetil,
       @Bind("area") Geometry area, @Bind("kortbladnummer") String kortbladnummer,
       @BindList(value = "kortvaerk", onEmpty = BindList.EmptyHandling.NULL_STRING)
       List<String> kortvaerk,
       @BindList(value = "maalestok", onEmpty = BindList.EmptyHandling.NULL_STRING)
-          List<String> maalestok,
+      List<String> maalestok,
       @Bind("tegner") String tegner,
       @Bind("titel") String titel,
       @Bind("limit") int limit,
@@ -293,15 +294,16 @@ public interface IKortDao {
       // https://github.com/jdbi/jdbi/issues/1131
       // https://jdbi.org/apidocs/org/jdbi/v3/sqlobject/customizer/BindList.EmptyHandling.html#NULL_STRING
       @BindList(value = "kortgruppe", onEmpty = BindList.EmptyHandling.NULL_STRING)
-          List<String> kortgruppe,
+      List<String> kortgruppe,
       @Bind("daekningsomraade") String daekningsomraade,
       @Bind("fritekstsoegning") String fritekstsoegning,
-      @Bind("gaeldendeperiode_gaeldendefra") Integer gaeldendeperiode_gaeldendefra, @Bind("gaeldendeperiode_gaeldendetil") Integer gaeldendeperiode_gaeldendetil,
+      @Bind("gaeldendeperiode_gaeldendefra") Integer gaeldendeperiode_gaeldendefra,
+      @Bind("gaeldendeperiode_gaeldendetil") Integer gaeldendeperiode_gaeldendetil,
       @Bind("area") Geometry area, @Bind("kortbladnummer") String kortbladnummer,
       @BindList(value = "kortvaerk", onEmpty = BindList.EmptyHandling.NULL_STRING)
       List<String> kortvaerk,
       @BindList(value = "maalestok", onEmpty = BindList.EmptyHandling.NULL_STRING)
-          List<String> maalestok,
+      List<String> maalestok,
       @Bind("tegner") String tegner,
       @Bind("titel") String titel);
 }

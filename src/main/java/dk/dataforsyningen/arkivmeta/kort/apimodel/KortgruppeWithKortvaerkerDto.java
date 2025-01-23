@@ -35,8 +35,8 @@ public class KortgruppeWithKortvaerkerDto {
   @Override
   public String toString() {
     return "KortgruppeDto{" +
-            ", kortgruppe='" + kortgruppe + '\'' +
-            ", kortvaerker='" + kortvaerker + '\'' +
-            '}';
+        ", kortgruppe='" + kortgruppe + '\'' +
+        ", kortvaerker='" + kortvaerker + '\'' +
+        '}';
   }
 }

@@ -29,24 +29,24 @@ public class KortDao implements IKortDao {
   @Override
   public List<KortDto> getAllKort(List<String> kortgruppe, String daekningsomraade,
                                   String fritekstsoegning, Integer gaeldendeperiode_gaeldendefra,
-                                  Integer gaeldendeperiode_gaeldendetil, Geometry area, String kortbladnummer,
-                                  List<String> kortvaerk, List<String> maalestok, String tegner,
-                                  String titel, int limit, int offset, String sort,
-                                  String direction) {
+                                  Integer gaeldendeperiode_gaeldendetil, Geometry area,
+                                  String kortbladnummer, List<String> kortvaerk,
+                                  List<String> maalestok, String tegner, String titel, int limit,
+                                  int offset, String sort, String direction) {
     return arkivmetaJdbi.withExtension(IKortDao.class,
-        dao -> dao.getAllKort(kortgruppe, daekningsomraade, fritekstsoegning, gaeldendeperiode_gaeldendefra,
-            gaeldendeperiode_gaeldendetil, area, kortbladnummer, kortvaerk, maalestok, tegner, titel, limit, offset,
-            sort, direction));
+        dao -> dao.getAllKort(kortgruppe, daekningsomraade, fritekstsoegning,
+            gaeldendeperiode_gaeldendefra, gaeldendeperiode_gaeldendetil, area, kortbladnummer,
+            kortvaerk, maalestok, tegner, titel, limit, offset, sort, direction));
   }
 
   @Override
-  public Long getCount(List<String> kortgruppe, String daekningsomraade,
-                       String fritekstsoegning, Integer gaeldendeperiode_gaeldendefra,
-                       Integer gaeldendeperiode_gaeldendetil, Geometry area, String kortbladnummer,
-                       List<String> kortvaerk, List<String> maalestok, String tegner,
-                       String titel) {
+  public Long getCount(List<String> kortgruppe, String daekningsomraade, String fritekstsoegning,
+                       Integer gaeldendeperiode_gaeldendefra, Integer gaeldendeperiode_gaeldendetil,
+                       Geometry area, String kortbladnummer, List<String> kortvaerk,
+                       List<String> maalestok, String tegner, String titel) {
     return arkivmetaJdbi.withExtension(IKortDao.class,
-        dao -> dao.getCount(kortgruppe, daekningsomraade, fritekstsoegning, gaeldendeperiode_gaeldendefra,
-            gaeldendeperiode_gaeldendetil, area, kortbladnummer, kortvaerk, maalestok, tegner, titel));
+        dao -> dao.getCount(kortgruppe, daekningsomraade, fritekstsoegning,
+            gaeldendeperiode_gaeldendefra, gaeldendeperiode_gaeldendetil, area, kortbladnummer,
+            kortvaerk, maalestok, tegner, titel));
   }
 }

@@ -10,6 +10,8 @@ import org.jdbi.v3.core.statement.StatementContext;
 import org.jdbi.v3.sqlobject.customizer.SqlStatementCustomizer;
 import org.jdbi.v3.sqlobject.customizer.SqlStatementCustomizerFactory;
 import org.jdbi.v3.sqlobject.customizer.SqlStatementCustomizingAnnotation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
@@ -17,6 +19,11 @@ import org.jdbi.v3.sqlobject.customizer.SqlStatementCustomizingAnnotation;
 public @interface LogSqlFactory {
 
   class Factory implements SqlStatementCustomizerFactory {
+    private static void logSql(StatementContext context) {
+      Logger logger = LoggerFactory.getLogger(LogSqlFactory.class);
+      logger.debug("Statement SQL:\n{}", context.getStatement());
+    }
+
     @Override
     public SqlStatementCustomizer createForType(Annotation annotation, Class sqlObjectType) {
       SqlLogger sqlLogger = new SqlLogger() {
@@ -24,18 +31,8 @@ public @interface LogSqlFactory {
         public void logBeforeExecution(StatementContext context) {
           logSql(context);
         }
-//        @Override
-//        public void logAfterExecution(StatementContext context) {
-//          logSql(context);
-//        }
       };
       return statement -> statement.setSqlLogger(sqlLogger);
-    }
-
-    private static void logSql(StatementContext context) {
-//      System.out.println("Raw SQL:\n" + context.getRawSql());
-//      System.out.println("Parsed SQL:\n" + context.getParsedSql().getSql());
-      System.out.println("Statement SQL:\n" + context.getStatement());
     }
   }
 }

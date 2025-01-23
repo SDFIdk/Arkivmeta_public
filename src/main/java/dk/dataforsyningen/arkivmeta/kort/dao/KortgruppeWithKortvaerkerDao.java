@@ -20,6 +20,7 @@ public class KortgruppeWithKortvaerkerDao implements IKortgruppeWithKortvaerkerD
 
   @Override
   public List<KortgruppeWithKortvaerkerDto> getAllKortgrupperWithKortvaerker() {
-    return arkivmetaJdbi.withExtension(IKortgruppeWithKortvaerkerDao.class, dao -> dao.getAllKortgrupperWithKortvaerker());
+    return arkivmetaJdbi.withExtension(IKortgruppeWithKortvaerkerDao.class,
+        dao -> dao.getAllKortgrupperWithKortvaerker());
   }
 }

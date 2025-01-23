@@ -53,7 +53,8 @@ public class KortDtoMapper implements RowMapper<KortDto> {
     kortDto.setAarfordata(rs.getBigDecimal("aarfordata"));
 
     Array sqlArrayAarforenkeltrettelser = rs.getArray("aarforenkeltrettelser");
-    BigDecimal[] arrayAarforenkeltrettelser = (BigDecimal[]) sqlArrayAarforenkeltrettelser.getArray();
+    BigDecimal[] arrayAarforenkeltrettelser =
+        (BigDecimal[]) sqlArrayAarforenkeltrettelser.getArray();
 
     kortDto.setAarforenkeltrettelser(Arrays.asList(arrayAarforenkeltrettelser));
 
@@ -95,7 +96,7 @@ public class KortDtoMapper implements RowMapper<KortDto> {
     kortDto.setUdgiver(rs.getString("udgiver"));
     kortDto.setUdskiftetaf(rs.getString("udskiftetaf"));
     kortDto.setVersion(rs.getString("version"));
-    
+
     return kortDto;
   }
 }

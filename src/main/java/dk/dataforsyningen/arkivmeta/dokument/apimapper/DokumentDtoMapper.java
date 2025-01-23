@@ -20,6 +20,7 @@ public class DokumentDtoMapper implements RowMapper<DokumentDto> {
   /**
    * To support null values from the database, getObject is used as getLong uses primitive double data type that can not be null
    * https://stackoverflow.com/questions/9090077/how-to-check-if-a-double-is-null
+   *
    * @param rs
    * @param ctx
    * @return

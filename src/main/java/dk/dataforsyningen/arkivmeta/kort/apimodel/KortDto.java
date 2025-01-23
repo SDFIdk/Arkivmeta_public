@@ -156,7 +156,6 @@ public class KortDto {
   private String version;
 
   public KortDto() {
-
   }
 
   public UUID getId() {

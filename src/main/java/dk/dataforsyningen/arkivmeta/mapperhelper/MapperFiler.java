@@ -1,7 +1,6 @@
 package dk.dataforsyningen.arkivmeta.mapperhelper;
 
 import java.nio.charset.StandardCharsets;
-import java.sql.Array;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
@@ -20,7 +19,7 @@ public class MapperFiler {
    * @return
    */
   public List<String> mapFiler(String[] filer) {
-        List<String> resultMapFiler = Arrays.stream(filer)
+    List<String> resultMapFiler = Arrays.stream(filer)
         .map(s -> '/' + Base64.getUrlEncoder().encodeToString(s.getBytes(StandardCharsets.UTF_8)))
         .map(s -> System.getenv().get("ARKIVKORT_URL") + s)
         .collect(Collectors.toList());
