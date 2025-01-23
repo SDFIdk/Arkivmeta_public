@@ -14,7 +14,7 @@ public interface IKortgruppeWithKortvaerkerDao {
   @SqlQuery("""
       SELECT
           kortgruppe,
-           kortvaerk
+          kortvaerk
       FROM
           historiskekort.kortgruppe_kortvaerk
       """)
