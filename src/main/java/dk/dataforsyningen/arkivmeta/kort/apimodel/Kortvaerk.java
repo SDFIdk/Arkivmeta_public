@@ -24,7 +24,6 @@ public class Kortvaerk {
   }
 
   public Kortvaerk(String[] kortvaerk) {
-    super();
     this.kortvaerk = kortvaerk;
   }
 
