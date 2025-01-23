@@ -74,7 +74,7 @@ public class KortApi {
    * @return list of KortgruppeDto with all kortvaerker belonging to each korgruppe
    */
   @GetMapping(path = "/metadata/kortgrupper/kortvaerker")
-  @Operation(summary = "Hent kortgrupper med underliggende kortværker", description = "Leverer en liste af tilgængelige kortgrupper, med de kortværker som hører til", responses = {
+  @Operation(summary = "Hent kortgrupper med underliggende kortværker", description = "Leverer en liste af tilgængelige kortgrupper, med deres tilhørende kortværker", responses = {
       @ApiResponse(description = "Successful Operation", responseCode = "200", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = KortgruppeWithKortvaerkerDto.class)))),
       @ApiResponse(responseCode = "404", description = "Not found", content = @Content),
       @ApiResponse(responseCode = "401", description = "Authentication Failure", content = @Content(schema = @Schema(hidden = true)))})
