@@ -19,3 +19,5 @@ RUN apk upgrade --available --no-cache
 RUN mkdir -p src/main/resources
 
 COPY --from=builder /arkivmeta/target/arkivmeta.jar /arkivmeta.jar
+
+ENTRYPOINT ["java","-jar","/arkivmeta.jar"]
