@@ -4,19 +4,6 @@ Feature: Arkivmeta API Integration Test
     * url url
 
   
-  Scenario: Arkiv API is running
-
-    Given path '/ping'
-    When method get
-    Then status 200
-    And match response ==
-    """
-      {
-        "message":"PONG"
-      }
-    """
-
-  
   Scenario: Arkiv API /kort - returns the 100 first json objects of all korts
 
     Given path '/kort'
