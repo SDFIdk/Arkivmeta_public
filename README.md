@@ -7,100 +7,127 @@ Baseret på Spring Boot, Hibernate og OpenAPI. Skrevet i Java.
 ## Breaking change to v3:
 
 ### Dokument
-`GET` and `POST` `/dokument`
-Changes in query parameter: 
-`dokumentsamling` has changed name to `kortgruppe`.
-`limit` has changed datatype from string to integer.
-`offset` has changed datatype from string to integer.
+#### GET and POST /dokument
 
-Changes in response:
-`arketype` has changed name to `korgruppe`.
-`registreringfra` is removed.
-`registreringtil` is removed.
-`uniktdokumentnavn` is removed.
-`stinavn` is removed.
-`omraade` has changed name to `daekningsomraade` and has changed datatype from string to list of strings.
-`sogneid` has changed datatype from integer to list of integer.
-`sognenavn` has changed datatype from string to list of strings.
+##### Changes in query parameter
+###### renaming
+- `dokumentsamling` -> `kortgruppe`
 
-`GET /dokument/{arketype}/{id}`
+###### datatypes changes
+- `limit`: string -> integer
+- `offset`: string -> integer
+
+##### Changes in response
+###### renaming
+- `arketype` -> `korgruppe`
+- `omraade` -> `daekningsomraade`
+
+###### datatypes changes
+- `daekningsomraade`: string -> list of strings
+- `sogneid`: integer -> list of integer
+- `sognenavn`: string -> list of strings
+
+###### deleted
+- `registreringfra`
+- `registreringtil`
+- `uniktdokumentnavn`
+- `stinavn`
+
+
+#### GET /dokument/{arketype}/{id}
 Has changed to `/dokument/{id}`
 
-Changes in response:
-`arketype` has changed name to `korgruppe`.
-`registreringfra` is removed.
-`registreringtil` is removed.
-`uniktdokumentnavn` is removed.
-`stinavn` is removed.
-`omraade` has changed name to `daekningsomraade` and has changed datatype from string to list of strings.
-`sogneid` has changed datatype from integer to list of integer.
-`sognenavn` has changed datatype from string to list of strings.
+##### Changes in response
+###### renaming
+- `arketype` -> `korgruppe`
+- `omraade` -> `daekningsomraade`
+
+###### datatypes changes
+- `daekningsomraade`: string -> list of strings
+- `sogneid`: integer -> list of integer
+- `sognenavn`: string -> list of strings
+
+###### deleted
+- `registreringfra`
+- `registreringtil`
+- `uniktdokumentnavn`
+- `stinavn`
+
 
 ### Kort
 
-`GET` and `POST` `/kort`
-Changes in query parameter:
-`arketype` has changed name to `korgruppe`.
-`gaeldendefra` has changed name to `gaeldendeperiode_gaeldendefra` and has changed datatype from string to integer.
-`gaeldendetil` has changed name to `gaeldendeperiode_gaeldendetil` and has changed datatype from string to integer.
-`limit` has changed datatype from string to integer.
-`offset` has changed datatype from string to integer.
+#### GET and POST /kort
 
-Changes in response:
-`arketype` has changed name to `korgruppe`.
-`gaeldendefra` has changed name to `gaeldendeperiode_gaeldendefra`.
-`gaeldendetil` has changed name to `gaeldendeperiode_gaeldendetil`.
-`limit` has changed datatype from string to integer.
-`offset` has changed datatype from string to integer.
-`orginalkortprojektion` is removed.
-`originalehjoernekoordinater` is removed.
-`aarforadministrativerettelser` is removed.
-`aarforfotorekogrettelser` is removed.
-`aarforrevision` is removed.
-`aarforrevisonafnavnemm` is removed.
-`kortdimensioner` is removed.
-`loebenummer` is removed.
-`rytterdistriktid` is removed.
-`soeregion` is removed.
-`stedbetegnelse` is removed.
-`registreringfra` is removed.
-`registreringtil` is removed.
-`stinavn` is removed.
-`uniktkortnavn` is removed.
+##### Changes in query parameter
+###### renaming
+- `arketype` -> `korgruppe`
+- `gaeldendefra` -> `gaeldendeperiode_gaeldendefra`
+- `gaeldendetil` -> `gaeldendeperiode_gaeldendetil`
 
-`GET /kort/{arketype}/{id}`
-Has changed to `/kort/{id}`.
+###### datatypes changes
+- `gaeldendeperiode_gaeldendefra`: string -> integer
+- `gaeldendeperiode_gaeldendetil`: string -> integer
+- `limit`: string -> integer
+- `offset`: string -> integer
 
-Changes in response:
-`arketype` has changed name to `korgruppe`.
-`gaeldendefra` has changed name to `gaeldendeperiode_gaeldendefra`.
-`gaeldendetil` has changed name to `gaeldendeperiode_gaeldendetil`.
-`limit` has changed datatype from string to integer.
-`offset` has changed datatype from string to integer.
-`orginalkortprojektion` is removed.
-`originalehjoernekoordinater` is removed.
-`aarforadministrativerettelser` is removed.
-`aarforfotorekogrettelser` is removed.
-`aarforrevision` is removed.
-`aarforrevisonafnavnemm` is removed.
-`kortdimensioner` is removed.
-`loebenummer` is removed.
-`rytterdistriktid` is removed.
-`soeregion` is removed.
-`stedbetegnelse` is removed.
-`registreringfra` is removed.
-`registreringtil` is removed.
-`stinavn` is removed.
-`uniktkortnavn` is removed.
+##### Changes in response
+###### renaming
+- `arketype` -> `korgruppe`
+- `gaeldendefra` -> `gaeldendeperiode_gaeldendefra`.
+- `gaeldendetil` -> `gaeldendeperiode_gaeldendetil`.
 
-`GET /metadata/arketyper`
-Is removed. Use `/metadata/kortgrupper/kortvaerker`.
+###### deleted
+- `orginalkortprojektion`
+- `originalehjoernekoordinater`
+- `aarforadministrativerettelser`
+- `aarforfotorekogrettelser`
+- `aarforrevision`
+- `aarforrevisonafnavnemm`
+- `kortdimensioner`
+- `loebenummer`
+- `rytterdistriktid`
+- `soeregion`
+- `stedbetegnelse`
+- `registreringfra`
+- `registreringtil`
+- `stinavn`
+- `uniktkortnavn`
 
-`GET /metadata/arketyper/kortvaerker`
-Has changed to `/metadata/kortgrupper/kortvaerker`.
 
-`GET /metadata/daekningsomraader`
-Is removed. Use `/metadata/kortgrupper/kortvaerker`.
+#### GET /kort/{arketype}/{id}
+Has changed to `/kort/{id}`
+
+##### Changes in response
+###### renaming
+- `arketype` -> `korgruppe`
+- `gaeldendefra` -> `gaeldendeperiode_gaeldendefra`.
+- `gaeldendetil` -> `gaeldendeperiode_gaeldendetil`.
+
+###### deleted
+- `orginalkortprojektion`
+- `originalehjoernekoordinater`
+- `aarforadministrativerettelser`
+- `aarforfotorekogrettelser`
+- `aarforrevision`
+- `aarforrevisonafnavnemm`
+- `kortdimensioner`
+- `loebenummer`
+- `rytterdistriktid`
+- `soeregion`
+- `stedbetegnelse`
+- `registreringfra`
+- `registreringtil`
+- `stinavn`
+- `uniktkortnavn`
+
+#### GET /metadata/arketyper
+Deleted - use `/metadata/kortgrupper/kortvaerker`
+
+#### GET /metadata/arketyper/kortvaerker
+Has changed to `/metadata/kortgrupper/kortvaerker`
+
+#### GET /metadata/daekningsomraader
+Deleted - use `/metadata/kortgrupper/kortvaerker`
 
 ## Breaking change to v2:
 
