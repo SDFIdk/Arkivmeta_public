@@ -12,7 +12,7 @@ Feature: Arkivmeta API Integration Test
     And match response ==
     """
     {
-      "openapi": "3.0.1",
+      "openapi": "3.1.0",
       "info": {
         "title": "Arkivmeta",
         "description": "APIet __Arkivmeta__ giver adgang til at søge i metadata for en større samling historiske kort, dokumenter og benytte resultatet til at fremvise det skannede materiale.\n\nTil adgang benyttes Dataforsyningens brugeradgang som ved andre tjenester.\n\nStier til kortfiler følger [IIIF specifikationen](https://iiif.io/) og kan vises med en viser, der understøtter dette.\n",
