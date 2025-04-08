@@ -137,25 +137,55 @@ Feature: Historiske Dokumenter API Integration Test
     And match response == { total: '#present', dokumenter: '#present' }
 
 
-  Scenario: Search mulitple dokumentsamling
+  Scenario: Search mulitple kortgrupper
 
     Given path '/dokument'
-    And param dokumentsamling = 'sogneprotokoller,hartkornsekstrakter'
+    And param kortgruppe = 'SogneProtokol'
     When method get
     Then status 200
     # match the response with the keys from the json objects
     And match response == { total: '#present', dokumenter: '#present' }
-    # assigning response.total to firstDokumentsamlingTotal
-    Then def firstDokumentsamlingTotal = response.total
+    # assigning response.total to sogneProtokolTotal
+    Then def sogneProtokolTotal = response.total
+
+    Given path '/dokument'
+    And param kortgruppe = 'Hartkornsekstrakt'
+    When method get
+    Then status 200
+    # match the response with the keys from the json objects
+    And match response == { total: '#present', dokumenter: '#present' }
+    # assigning response.total to hartkornsekstraktTotal
+    Then def hartkornsekstraktTotal = response.total
+
+    # Add sogneProtokolTotal and hartkornsekstraktTotal together
+    Then def kortgruppeTotal = sogneProtokolTotal + hartkornsekstraktTotal
+
+    Given path '/dokument'
+    And param kortgruppe = 'SogneProtokol,Hartkornsekstrakt'
+    When method get
+    Then status 200
+    # match the response with the keys from the json objects
+    And match response == { total: '#present', dokumenter: '#present' }
+
+    # Check that the total is the same as the combined kortgruppeTotal
+    And match response.total == kortgruppeTotal
+
+    # assigning response.total to firstKortgruppeTotal
+    Then def firstKortgruppeTotal = response.total
 
     Given path '/dokument'
     # Use the delimiter way right now, because switchboards does not understand string arrays
-    And param dokumentsamling = ['sogneprotokoller', 'hartkornsekstrakter']
+    And param kortgruppe = ['SogneProtokol', 'Hartkornsekstrakt']
     When method get
     Then status 200
     # match the response with the keys from the json objects
     And match response == { total: '#present', dokumenter: '#present' }
-    Then match response.total == firstDokumentsamlingTotal
+
+    # Check that the total is the same as the combined kortgruppeTotal
+    And match response.total == kortgruppeTotal
+    # Check that the firstkortgruppeTotal is the same as repsonse total here
+    And match response.total == firstkortgruppeTotal
+
 
   Scenario: Search with geometry
 
