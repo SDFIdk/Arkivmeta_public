@@ -184,7 +184,7 @@ Feature: Historiske Dokumenter API Integration Test
     # Check that the total is the same as the combined kortgruppeTotal
     And match response.total == kortgruppeTotal
     # Check that the firstkortgruppeTotal is the same as repsonse total here
-    And match response.total == firstkortgruppeTotal
+    And match response.total == firstKortgruppeTotal
 
 
   Scenario: Search with geometry
