@@ -23,7 +23,7 @@ Feature: Arkivmeta API Integration Test
         "gaeldendeperiode_gaeldendefra": 1957,
         "gaeldendeperiode_gaeldendetil": 1982,
         "geometri": "SRID=4326;MULTIPOLYGON(((10.673453 55.4056,10.672441 55.27029,10.968673 55.269207,10.970705 55.404514,10.673453 55.4056)))",
-        "maalestok": "1:0000",
+        "maalestok": "1:100000",
         "kortbladnummer": "'A 3618'",
         "kortvaerk": "DK flyfoto ruteoversigt 1961-1970",
         "daekningsomraade": [
