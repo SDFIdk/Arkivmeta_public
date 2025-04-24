@@ -71,10 +71,10 @@ Feature: Arkivmeta API Integration Test
                 "description": "Sorteringsretning, `asc` for stigende, `desc` for faldende",
                 "required": false,
                 "schema": {
-                  "pattern": "asc|desc",
                   "type": "string",
+                  "default": "asc",
                   "description": "Sorteringsretning, `asc` for stigende, `desc` for faldende",
-                  "default": "asc"
+                  "pattern": "asc|desc"
                 }
               },
               {
@@ -94,8 +94,8 @@ Feature: Arkivmeta API Integration Test
                 "required": false,
                 "schema": {
                   "type": "integer",
-                  "description": "Starttid for kortets gyldighedsperiode. Angives i hele år, eksempel `1966`. Gyldighedsperiodens starttid er et korts trykke-, tegne-, optage- eller opmålingsår – dvs. det år hvor kortet kan siges at være nyeste kort.",
-                  "format": "int32"
+                  "format": "int32",
+                  "description": "Starttid for kortets gyldighedsperiode. Angives i hele år, eksempel `1966`. Gyldighedsperiodens starttid er et korts trykke-, tegne-, optage- eller opmålingsår – dvs. det år hvor kortet kan siges at være nyeste kort."
                 }
               },
               {
@@ -105,8 +105,8 @@ Feature: Arkivmeta API Integration Test
                 "required": false,
                 "schema": {
                   "type": "integer",
-                  "description": "Sluttid for kortets gyldighedsperiode. Angives i hele år, eksempel `1966`. Typisk fordi kortet erstattes af et nyere. Hvis der ikke er fundet en specifik gældende til periode angives et årstal der ligger 50 år efter gældende fra.",
-                  "format": "int32"
+                  "format": "int32",
+                  "description": "Sluttid for kortets gyldighedsperiode. Angives i hele år, eksempel `1966`. Typisk fordi kortet erstattes af et nyere. Hvis der ikke er fundet en specifik gældende til periode angives et årstal der ligger 50 år efter gældende fra."
                 }
               },
               {
@@ -148,12 +148,12 @@ Feature: Arkivmeta API Integration Test
                 "description": "Sidestørrelse, dvs. hvor mange poster pr. side",
                 "required": false,
                 "schema": {
-                  "maximum": 1000,
-                  "minimum": 1,
                   "type": "integer",
-                  "description": "Sidestørrelse, dvs. hvor mange poster pr. side",
                   "format": "int32",
-                  "default": 100
+                  "default": 100,
+                  "description": "Sidestørrelse, dvs. hvor mange poster pr. side",
+                  "maximum": 1000,
+                  "minimum": 1
                 }
               },
               {
@@ -176,9 +176,9 @@ Feature: Arkivmeta API Integration Test
                 "required": false,
                 "schema": {
                   "type": "integer",
-                  "description": "Offset, dvs. fra hvilken post",
                   "format": "int32",
-                  "default": 0
+                  "default": 0,
+                  "description": "Offset, dvs. fra hvilken post"
                 }
               },
               {
@@ -274,10 +274,10 @@ Feature: Arkivmeta API Integration Test
                 "description": "Sorteringsretning, `asc` for stigende, `desc` for faldende",
                 "required": false,
                 "schema": {
-                  "pattern": "asc|desc",
                   "type": "string",
+                  "default": "asc",
                   "description": "Sorteringsretning, `asc` for stigende, `desc` for faldende",
-                  "default": "asc"
+                  "pattern": "asc|desc"
                 }
               },
               {
@@ -297,8 +297,8 @@ Feature: Arkivmeta API Integration Test
                 "required": false,
                 "schema": {
                   "type": "integer",
-                  "description": "Starttid for kortets gyldighedsperiode. Angives i hele år, eksempel `1966`. Gyldighedsperiodens starttid er et korts trykke-, tegne-, optage- eller opmålingsår – dvs. det år hvor kortet kan siges at være nyeste kort.",
-                  "format": "int32"
+                  "format": "int32",
+                  "description": "Starttid for kortets gyldighedsperiode. Angives i hele år, eksempel `1966`. Gyldighedsperiodens starttid er et korts trykke-, tegne-, optage- eller opmålingsår – dvs. det år hvor kortet kan siges at være nyeste kort."
                 }
               },
               {
@@ -308,8 +308,8 @@ Feature: Arkivmeta API Integration Test
                 "required": false,
                 "schema": {
                   "type": "integer",
-                  "description": "Sluttid for kortets gyldighedsperiode. Angives i hele år, eksempel `1966`. Typisk fordi kortet erstattes af et nyere. Hvis der ikke er fundet en specifik gældende til periode angives et årstal der ligger 50 år efter gældende fra.",
-                  "format": "int32"
+                  "format": "int32",
+                  "description": "Sluttid for kortets gyldighedsperiode. Angives i hele år, eksempel `1966`. Typisk fordi kortet erstattes af et nyere. Hvis der ikke er fundet en specifik gældende til periode angives et årstal der ligger 50 år efter gældende fra."
                 }
               },
               {
@@ -351,12 +351,12 @@ Feature: Arkivmeta API Integration Test
                 "description": "Sidestørrelse, dvs. hvor mange poster pr. side",
                 "required": false,
                 "schema": {
-                  "maximum": 1000,
-                  "minimum": 1,
                   "type": "integer",
-                  "description": "Sidestørrelse, dvs. hvor mange poster pr. side",
                   "format": "int32",
-                  "default": 100
+                  "default": 100,
+                  "description": "Sidestørrelse, dvs. hvor mange poster pr. side",
+                  "maximum": 1000,
+                  "minimum": 1
                 }
               },
               {
@@ -379,9 +379,9 @@ Feature: Arkivmeta API Integration Test
                 "required": false,
                 "schema": {
                   "type": "integer",
-                  "description": "Offset, dvs. fra hvilken post",
                   "format": "int32",
-                  "default": 0
+                  "default": 0,
+                  "description": "Offset, dvs. fra hvilken post"
                 }
               },
               {
@@ -466,10 +466,10 @@ Feature: Arkivmeta API Integration Test
                 "description": "Sorteringsretning, `asc` for stigende, `desc` for faldende",
                 "required": false,
                 "schema": {
-                  "pattern": "asc|desc",
                   "type": "string",
+                  "default": "asc",
                   "description": "Sorteringsretning, `asc` for stigende, `desc` for faldende",
-                  "default": "asc"
+                  "pattern": "asc|desc"
                 }
               },
               {
@@ -509,8 +509,8 @@ Feature: Arkivmeta API Integration Test
                 "required": false,
                 "schema": {
                   "type": "integer",
-                  "description": "Herredets nummer.",
-                  "format": "int32"
+                  "format": "int32",
+                  "description": "Herredets nummer."
                 }
               },
               {
@@ -531,12 +531,12 @@ Feature: Arkivmeta API Integration Test
                 "description": "Sidestørrelse, dvs. hvor mange poster pr. side",
                 "required": false,
                 "schema": {
-                  "maximum": 1000,
-                  "minimum": 1,
                   "type": "integer",
-                  "description": "Sidestørrelse, dvs. hvor mange poster pr. side",
                   "format": "int32",
-                  "default": 100
+                  "default": 100,
+                  "description": "Sidestørrelse, dvs. hvor mange poster pr. side",
+                  "maximum": 1000,
+                  "minimum": 1
                 }
               },
               {
@@ -545,11 +545,11 @@ Feature: Arkivmeta API Integration Test
                 "description": "Offset, dvs. fra hvilken post",
                 "required": false,
                 "schema": {
-                  "minimum": 0,
                   "type": "integer",
-                  "description": "Offset, dvs. fra hvilken post",
                   "format": "int32",
-                  "default": 0
+                  "default": 0,
+                  "description": "Offset, dvs. fra hvilken post",
+                  "minimum": 0
                 }
               },
               {
@@ -559,8 +559,8 @@ Feature: Arkivmeta API Integration Test
                 "required": false,
                 "schema": {
                   "type": "integer",
-                  "description": "Sogneid.",
-                  "format": "int32"
+                  "format": "int32",
+                  "description": "Sogneid."
                 }
               },
               {
@@ -969,8 +969,8 @@ Feature: Arkivmeta API Integration Test
             "properties": {
               "id": {
                 "type": "string",
-                "description": "Unik id for kortet.",
-                "format": "uuid"
+                "format": "uuid",
+                "description": "Unik id for kortet."
               },
               "kortgruppe": {
                 "type": "string",
@@ -1018,14 +1018,12 @@ Feature: Arkivmeta API Integration Test
               },
               "daekningsomraade": {
                 "type": "array",
-                "description": "En liste af geografisk områder, som kortet dækker helt eller delvist. For eksempel Danmark, Grønland. Et kort kan have flere dækningsområder.For prøvekort og lignende vil dækningsområdet kunne angives som intet.",
                 "items": {
                   "type": "string"
                 }
               },
               "filer": {
                 "type": "array",
-                "description": "En liste af URL-stier til kortfiler efter IIIF-specifikationen.",
                 "items": {
                   "type": "string"
                 }
@@ -1036,7 +1034,6 @@ Feature: Arkivmeta API Integration Test
               },
               "aarforenkeltrettelser": {
                 "type": "array",
-                "description": "En liste af år for opdatering af kortet med enkelte rettelser, f.eks. en ny bro.",
                 "items": {
                   "type": "number"
                 }
@@ -1079,7 +1076,6 @@ Feature: Arkivmeta API Integration Test
               },
               "aarforrettelse": {
                 "type": "array",
-                "description": "En liste af år for opdatering af kortet med rettelser, typisk efter at kontrolmålinger er udført.",
                 "items": {
                   "type": "number"
                 }
@@ -1122,8 +1118,8 @@ Feature: Arkivmeta API Integration Test
               },
               "flyvehoejde": {
                 "type": "number",
-                "description": "Flyvehøjden ved optagelsen af billedet.",
-                "format": "double"
+                "format": "double",
+                "description": "Flyvehøjden ved optagelsen af billedet."
               },
               "flyverute": {
                 "type": "string",
@@ -1135,8 +1131,8 @@ Feature: Arkivmeta API Integration Test
               },
               "fototid": {
                 "type": "string",
-                "description": "Tidspunkt for optagelse af flyvefotoet. Tiden består typisk af år, måned, dag og tidspunkt.",
-                "format": "date-time"
+                "format": "date-time",
+                "description": "Tidspunkt for optagelse af flyvefotoet. Tiden består typisk af år, måned, dag og tidspunkt."
               },
               "fotovinkel": {
                 "type": "string",
@@ -1185,8 +1181,8 @@ Feature: Arkivmeta API Integration Test
             "properties": {
               "total": {
                 "type": "integer",
-                "description": "Totalt antal af kort i listen.",
-                "format": "int64"
+                "format": "int64",
+                "description": "Totalt antal af kort i listen."
               },
               "kort": {
                 "type": "array",
@@ -1222,14 +1218,12 @@ Feature: Arkivmeta API Integration Test
               },
               "daekningsomraade": {
                 "type": "array",
-                "description": "En liste af geografisk områder, som dokumentet dækker helt eller delvist. For eksempel Danmark, Slesvig. ",
                 "items": {
                   "type": "string"
                 }
               },
               "filer": {
                 "type": "array",
-                "description": "En liste af URL-stier til kortfiler efter IIIF-specifikationen.",
                 "items": {
                   "type": "string"
                 }
@@ -1252,8 +1246,8 @@ Feature: Arkivmeta API Integration Test
               },
               "herredsnummer": {
                 "type": "integer",
-                "description": "Nummeret på herredet",
-                "format": "int64"
+                "format": "int64",
+                "description": "Nummeret på herredet"
               },
               "protokoltype": {
                 "type": "string",
@@ -1261,7 +1255,6 @@ Feature: Arkivmeta API Integration Test
               },
               "sogneid": {
                 "type": "array",
-                "description": "En liste af numre på sogne dokumentet tilhører",
                 "items": {
                   "type": "integer",
                   "format": "int64"
@@ -1269,7 +1262,6 @@ Feature: Arkivmeta API Integration Test
               },
               "sognenavn": {
                 "type": "array",
-                "description": "En liste af navne på sogne dokumentet tilhører",
                 "items": {
                   "type": "string"
                 }
@@ -1281,8 +1273,8 @@ Feature: Arkivmeta API Integration Test
             "properties": {
               "total": {
                 "type": "integer",
-                "description": "Totalt antal af dokumenter i listen.",
-                "format": "int64"
+                "format": "int64",
+                "description": "Totalt antal af dokumenter i listen."
               },
               "dokumenter": {
                 "type": "array",
@@ -1297,10 +1289,10 @@ Feature: Arkivmeta API Integration Test
             "type": "object",
             "properties": {
               "direction": {
-                "pattern": "asc|desc",
                 "type": "string",
+                "default": "asc",
                 "description": "Sorteringsretning, `asc` for stigende, `desc` for faldende",
-                "default": "asc"
+                "pattern": "asc|desc"
               },
               "fritekstsoegning": {
                 "type": "string",
@@ -1316,35 +1308,34 @@ Feature: Arkivmeta API Integration Test
               },
               "herredsnummer": {
                 "type": "integer",
-                "description": "Herredets nummer.",
-                "format": "int32"
+                "format": "int32",
+                "description": "Herredets nummer."
               },
-              "kortgruppe": {
+              "dokumentsamling": {
                 "type": "array",
-                "description": "De dokumenttyper, der skal vises. En kommasepareret liste af typer. Eksempel: `Hartkornsekstrakt, Sogneprotokol.`",
                 "items": {
                   "type": "string"
                 }
               },
               "limit": {
-                "maximum": 1000,
-                "minimum": 1,
                 "type": "integer",
-                "description": "Sidestørrelse, dvs. hvor mange poster pr. side",
                 "format": "int32",
-                "default": 100
+                "default": "100",
+                "description": "Sidestørrelse, dvs. hvor mange poster pr. side",
+                "maximum": 1000,
+                "minimum": 1
               },
               "offset": {
-                "minimum": 0,
                 "type": "integer",
-                "description": "Offset, dvs. fra hvilken post",
                 "format": "int32",
-                "default": 0
+                "default": "0",
+                "description": "Offset, dvs. fra hvilken post",
+                "minimum": 0
               },
               "sogneid": {
                 "type": "integer",
-                "description": "Sogneid.",
-                "format": "int32"
+                "format": "int32",
+                "description": "Sogneid."
               },
               "sognenavn": {
                 "type": "string",
@@ -1369,7 +1360,6 @@ Feature: Arkivmeta API Integration Test
               },
               "kortvaerker": {
                 "type": "array",
-                "description": "Liste af logiske samlinger af skannede kort som tilhører kortgruppen.",
                 "items": {
                   "type": "string"
                 }
