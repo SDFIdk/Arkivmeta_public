@@ -576,11 +576,11 @@ Feature: Arkivmeta API Integration Test
               {
                 "name": "sort",
                 "in": "query",
-                "description": "Sorteringsfelt, kan sortere på følgende typer: kortgruppe, herredsnavn, herredsnummer, sogneid, sognenavn, titel",
+                "description": "Sorteringsfelt, kan sortere på følgende typer: dokumentsamling, herredsnavn, herredsnummer, sogneid, sognenavn, titel",
                 "required": false,
                 "schema": {
                   "type": "string",
-                  "description": "Sorteringsfelt, kan sortere på følgende typer: kortgruppe, herredsnavn, herredsnummer, sogneid, sognenavn, titel"
+                  "description": "Sorteringsfelt, kan sortere på følgende typer: dokumentsamling, herredsnavn, herredsnummer, sogneid, sognenavn, titel"
                 }
               },
               {
@@ -1356,7 +1356,7 @@ Feature: Arkivmeta API Integration Test
               },
               "sort": {
                 "type": "string",
-                "description": "Sorteringsfelt, kan sortere på følgende typer: kortgruppe, herredsnavn, herredsnummer, sogneid, sognenavn, titel"
+                "description": "Sorteringsfelt, kan sortere på følgende typer: dokumentsamling, herredsnavn, herredsnummer, sogneid, sognenavn, titel"
               },
               "titel": {
                 "type": "string",

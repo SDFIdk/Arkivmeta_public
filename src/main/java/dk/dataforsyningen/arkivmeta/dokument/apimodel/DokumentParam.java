@@ -44,7 +44,7 @@ public class DokumentParam {
   @Schema(description = "Sognenavn.")
   private String sognenavn;
 
-  @Schema(description = "Sorteringsfelt, kan sortere på følgende typer: kortgruppe, herredsnavn, herredsnummer, sogneid, sognenavn, titel")
+  @Schema(description = "Sorteringsfelt, kan sortere på følgende typer: dokumentsamling, herredsnavn, herredsnummer, sogneid, sognenavn, titel")
   private String sort;
 
   @Schema(description = "Titel på dokumentet.")
