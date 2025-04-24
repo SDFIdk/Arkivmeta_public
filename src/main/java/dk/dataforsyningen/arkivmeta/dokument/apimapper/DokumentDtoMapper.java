@@ -32,7 +32,6 @@ public class DokumentDtoMapper implements RowMapper<DokumentDto> {
     MapperFiler mapperFiler = new MapperFiler();
 
     dokumentDto.setId(rs.getString("id"));
-    dokumentDto.setKortgruppe(rs.getString("kortgruppe"));
     dokumentDto.setTitel(rs.getString("titel"));
     dokumentDto.setAlternativtitel(rs.getString("alternativtitel"));
     dokumentDto.setBemaerkning(rs.getString("bemaerkning"));

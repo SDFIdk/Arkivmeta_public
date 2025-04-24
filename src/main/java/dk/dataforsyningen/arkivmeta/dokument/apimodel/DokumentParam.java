@@ -26,8 +26,8 @@ public class DokumentParam {
   private Integer herredsnummer;
 
   @ArraySchema(arraySchema = @Schema(description =
-      "De dokumenttyper, der skal vises. En kommasepareret liste af typer. Eksempel: `Hartkornsekstrakt, Sogneprotokol.`"))
-  private List<String> kortgruppe;
+      "De dokumenttyper, der skal vises. En kommasepareret liste af typer. Eksempel: `sogneprotokoller,`hartkornsekstrakter`."))
+  private List<String> dokumentsamling;
 
   @Schema(description = "Sidestørrelse, dvs. hvor mange poster pr. side", defaultValue = "100")
   @Min(1)
@@ -52,7 +52,7 @@ public class DokumentParam {
 
   public DokumentParam(String direction, String fritekstsoegning, String geometri,
                        String herredsnavn,
-                       Integer herredsnummer, List<String> kortgruppe, Integer limit,
+                       Integer herredsnummer, List<String> dokumentsamling, Integer limit,
                        Integer offset,
                        Integer sogneid, String sognenavn, String sort, String titel) {
     this.direction = direction;
@@ -60,7 +60,7 @@ public class DokumentParam {
     this.geometri = geometri;
     this.herredsnavn = herredsnavn;
     this.herredsnummer = herredsnummer;
-    this.kortgruppe = kortgruppe;
+    this.dokumentsamling = dokumentsamling;
     this.limit = limit;
     this.offset = offset;
     this.sogneid = sogneid;
@@ -109,12 +109,12 @@ public class DokumentParam {
     this.herredsnummer = herredsnummer;
   }
 
-  public List<String> getKortgruppe() {
-    return kortgruppe;
+  public List<String> getDokumentsamling() {
+    return dokumentsamling;
   }
 
-  public void setKortgruppe(List<String> kortgruppe) {
-    this.kortgruppe = kortgruppe;
+  public void setDokumentsamling(List<String> dokumentsamling) {
+    this.dokumentsamling = dokumentsamling;
   }
 
   public Integer getLimit() {

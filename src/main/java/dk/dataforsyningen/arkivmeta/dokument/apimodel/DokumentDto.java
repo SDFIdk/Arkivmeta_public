@@ -8,9 +8,6 @@ public class DokumentDto {
   @Schema(description = "Unik id for dokumentet.")
   private String id;
 
-  @Schema(description = "Dokumenters kortgruppe.")
-  private String kortgruppe;
-
   @Schema(description = "Dokumenters titel.")
   private String titel;
 
@@ -56,14 +53,13 @@ public class DokumentDto {
   public DokumentDto() {
   }
 
-  public DokumentDto(String id, String kortgruppe, String titel, String alternativtitel,
+  public DokumentDto(String id, String titel, String alternativtitel,
                      String bemaerkning, String geometri, List<String> daekningsomraade,
                      List<String> filer, String datatype, String filtype, String dokumentsamling,
                      String herredsnavn, Long herredsnummer, String protokoltype,
                      List<Long> sogneid,
                      List<String> sognenavn) {
     this.id = id;
-    this.kortgruppe = kortgruppe;
     this.titel = titel;
     this.alternativtitel = alternativtitel;
     this.bemaerkning = bemaerkning;
@@ -86,14 +82,6 @@ public class DokumentDto {
 
   public void setId(String id) {
     this.id = id;
-  }
-
-  public String getKortgruppe() {
-    return kortgruppe;
-  }
-
-  public void setKortgruppe(String kortgruppe) {
-    this.kortgruppe = kortgruppe;
   }
 
   public String getTitel() {

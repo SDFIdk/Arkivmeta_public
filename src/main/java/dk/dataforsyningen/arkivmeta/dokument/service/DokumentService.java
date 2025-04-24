@@ -86,7 +86,7 @@ public class DokumentService implements IDokumentService {
         dokumentParam.getFritekstsoegning(),
         dokumentParam.getHerredsnavn(),
         dokumentParam.getHerredsnummer(),
-        dokumentParam.getKortgruppe(),
+        dokumentParam.getDokumentsamling(),
         dokumentParam.getLimit(),
         dokumentParam.getOffset(),
         dokumentParam.getSogneid(),
@@ -102,7 +102,7 @@ public class DokumentService implements IDokumentService {
           dokumentParam.getFritekstsoegning(),
           dokumentParam.getHerredsnavn(),
           dokumentParam.getHerredsnummer(),
-          dokumentParam.getKortgruppe(),
+          dokumentParam.getDokumentsamling(),
           dokumentParam.getSogneid(),
           dokumentParam.getSognenavn(),
           dokumentParam.getTitel());

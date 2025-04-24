@@ -20,7 +20,7 @@ Feature: Arkivmeta API Integration Test
       },
       "servers": [
         {
-          "url": "https://api.dataforsyningen.dk/rest/arkivmeta_test/v3",
+          "url": "#string",
           "description": "Generated server url"
         }
       ],
@@ -514,12 +514,12 @@ Feature: Arkivmeta API Integration Test
                 }
               },
               {
-                "name": "kortgruppe",
+                "name": "dokumentsamling",
                 "in": "query",
                 "required": false,
                 "schema": {
                   "type": "array",
-                  "description": "De dokumenttyper, der skal vises. En kommasepareret liste af typer. Eksempel: `Hartkornsekstrakt, Sogneprotokol.`",
+                  "description": "De dokumenttyper, der skal vises. En kommasepareret liste af typer. Eksempel: `sogneprotokoller,`hartkornsekstrakter`.",
                   "items": {
                     "type": "string"
                   }
@@ -1203,10 +1203,6 @@ Feature: Arkivmeta API Integration Test
               "id": {
                 "type": "string",
                 "description": "Unik id for dokumentet."
-              },
-              "kortgruppe": {
-                "type": "string",
-                "description": "Dokumenters kortgruppe."
               },
               "titel": {
                 "type": "string",

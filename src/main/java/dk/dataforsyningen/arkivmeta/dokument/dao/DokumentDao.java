@@ -47,7 +47,7 @@ public class DokumentDao implements IDokumentDao {
       String fritekstsoegning,
       String herredsnavn,
       Integer herredsnummer,
-      List<String> kortgruppe,
+      List<String> dokumentsamling,
       int limit,
       int offset,
       Integer sogneid,
@@ -56,7 +56,7 @@ public class DokumentDao implements IDokumentDao {
       String titel) {
     return arkivmetaJdbi.withExtension(IDokumentDao.class,
         dao -> dao.getAllDokumenter(
-            area, direction, fritekstsoegning, herredsnavn, herredsnummer, kortgruppe, limit,
+            area, direction, fritekstsoegning, herredsnavn, herredsnummer, dokumentsamling, limit,
             offset, sogneid, sognenavn, sort, titel));
   }
 
@@ -66,12 +66,12 @@ public class DokumentDao implements IDokumentDao {
       String fritekstsoegning,
       String herredsnavn,
       Integer herredsnummer,
-      List<String> kortgruppe,
+      List<String> dokumentsamling,
       Integer sogneid,
       String sognenavn,
       String titel) {
     return arkivmetaJdbi.withExtension(IDokumentDao.class,
         dao -> dao.getCount(area, fritekstsoegning, herredsnavn, herredsnummer,
-            kortgruppe, sogneid, sognenavn, titel));
+            dokumentsamling, sogneid, sognenavn, titel));
   }
 }

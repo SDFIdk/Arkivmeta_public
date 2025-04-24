@@ -58,7 +58,6 @@ public interface IDokumentDao {
   @SqlQuery("""
           SELECT
               id,
-              kortgruppe,
               titel,
               alternativtitel,
               bemaerkning,
@@ -93,7 +92,6 @@ public interface IDokumentDao {
   @SqlQuery("""
       SELECT
           id,
-          kortgruppe,
           titel,
           alternativtitel,
           bemaerkning,
@@ -111,8 +109,8 @@ public interface IDokumentDao {
       FROM
           historiskedokumenter.historiskedokumenter
       WHERE
-          ((<kortgruppe>) IS NULL
-              OR kortgruppe IN (<kortgruppe>))
+          ((<dokumentsamling>) IS NULL
+              OR dokumentsamling IN (<dokumentsamling>))
           AND (:fritekstsoegning IS NULL
               OR fritekstsoegning @@ plainto_tsquery('simple', :fritekstsoegning))
           AND (:area IS NULL
@@ -135,7 +133,7 @@ public interface IDokumentDao {
           -- We also need to split ASC and DESC because it is SQL feature and can not be a given
           -- user value
           CASE
-              WHEN (:direction = 'asc' AND :sort = 'kortgruppe') THEN kortgruppe
+              WHEN (:direction = 'asc' AND :sort = 'dokumentsamling') THEN dokumentsamling
               WHEN (:direction = 'asc' AND :sort = 'herredsnavn') THEN herredsnavn
               WHEN (:direction = 'asc' AND :sort = 'herredsnummer') THEN herredsnummer::VARCHAR
               WHEN (:direction = 'asc' AND :sort = 'sogneid') THEN sognenavn::VARCHAR
@@ -143,7 +141,7 @@ public interface IDokumentDao {
               WHEN (:direction = 'asc' AND :sort = 'titel') THEN titel
           END ASC,
           CASE
-              WHEN (:direction = 'desc' AND :sort = 'kortgruppe') THEN kortgruppe
+              WHEN (:direction = 'desc' AND :sort = 'dokumentsamling') THEN dokumentsamling
               WHEN (:direction = 'desc' AND :sort = 'herredsnavn') THEN herredsnavn
               WHEN (:direction = 'desc' AND :sort = 'herredsnummer') THEN herredsnummer::VARCHAR
               WHEN (:direction = 'asc' AND :sort = 'sogneid') THEN sognenavn::VARCHAR
@@ -171,8 +169,8 @@ public interface IDokumentDao {
       @Bind("fritekstsoegning") String fritekstsoegning,
       @Bind("herredsnavn") String herredsnavn,
       @Bind("herredsnummer") Integer herredsnummer,
-      @BindList(value = "kortgruppe", onEmpty = BindList.EmptyHandling.NULL_STRING)
-      List<String> kortgruppe,
+      @BindList(value = "dokumentsamling", onEmpty = BindList.EmptyHandling.NULL_STRING)
+      List<String> dokumentsamling,
       @Bind("limit") int limit,
       @Bind("offset") int offset,
       @Bind("sogneid") Integer sogneid,
@@ -187,8 +185,8 @@ public interface IDokumentDao {
       FROM
           historiskedokumenter.historiskedokumenter
       WHERE
-          ((<kortgruppe>) IS NULL
-              OR kortgruppe IN (<kortgruppe>))
+          ((<dokumentsamling>) IS NULL
+              OR dokumentsamling IN (<dokumentsamling>))
           AND (:fritekstsoegning IS NULL
               OR fritekstsoegning @@ plainto_tsquery('simple', :fritekstsoegning))
           AND (:area IS NULL
@@ -212,8 +210,8 @@ public interface IDokumentDao {
       @Bind("fritekstsoegning") String fritekstsoegning,
       @Bind("herredsnavn") String herredsnavn,
       @Bind("herredsnummer") Integer herredsnummer,
-      @BindList(value = "kortgruppe", onEmpty = BindList.EmptyHandling.NULL_STRING)
-      List<String> kortgruppe,
+      @BindList(value = "dokumentsamling", onEmpty = BindList.EmptyHandling.NULL_STRING)
+      List<String> dokumentsamling,
       @Bind("sogneid") Integer sogneid,
       @Bind("sognenavn") String sognenavn,
       @Bind("titel") String titel);

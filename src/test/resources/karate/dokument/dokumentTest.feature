@@ -16,7 +16,7 @@ Feature: Historiske Dokumenter API Integration Test
 
     Given path '/dokument'
     And header Accept = 'application/json'
-    And request { kortgruppe: ['SogneProtokol'], herredsnavn: 'Dronninglund', limit: 15, sort: 'herredsnavn', direction: 'desc' }
+    And request { dokumentsamling: ['sogneprotokoller'], herredsnavn: 'Dronninglund', limit: 15, sort: 'herredsnavn', direction: 'desc' }
     When method post
     Then status 200
     And match response.dokumenter == '#[15]'
@@ -31,6 +31,7 @@ Feature: Historiske Dokumenter API Integration Test
     Then status 200
     And match response.total == 0
 
+
   Scenario: POST - Search not existing sognenavn
 
     Given path '/dokument'
@@ -43,6 +44,7 @@ Feature: Historiske Dokumenter API Integration Test
     When method post
     Then status 200
     And match response.total == 0
+
 
   Scenario: GET - Search sognenavn insensitive
 
@@ -61,6 +63,7 @@ Feature: Historiske Dokumenter API Integration Test
     Then status 200
     # match the new response match with the variable lower
     And match response == lower
+
 
   Scenario: POST - Search sognenavn insensitive
 
@@ -90,6 +93,7 @@ Feature: Historiske Dokumenter API Integration Test
     # match the new response match with the variable lower
     And match response == lower
 
+
   Scenario: GET - Search herredsnummer
 
     Given path '/dokument'
@@ -98,6 +102,7 @@ Feature: Historiske Dokumenter API Integration Test
     Then status 200
     # match the response with the keys from the json objects
     And match response == { total: '#present', dokumenter: '#present' }
+
 
   Scenario: POST - Search herredsnummer
 
@@ -113,6 +118,7 @@ Feature: Historiske Dokumenter API Integration Test
     # match the response with the keys from the json objects
     And match response == { total: '#present', dokumenter: '#present' }
 
+
   Scenario: GET - Search fritekstsoegning
 
     Given path '/dokument'
@@ -121,6 +127,7 @@ Feature: Historiske Dokumenter API Integration Test
     Then status 200
     # match the response with the keys from the json objects
     And match response == { total: '#present', dokumenter: '#present' }
+
 
   Scenario: POST - Search fritekstsoegning
 
@@ -140,11 +147,36 @@ Feature: Historiske Dokumenter API Integration Test
   Scenario: Search mulitple dokumentsamling
 
     Given path '/dokument'
+    And param dokumentsamling = 'sogneprotokoller'
+    When method get
+    Then status 200
+    # match the response with the keys from the json objects
+    And match response == { total: '#present', dokumenter: '#present' }
+    # assigning response.total to sogneProtokollerTotal
+    Then def sogneProtokollerTotal = response.total
+
+    Given path '/dokument'
+    And param dokumentsamling = 'hartkornsekstrakter'
+    When method get
+    Then status 200
+    # match the response with the keys from the json objects
+    And match response == { total: '#present', dokumenter: '#present' }
+    # assigning response.total to hartkornsekstrakterTotal
+    Then def hartkornsekstrakterTotal = response.total
+
+    # Add sogneProtokolTotal and hartkornsekstraktTotal together
+    Then def dokumentsamlingTotal = sogneProtokollerTotal + hartkornsekstrakterTotal
+
+    Given path '/dokument'
     And param dokumentsamling = 'sogneprotokoller,hartkornsekstrakter'
     When method get
     Then status 200
     # match the response with the keys from the json objects
     And match response == { total: '#present', dokumenter: '#present' }
+
+    # Check that the total is the same as the combined dokumentsamlingTotal
+    And match response.total == dokumentsamlingTotal
+
     # assigning response.total to firstDokumentsamlingTotal
     Then def firstDokumentsamlingTotal = response.total
 
@@ -155,7 +187,12 @@ Feature: Historiske Dokumenter API Integration Test
     Then status 200
     # match the response with the keys from the json objects
     And match response == { total: '#present', dokumenter: '#present' }
-    Then match response.total == firstDokumentsamlingTotal
+
+    # Check that the total is the same as the combined dokumentsamlingTotal
+    And match response.total == dokumentsamlingTotal
+    # Check that the firstDokumentsamlingTotal is the same as repsonse total here
+    And match response.total == firstDokumentsamlingTotal
+
 
   Scenario: Search with geometry
 
@@ -164,6 +201,7 @@ Feature: Historiske Dokumenter API Integration Test
     When method get
     Then status 200
     And match response.dokumenter == '#[4]'
+
 
   Scenario: GET - Limit -1
 
@@ -180,6 +218,7 @@ Feature: Historiske Dokumenter API Integration Test
     }
     """
 
+
   Scenario: GET - Limit 1000
 
     Given path '/dokument'
@@ -194,6 +233,7 @@ Feature: Historiske Dokumenter API Integration Test
         "errors": ["limit: must be less than or equal to 1000"]
     }
     """
+
 
   Scenario: POST - Limit -1
 
@@ -215,6 +255,7 @@ Feature: Historiske Dokumenter API Integration Test
     }
     """
 
+
   Scenario: POST - Limit 1000
 
     Given path '/dokument'
@@ -235,6 +276,7 @@ Feature: Historiske Dokumenter API Integration Test
     }
     """
 
+
   Scenario: GET - Offset -1
 
     Given path '/dokument'
@@ -250,6 +292,7 @@ Feature: Historiske Dokumenter API Integration Test
     }
     """
 
+
   Scenario: GET - Offset text
 
     Given path '/dokument'
@@ -264,6 +307,7 @@ Feature: Historiske Dokumenter API Integration Test
         "errors": ["offset: Failed to convert value of type 'java.lang.String' to required type 'java.lang.Integer'; For input string: \"test\""]
     }
     """
+
 
   Scenario: POST - Offset -1
 
@@ -285,6 +329,7 @@ Feature: Historiske Dokumenter API Integration Test
     }
     """
 
+
   Scenario: POST - Offset text
 
     Given path '/dokument'
@@ -305,6 +350,7 @@ Feature: Historiske Dokumenter API Integration Test
     }
     """
 
+
   Scenario: GET - direction casesensitive
 
     Given path '/dokument'
@@ -319,6 +365,7 @@ Feature: Historiske Dokumenter API Integration Test
       "errors": ["direction: must match \"asc|desc\""]
     }
     """
+
 
   Scenario: POST - direction casesensitive
 
