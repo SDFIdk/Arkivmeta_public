@@ -14,7 +14,6 @@ Feature: Historiske Dokumenter API Integration Test
     """
     {
         "id": "385cc37c-ab45-4e1e-b230-7fe182ece79d",
-        "kortgruppe": "Hartkornsekstrakt",
         "titel": "Jerlev",
         "alternativtitel": "Egtved, Højen, Jerlev, Ødsted",
         "bemaerkning": null,
