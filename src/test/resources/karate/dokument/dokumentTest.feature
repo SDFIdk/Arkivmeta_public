@@ -212,7 +212,7 @@ Feature: Historiske Dokumenter API Integration Test
     And match response ==
     """
     {
-      "status": "UNPROCESSABLE_CONTENT",
+      "status": "422 UNPROCESSABLE_CONTENT",
       "message":null,
       "errors": ["limit: must be greater than or equal to 1"]
     }
@@ -228,7 +228,7 @@ Feature: Historiske Dokumenter API Integration Test
     And match response ==
     """
     {
-        "status": "UNPROCESSABLE_CONTENT",
+        "status": "422 UNPROCESSABLE_CONTENT",
         "message":null,
         "errors": ["limit: must be less than or equal to 1000"]
     }
@@ -249,7 +249,7 @@ Feature: Historiske Dokumenter API Integration Test
     And match response ==
     """
     {
-      "status": "UNPROCESSABLE_CONTENT",
+      "status": "422 UNPROCESSABLE_CONTENT",
       "message":null,
       "errors": ["limit: must be greater than or equal to 1"]
     }
@@ -270,7 +270,7 @@ Feature: Historiske Dokumenter API Integration Test
     And match response ==
     """
     {
-      "status": "UNPROCESSABLE_CONTENT",
+      "status": "422 UNPROCESSABLE_CONTENT",
       "message":null,
         "errors": ["limit: must be less than or equal to 1000"]
     }
@@ -286,7 +286,7 @@ Feature: Historiske Dokumenter API Integration Test
     And match response ==
     """
     {
-      "status": "UNPROCESSABLE_CONTENT",
+      "status": "422 UNPROCESSABLE_CONTENT",
       "message":null,
       "errors": ["offset: must be greater than or equal to 0"]
     }
@@ -302,7 +302,7 @@ Feature: Historiske Dokumenter API Integration Test
     And match response ==
     """
     {
-      "status": "UNPROCESSABLE_CONTENT",
+      "status": "422 UNPROCESSABLE_CONTENT",
       "message":null,
         "errors": ["offset: Failed to convert value of type 'java.lang.String' to required type 'java.lang.Integer'; For input string: \"test\""]
     }
@@ -323,7 +323,7 @@ Feature: Historiske Dokumenter API Integration Test
     And match response ==
     """
     {
-      "status": "UNPROCESSABLE_CONTENT",
+      "status": "422 UNPROCESSABLE_CONTENT",
       "message":null,
       "errors": ["offset: must be greater than or equal to 0"]
     }
@@ -344,7 +344,7 @@ Feature: Historiske Dokumenter API Integration Test
     And match response ==
     """
     {
-        "status": "UNPROCESSABLE_CONTENT",
+        "status": "422 UNPROCESSABLE_CONTENT",
         "message": "JSON parse error: Cannot deserialize value of type `java.lang.Integer` from String \"test\": not a valid `java.lang.Integer` value",
         "errors":["com.fasterxml.jackson.databind.exc.InvalidFormatException: Cannot deserialize value of type `java.lang.Integer` from String \"test\": not a valid `java.lang.Integer` value\n at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); line: 1, column: 11] (through reference chain: dk.dataforsyningen.arkivmeta.dokument.apimodel.DokumentParam[\"offset\"])"]
     }
@@ -360,7 +360,7 @@ Feature: Historiske Dokumenter API Integration Test
     And match response ==
     """
     {
-      "status": "UNPROCESSABLE_CONTENT",
+      "status": "422 UNPROCESSABLE_CONTENT",
       "message":null,
       "errors": ["direction: must match \"asc|desc\""]
     }
@@ -377,7 +377,7 @@ Feature: Historiske Dokumenter API Integration Test
     And match response ==
     """
     {
-      "status": "UNPROCESSABLE_CONTENT",
+      "status": "422 UNPROCESSABLE_CONTENT",
       "message":null,
       "errors": ["direction: must match \"asc|desc\""]
     }
