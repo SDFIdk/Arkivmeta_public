@@ -1,3 +1,4 @@
 {
-    "karateRunner.tests.activityBarDisplayType": "List"
+    "karateRunner.tests.activityBarDisplayType": "List",
+    "java.configuration.updateBuildConfiguration": "interactive"
 }

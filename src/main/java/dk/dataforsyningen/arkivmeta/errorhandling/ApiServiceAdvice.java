@@ -95,7 +95,7 @@ public class ApiServiceAdvice extends ResponseEntityExceptionHandler {
     String exceptionCause = getRootCause(exception).toString();
 
     ErrorResponse errorResponse =
-        new ErrorResponse(HttpStatus.UNPROCESSABLE_ENTITY, exception.getMessage(), exceptionCause);
+        new ErrorResponse(HttpStatus.UNPROCESSABLE_CONTENT, exception.getMessage(), exceptionCause);
     logger.info(ERROR_STRING, exception);
     logger.info(ERROR_STRING, exceptionCause);
     return new ResponseEntity<>(errorResponse, errorResponse.getStatus());
@@ -191,12 +191,17 @@ public class ApiServiceAdvice extends ResponseEntityExceptionHandler {
   }
 
   /**
-   * HttpStatus.UNPROCESSABLE_ENTITY = 422 Where the exception handler comes from
+   * HttpStatus.UNPROCESSABLE_CONTENT = 422 Where the exception handler comes from
    * https://www.baeldung.com/global-error-handler-in-a-spring-rest-api
    *
-   * <p>MethodArgumentNotValidException: This exception is thrown when argument annotated
+   * <p>
+   * MethodArgumentNotValidException: This exception is thrown when argument annotated
    * with @Valid failed validation
-   *
+   * </p>
+   * <p>
+   * Note: updated from UNPROCESSABLE_ENTITY due to breaking change in springboot.See
+   * https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/client/HttpClientErrorException.UnprocessableEntity.html
+   * </p>
    * @param exception MethodArgumentNotValidException
    * @param headers   HttpHeaders
    * @param status    HttpStatus
@@ -220,7 +225,7 @@ public class ApiServiceAdvice extends ResponseEntityExceptionHandler {
     }
 
     ErrorResponse errorResponse =
-        new ErrorResponse(HttpStatus.UNPROCESSABLE_ENTITY, errors);
+        new ErrorResponse(HttpStatus.UNPROCESSABLE_CONTENT, errors);
     logger.info(ERROR_STRING, exception);
     logger.info(ERROR_STRING, errors);
     return handleExceptionInternal(
@@ -228,10 +233,17 @@ public class ApiServiceAdvice extends ResponseEntityExceptionHandler {
   }
 
   /**
-   * HttpStatus.UNPROCESSABLE_ENTITY = 422
+   * HttpStatus.UNPROCESSABLE_CONTENT = 422
    *
-   * <p>HttpMessageNotReadableException: This exception is thrown when request body is invalid
-   *
+   * <p>
+   * MethodArgumentNotValidException: This exception is thrown when argument annotated
+   * with @Valid failed validation
+   * </p>
+   * <p>
+   * Note: updated from UNPROCESSABLE_ENTITY due to breaking change in springboot.See
+   * https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/client/HttpClientErrorException.UnprocessableEntity.html
+   * </p>
+   * 
    * @param exception HttpMessageNotReadableException
    * @param headers   HttpHeaders
    * @param status    HttpStatus
@@ -247,7 +259,7 @@ public class ApiServiceAdvice extends ResponseEntityExceptionHandler {
     String exceptionCause = getRootCause(exception).toString();
 
     ErrorResponse errorResponse =
-        new ErrorResponse(HttpStatus.UNPROCESSABLE_ENTITY, exception.getLocalizedMessage(),
+        new ErrorResponse(HttpStatus.UNPROCESSABLE_CONTENT, exception.getLocalizedMessage(),
             exceptionCause);
     logger.info(ERROR_STRING, exception);
     logger.info(ERROR_STRING, exceptionCause);
