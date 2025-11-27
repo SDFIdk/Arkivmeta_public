@@ -1,4 +1,4 @@
-FROM maven:3.9.9-eclipse-temurin-21-alpine AS builder
+FROM maven:3.9.11-eclipse-temurin-21-alpine AS builder
 
 RUN apk upgrade --available --no-cache
 
@@ -12,7 +12,7 @@ COPY src ./src
 
 RUN mvn -e -B package
 
-FROM eclipse-temurin:21.0.6_7-jdk-alpine
+FROM eclipse-temurin:21-jdk-alpine
 
 RUN apk upgrade --available --no-cache
 
