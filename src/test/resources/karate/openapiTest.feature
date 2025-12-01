@@ -16,7 +16,7 @@ Feature: Arkivmeta API Integration Test
   "info": {
     "title": "Arkivmeta",
     "description": "APIet __Arkivmeta__ giver adgang til at søge i metadata for en større samling historiske kort, dokumenter og benytte resultatet til at fremvise det skannede materiale.\n\nTil adgang benyttes Dataforsyningens brugeradgang som ved andre tjenester.\n\nStier til kortfiler følger [IIIF specifikationen](https://iiif.io/) og kan vises med en viser, der understøtter dette.\n",
-    "version": "3.0.0"
+    "version": "3.0.2"
   },
   "servers": [
     {
