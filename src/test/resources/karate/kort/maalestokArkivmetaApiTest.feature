@@ -11,7 +11,7 @@ Feature: Arkivmeta API Integration Test
     
     # should be an array of strings with size 100
     # https://karatelabs.github.io/karate/#schema-validation
-    And match response == '#[88] #string'
+    And match response == '#[87] #string'
 
   Scenario: Arkiv API /metadata/maalestok - search containing maalestok
 
